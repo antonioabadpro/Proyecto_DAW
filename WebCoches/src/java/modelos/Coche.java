@@ -31,6 +31,14 @@ public class Coche implements Serializable
         Automatico
     }
     
+    public enum TipoEstado
+    {
+        Nuevo, // Menos de 100Km
+        ComoNuevo, // Menos de 10.000Km
+        Usado, // Mas de 10.000Km
+        PorReparar     
+    }
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +53,10 @@ public class Coche implements Serializable
     private float km;
     private TipoCambio cajaCambios;
     private String[] fotos;
+    private TipoEstado estado;
 
+    
+    
     public Long getId()
     {
         return id;
@@ -54,6 +65,117 @@ public class Coche implements Serializable
     public void setId(Long id)
     {
         this.id = id;
+    }
+    
+    public String getDescripcion()
+    {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion)
+    {
+        this.descripcion = descripcion;
+    }
+
+    public Double getPrecio()
+    {
+        return precio;
+    }
+
+    public void setPrecio(Double precio)
+    {
+        this.precio = precio;
+    }
+
+    public Double getDescuento()
+    {
+        return descuento;
+    }
+
+    public void setDescuento(Double descuento)
+    {
+        this.descuento = descuento;
+    }
+
+    public float getCv()
+    
+    {
+        return cv;
+    }
+
+    public void setCv(float cv)
+    {
+        this.cv = cv;
+    }
+
+    public float getConsumo()
+    {
+        return consumo;
+    }
+
+    public void setConsumo(float consumo)
+    {
+        this.consumo = consumo;
+    }
+
+    public TipoCombustible getCombustible()
+    {
+        return Combustible;
+    }
+
+    public void setCombustible(TipoCombustible Combustible)
+    {
+        this.Combustible = Combustible;
+    }
+
+    public String getColor()
+    {
+        return color;
+    }
+
+    public void setColor(String color)
+    {
+        this.color = color;
+    }
+
+    public float getKm()
+    {
+        return km;
+    }
+
+    public void setKm(float km)
+    {
+        this.km = km;
+    }
+
+    public TipoCambio getCajaCambios()
+    {
+        return cajaCambios;
+    }
+
+    public void setCajaCambios(TipoCambio cajaCambios)
+    {
+        this.cajaCambios = cajaCambios;
+    }
+
+    public String[] getFotos()
+    {
+        return fotos;
+    }
+
+    public void setFotos(String[] fotos)
+    {
+        this.fotos = fotos;
+    }
+
+    public TipoEstado getEstado()
+    {
+        return estado;
+    }
+
+    public void setEstado(TipoEstado estado)
+    {
+        this.estado = estado;
     }
 
     @Override
