@@ -15,36 +15,15 @@ import java.io.Serializable;
  * @author AAHG-PORTATIL
  */
 @Entity
-public class Coche implements Serializable
+public class Marca implements Serializable
 {
-    public enum TipoCombustible
-    {
-        Gasolina,
-        Diesel,
-        Electrico,
-        Hibrido
-    }
-    
-    public enum TipoCambio
-    {
-        Manual,
-        Automatico
-    }
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String descripcion;
-    private Double precio;
-    private Double descuento;
-    private float cv;
-    private float consumo;
-    private TipoCombustible Combustible;
-    private String color;
-    private float km;
-    private TipoCambio cajaCambios;
-    private String[] fotos;
+    private String nombre;
+    private String logo;
 
     public Long getId()
     {
@@ -65,13 +44,12 @@ public class Coche implements Serializable
     }
 
     @Override
-    public boolean equals(Object object)
-    {
+    public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Coche)) {
+        if (!(object instanceof Marca)) {
             return false;
         }
-        Coche other = (Coche) object;
+        Marca other = (Marca) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -81,7 +59,7 @@ public class Coche implements Serializable
     @Override
     public String toString()
     {
-        return "modelos.Coche[ id=" + id + " ]";
+        return "modelos.Marca[ id=" + id + " ]";
     }
     
 }

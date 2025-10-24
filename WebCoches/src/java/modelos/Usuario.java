@@ -34,16 +34,87 @@ public class Usuario implements Serializable
     private String correo;
     private int telefono;
     private int rol;
-    
+    private String fotoPerfil;
+
+    public Usuario(Long id, String dni, String nombre, String correo, int telefono, int rol, String fotoPerfil)
+    {
+        this.id = id;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.rol = rol;
+        this.fotoPerfil = fotoPerfil;
+    }
 
     public Long getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id)
     {
         this.id = id;
+    }
+
+    public String getDni()
+    {
+        return this.dni;
+    }
+
+    public void setDni(String dni)
+    {
+        this.dni = dni;
+    }
+
+    public String getNombre()
+    {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre)
+    {
+        this.nombre = nombre;
+    }
+
+    public String getCorreo()
+    {
+        return this.correo;
+    }
+
+    public void setCorreo(String correo)
+    {
+        this.correo = correo;
+    }
+
+    public int getTelefono()
+    {
+        return this.telefono;
+    }
+
+    public void setTelefono(int telefono)
+    {
+        this.telefono = telefono;
+    }
+
+    public int getRol()
+    {
+        return this.rol;
+    }
+
+    public void setRol(int rol)
+    {
+        this.rol = rol;
+    }
+
+    public String getFotoPerfil()
+    {
+        return this.fotoPerfil;
+    }
+
+    public void setFotoPerfil(String fotoPerfil)
+    {
+        this.fotoPerfil = fotoPerfil;
     }
 
     @Override
