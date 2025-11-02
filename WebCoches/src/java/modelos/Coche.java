@@ -36,40 +36,66 @@ public class Coche implements Serializable
         Nuevo, // Menos de 100Km
         ComoNuevo, // Menos de 10.000Km
         Usado, // Mas de 10.000Km
-        PorReparar     
+        PorReparar // Si esta averiado
     }
     
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String matricula;
     private String descripcion;
     private Double precio;
     private Double descuento;
     private float cv;
     private float consumo;
-    private TipoCombustible Combustible;
+    private TipoCombustible combustible;
     private String color;
     private float km;
     private TipoCambio cajaCambios;
     private String[] fotos;
-    private TipoEstado estado;
+    private TipoEstado estado;    
 
-    
+    public Coche(Long id, String matricula, String descripcion, Double precio, Double descuento, float cv, float consumo, TipoCombustible combustible, String color, float km, TipoCambio cajaCambios, String[] fotos, TipoEstado estado)
+    {
+        this.id = id;
+        this.matricula = matricula;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.descuento = descuento;
+        this.cv = cv;
+        this.consumo = consumo;
+        this.combustible = combustible;
+        this.color = color;
+        this.km = km;
+        this.cajaCambios = cajaCambios;
+        this.fotos = fotos;
+        this.estado = estado;
+    }
     
     public Long getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id)
     {
         this.id = id;
     }
+
+    public String getMatricula()
+    {
+        return this.matricula;
+    }
+
+    public void setMatricula(String matricula)
+    {
+        this.matricula = matricula;
+    }
     
     public String getDescripcion()
     {
-        return descripcion;
+        return this.descripcion;
     }
 
     public void setDescripcion(String descripcion)
@@ -79,7 +105,7 @@ public class Coche implements Serializable
 
     public Double getPrecio()
     {
-        return precio;
+        return this.precio;
     }
 
     public void setPrecio(Double precio)
@@ -89,7 +115,7 @@ public class Coche implements Serializable
 
     public Double getDescuento()
     {
-        return descuento;
+        return this.descuento;
     }
 
     public void setDescuento(Double descuento)
@@ -100,7 +126,7 @@ public class Coche implements Serializable
     public float getCv()
     
     {
-        return cv;
+        return this.cv;
     }
 
     public void setCv(float cv)
@@ -110,7 +136,7 @@ public class Coche implements Serializable
 
     public float getConsumo()
     {
-        return consumo;
+        return this.consumo;
     }
 
     public void setConsumo(float consumo)
@@ -120,17 +146,17 @@ public class Coche implements Serializable
 
     public TipoCombustible getCombustible()
     {
-        return Combustible;
+        return this.combustible;
     }
 
-    public void setCombustible(TipoCombustible Combustible)
+    public void setCombustible(TipoCombustible combustible)
     {
-        this.Combustible = Combustible;
+        this.combustible = combustible;
     }
 
     public String getColor()
     {
-        return color;
+        return this.color;
     }
 
     public void setColor(String color)
@@ -140,7 +166,7 @@ public class Coche implements Serializable
 
     public float getKm()
     {
-        return km;
+        return this.km;
     }
 
     public void setKm(float km)
@@ -150,7 +176,7 @@ public class Coche implements Serializable
 
     public TipoCambio getCajaCambios()
     {
-        return cajaCambios;
+        return this.cajaCambios;
     }
 
     public void setCajaCambios(TipoCambio cajaCambios)
@@ -160,7 +186,7 @@ public class Coche implements Serializable
 
     public String[] getFotos()
     {
-        return fotos;
+        return this.fotos;
     }
 
     public void setFotos(String[] fotos)
@@ -170,7 +196,7 @@ public class Coche implements Serializable
 
     public TipoEstado getEstado()
     {
-        return estado;
+        return this.estado;
     }
 
     public void setEstado(TipoEstado estado)

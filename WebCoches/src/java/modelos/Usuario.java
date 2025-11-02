@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 
@@ -25,6 +26,12 @@ import java.io.Serializable;
 })
 public class Usuario implements Serializable
 {
+    public enum TipoRol
+    {
+        Cliente,
+        Admin,
+    }
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,18 +40,32 @@ public class Usuario implements Serializable
     private String nombre;
     private String correo;
     private int telefono;
-    private int rol;
-    private String fotoPerfil;
+    private String direccion;
+    private TipoRol rol;
+    @OneToMany(mappedBy="usuario_Compra")
+    private Long idCompra;
 
-    public Usuario(Long id, String dni, String nombre, String correo, int telefono, int rol, String fotoPerfil)
+    public Usuario(Long id, String dni, String nombre, String correo, int telefono, String direccion, TipoRol rol)
     {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
+        this.direccion = direccion;
         this.rol = rol;
-        this.fotoPerfil = fotoPerfil;
+    }
+    
+    public Usuario(Long id, String dni, String nombre, String correo, int telefono, String direccion, TipoRol rol, Long idCompra)
+    {
+        this.id = id;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.rol = rol;
+        this.idCompra = idCompra;
     }
 
     public Long getId()
@@ -97,24 +118,34 @@ public class Usuario implements Serializable
         this.telefono = telefono;
     }
 
-    public int getRol()
+    public String getDireccion()
+    {
+        return this.direccion;
+    }
+
+    public void setDireccion(String direccion)
+    {
+        this.direccion = direccion;
+    }
+
+    public TipoRol getRol()
     {
         return this.rol;
     }
 
-    public void setRol(int rol)
+    public void setRol(TipoRol rol)
     {
         this.rol = rol;
     }
 
-    public String getFotoPerfil()
+    public Long getIdCompra()
     {
-        return this.fotoPerfil;
+        return this.idCompra;
     }
 
-    public void setFotoPerfil(String fotoPerfil)
+    public void setIdCompra(Long idCompra)
     {
-        this.fotoPerfil = fotoPerfil;
+        this.idCompra = idCompra;
     }
 
     @Override

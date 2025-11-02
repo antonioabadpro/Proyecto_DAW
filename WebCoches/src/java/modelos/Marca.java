@@ -8,7 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,15 +26,56 @@ public class Marca implements Serializable
     private Long id;
     private String nombre;
     private String logo;
+    
+    @OneToMany(mappedBy="marca_Coche")
+    private ArrayList<Coche> listaCoches;
 
+    public Marca(Long id, String nombre, String logo, ArrayList<Coche> listaCoches)
+    {
+        this.id = id;
+        this.nombre = nombre;
+        this.logo = logo;
+        this.listaCoches = listaCoches;
+    }
+    
     public Long getId()
     {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id)
     {
         this.id = id;
+    }
+
+    public String getNombre()
+    {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre)
+    {
+        this.nombre = nombre;
+    }
+
+    public String getLogo()
+    {
+        return this.logo;
+    }
+
+    public void setLogo(String logo)
+    {
+        this.logo = logo;
+    }
+
+    public ArrayList<Coche> getListaCoches()
+    {
+        return this.listaCoches;
+    }
+
+    public void setListaCoches(ArrayList<Coche> listaCoches)
+    {
+        this.listaCoches = listaCoches;
     }
 
     @Override

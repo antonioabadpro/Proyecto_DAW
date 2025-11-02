@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,13 +27,67 @@ public class Compra implements Serializable
     private Date fechaCompra;
     private float precioTotal;
     private String direccionEntrega;
+    
+    @OneToOne(mappedBy="compra_Coche")
+    private Long idCoche;
 
-    public Long getId() {
-        return id;
+    public Compra(Long id, Date fechaCompra, float precioTotal, String direccionEntrega, Long idCoche)
+    {
+        this.id = id;
+        this.fechaCompra = fechaCompra;
+        this.precioTotal = precioTotal;
+        this.direccionEntrega = direccionEntrega;
+        this.idCoche = idCoche;
+    }
+    
+    public Long getId()
+    {
+        return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
+    }
+
+    public Date getFechaCompra()
+    {
+        return this.fechaCompra;
+    }
+
+    public void setFechaCompra(Date fechaCompra)
+    {
+        this.fechaCompra = fechaCompra;
+    }
+
+    public float getPrecioTotal()
+    {
+        return this.precioTotal;
+    }
+
+    public void setPrecioTotal(float precioTotal)
+    {
+        this.precioTotal = precioTotal;
+    }
+
+    public String getDireccionEntrega()
+    {
+        return this.direccionEntrega;
+    }
+
+    public void setDireccionEntrega(String direccionEntrega)
+    {
+        this.direccionEntrega = direccionEntrega;
+    }
+
+    public Long getIdCoche()
+    {
+        return this.idCoche;
+    }
+
+    public void setIdCoche(Long idCoche)
+    {
+        this.idCoche = idCoche;
     }
 
     @Override
