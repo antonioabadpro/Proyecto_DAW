@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Antonio Abad
  */
-@WebServlet(name = "ControladorPrincipal", urlPatterns = {"/inicio"})
+@WebServlet(name = "ControladorPrincipal", urlPatterns = {"/inicio/"})
 public class ControladorPrincipal extends HttpServlet
 {
 
