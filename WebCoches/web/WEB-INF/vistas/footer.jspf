@@ -1,0 +1,8 @@
+<%-- any content can be specified here e.g.: --%>
+
+    <footer>
+        &copy; 2025. Proyecto ToniCar <br>
+        Antonio Abad Hernández Gálvez <br>
+        Desarrollo de Aplicaciones Web (DAW)
+    </footer>
+</html>
