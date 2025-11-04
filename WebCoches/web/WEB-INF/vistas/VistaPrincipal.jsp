@@ -5,8 +5,14 @@
 --%>
 <%@include  file="header.jspf"%>
 
-    <div>
-        <h1>Título</h1>
+<div class="wrapper">
+    <!-- Contenido Principal -->
+    <div class="content">
+        <div class="container my-5">
+            <h1>Mi Aplicación DAW</h1>
+            <p>Este es el contenido principal de tu página. El footer siempre estará abajo.</p>
+            <p>Puedes agregar todo el contenido que necesites aquí.</p>
+        </div>
     </div>
 </body>
 

@@ -1,0 +1,82 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 3 nov 2025, 19:24:57
+    Author     : AAHG-PORTATIL
+*/
+
+<!-- Estilo Formulario Login -->
+
+.login-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #6c63ff;
+}
+.btn-primary {
+    background-color: #6c63ff;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #5848d6;
+}
+
+<!-- Estilo Formulario Login -->
+
+.register-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 500px;
+}
+
+<!-- Estilo Footer -->
+
+html, body {
+    height: 100%;
+}
+
+/* Wrapper para el contenido principal */
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* El contenido principal crece para empujar el footer abajo */
+.content {
+    flex: 1;
+}
+
+/* Estilos del footer */
+footer {
+    background-color: #212529;
+    color: #adb5bd;
+    margin-top: auto;
+}
+
+footer a {
+    color: #dee2e6;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #ffffff;
+}
+
+footer h5 {
+    color: #ffffff;
+    font-weight: 600;
+}
