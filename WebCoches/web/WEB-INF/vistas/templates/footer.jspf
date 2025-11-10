@@ -1,0 +1,51 @@
+<%-- any content can be specified here e.g.: --%>
+
+<link href="css/main.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="js/main.js"></script>
+
+        <footer class="py-4 mt-5">
+            <div class="container">
+                <div class="row">
+                    <!-- Columna 1 -->
+                    <div class="col-md-4 mb-3">
+                        <h5>Sobre Nosotros</h5>
+                        <p class="small">Proyecto desarrollado para la asignatura de Desarrollo de Aplicaciones Web.</p>
+                    </div>
+
+                    <!-- Columna 2 -->
+                    <div class="col-md-4 mb-3">
+                        <h5>Enlaces Rápidos</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="${pageContext.request.contextPath}/inicio">Inicio</a></li>
+                            <li><a href="https://www.uhu.es/" target="_blank">UHU</a></li>
+                            <li><a href="https://www.uhu.es/etsi/" target="_blank">ETSI</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Columna 3 -->
+                    <div class="col-md-4 mb-3">
+                        <h5>Contacto</h5>
+                        <p class="small mb-1">Email: antonioabad.hernandez@alu.uhu.es</p>
+                        <p class="small mb-1">Teléfono: +34 959 21 81 02</p>
+                        <p class="small">Dirección: Huelva, Andalucía, España</p>
+                    </div>
+                </div>
+
+                <hr class="my-3" style="border-color: #495057;">
+
+                <!-- Copyright -->
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p class="small mb-0">
+                            &copy; 2025. Proyecto ToniCar. Todos los derechos reservados. <br>
+                            Antonio Abad Hernández Gálvez <br>
+                            Desarrollo de Aplicaciones Web (DAW)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

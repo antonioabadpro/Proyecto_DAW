@@ -80,3 +80,45 @@ footer h5 {
     color: #ffffff;
     font-weight: 600;
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.carousel-item {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    width: 100%;
+    height: 100vh;
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.text-carousel .carousel-item {
+    padding: 2rem;
+    background-color: #fff;
+}
+
+.text-carousel h3 {
+    color: #0d6efd;
+}
+
+.text-carousel p {
+    color: #6c757d;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+.chuli{
+    background:linear-gradient(135deg, #f8f9fa, #e9ecef);
+}

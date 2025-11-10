@@ -4,7 +4,6 @@
  */
 package controladores;
 
-import jakarta.persistence.EntityManager;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -15,35 +14,44 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Antonio Abad
+ * @author AAHG-PORTATIL
  */
-@WebServlet(name = "ControladorPrincipal", urlPatterns = {"/inicio"})
-public class ControladorPrincipal extends HttpServlet
+@WebServlet(name = "ControladorDetalle", urlPatterns = {"/detalle", "/detalle/*"})
+public class ControladorDetalle extends HttpServlet
 {
 
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
+    {    
         String rutaServlet = request.getServletPath();
-        String vista=null;
         
-        if(rutaServlet == null)
+        System.out.println("rutaServlet: " + rutaServlet);
+        
+        String vista=null;
+
+        if (rutaServlet == null)
         {
-            rutaServlet = "/inicio";
+            rutaServlet = "/detalle"; // Vista por defecto
         }
-        else
+
+        switch (rutaServlet)
         {
-            switch(rutaServlet)
+            case "/detalle":
             {
-                case "/inicio":
-                {
-                    vista = "VistaPrincipal";
-                }; break;
-            }
-            
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/" + vista + ".jsp");
-            rd.forward(request, response);
+                vista="VistaDetalle";
+            }; break;
         }
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/" + vista + ".jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -66,8 +74,7 @@ public class ControladorPrincipal extends HttpServlet
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo()
-    {
+    public String getServletInfo() {
         return "Short description";
     }
 

@@ -4,9 +4,9 @@
  */
 package controladores;
 
-import jakarta.persistence.EntityManager;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,35 +15,44 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Antonio Abad
+ * @author AAHG-PORTATIL
  */
-@WebServlet(name = "ControladorPrincipal", urlPatterns = {"/inicio"})
-public class ControladorPrincipal extends HttpServlet
+@WebServlet(name = "ControladorCompraCoche", urlPatterns = {"/comprar"})
+public class ControladorCompraCoche extends HttpServlet
 {
 
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
+    {    
         String rutaServlet = request.getServletPath();
-        String vista=null;
         
-        if(rutaServlet == null)
+        System.out.println("rutaServlet: " + rutaServlet);
+        
+        String vista=null;
+
+        if (rutaServlet == null)
         {
-            rutaServlet = "/inicio";
+            rutaServlet = "/comprar"; // Vista por defecto
         }
-        else
+
+        switch (rutaServlet)
         {
-            switch(rutaServlet)
+            case "/comprar":
             {
-                case "/inicio":
-                {
-                    vista = "VistaPrincipal";
-                }; break;
-            }
-            
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/" + vista + ".jsp");
-            rd.forward(request, response);
+                vista="VistaCompraCoche";
+            }; break;
         }
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/" + vista + ".jsp");
+        rd.forward(request, response);
     }
 
     /**

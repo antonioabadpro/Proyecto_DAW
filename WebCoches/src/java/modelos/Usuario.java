@@ -19,7 +19,7 @@ import java.io.Serializable;
  * @author AAHG-PORTATIL
  */
 @Entity
-@Table(name="Usuario") // Renombra la entidad en la BD
+@Table(name="USUARIO") // Renombra la entidad en la BD
 @NamedQueries({
  @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u"),
  @NamedQuery(name="Usuario.findByName", query="SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
@@ -45,6 +45,11 @@ public class Usuario implements Serializable
     @OneToMany(mappedBy="usuario_Compra")
     private Long idCompra;
 
+    public Usuario()
+    {
+        
+    }
+    
     public Usuario(Long id, String dni, String nombre, String correo, int telefono, String direccion, TipoRol rol)
     {
         this.id = id;
@@ -68,6 +73,7 @@ public class Usuario implements Serializable
         this.idCompra = idCompra;
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public Long getId()
     {
         return this.id;
@@ -147,6 +153,7 @@ public class Usuario implements Serializable
     {
         this.idCompra = idCompra;
     }
+    // </editor-fold>
 
     @Override
     public int hashCode()

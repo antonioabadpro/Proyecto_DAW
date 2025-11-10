@@ -5,9 +5,13 @@
 package modelos;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -15,6 +19,7 @@ import java.io.Serializable;
  * @author AAHG-PORTATIL
  */
 @Entity
+@Table(name="COCHE") // Renombra la entidad en la BD
 public class Coche implements Serializable
 {
     public enum TipoCombustible
@@ -43,22 +48,34 @@ public class Coche implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String nombreModelo;
     private String matricula;
     private String descripcion;
     private Double precio;
     private Double descuento;
     private float cv;
     private float consumo;
+    @Enumerated(EnumType.STRING)
     private TipoCombustible combustible;
     private String color;
     private float km;
+    @Enumerated(EnumType.STRING)
     private TipoCambio cajaCambios;
-    private String[] fotos;
-    private TipoEstado estado;    
+    private String foto;
+    @Enumerated(EnumType.STRING)
+    private TipoEstado estado;
+    @ManyToOne
+    private Marca marca;
 
-    public Coche(Long id, String matricula, String descripcion, Double precio, Double descuento, float cv, float consumo, TipoCombustible combustible, String color, float km, TipoCambio cajaCambios, String[] fotos, TipoEstado estado)
+    public Coche()
+    {
+        
+    }
+    
+    public Coche(Long id, String nombreModelo, String matricula, String descripcion, Double precio, Double descuento, float cv, float consumo, TipoCombustible combustible, String color, float km, TipoCambio cajaCambios, String foto, TipoEstado estado, Marca marca)
     {
         this.id = id;
+        this.nombreModelo = nombreModelo;
         this.matricula = matricula;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -69,10 +86,12 @@ public class Coche implements Serializable
         this.color = color;
         this.km = km;
         this.cajaCambios = cajaCambios;
-        this.fotos = fotos;
+        this.foto = foto;
         this.estado = estado;
+        this.marca = marca;
     }
     
+    //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public Long getId()
     {
         return this.id;
@@ -81,6 +100,16 @@ public class Coche implements Serializable
     public void setId(Long id)
     {
         this.id = id;
+    }
+
+    public String getNombreModelo()
+    {
+        return nombreModelo;
+    }
+
+    public void setNombreModelo(String nombreModelo)
+    {
+        this.nombreModelo = nombreModelo;
     }
 
     public String getMatricula()
@@ -184,14 +213,14 @@ public class Coche implements Serializable
         this.cajaCambios = cajaCambios;
     }
 
-    public String[] getFotos()
+    public String getFoto()
     {
-        return this.fotos;
+        return this.foto;
     }
 
-    public void setFotos(String[] fotos)
+    public void setFoto(String foto)
     {
-        this.fotos = fotos;
+        this.foto = foto;
     }
 
     public TipoEstado getEstado()
@@ -203,6 +232,24 @@ public class Coche implements Serializable
     {
         this.estado = estado;
     }
+
+    public Marca getMarca()
+    {
+        return this.marca;
+    }
+
+    public void setMarca(Marca marca)
+    {
+        this.marca = marca;
+    }
+    
+    public String getMarcaModelo()
+    {
+        String marca_modelo = this.marca + this.nombreModelo;
+        
+        return marca_modelo;
+    }
+    // </editor-fold>
 
     @Override
     public int hashCode()

@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
  * @author AAHG-PORTATIL
  */
 @Entity
+@Table(name="MARCA") // Renombra la entidad en la BD
 public class Marca implements Serializable
 {
 
@@ -29,6 +31,11 @@ public class Marca implements Serializable
     
     @OneToMany(mappedBy="marca_Coche")
     private ArrayList<Coche> listaCoches;
+    
+    public Marca()
+    {
+        
+    }
 
     public Marca(Long id, String nombre, String logo, ArrayList<Coche> listaCoches)
     {
@@ -38,6 +45,7 @@ public class Marca implements Serializable
         this.listaCoches = listaCoches;
     }
     
+    //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public Long getId()
     {
         return this.id;
@@ -77,6 +85,7 @@ public class Marca implements Serializable
     {
         this.listaCoches = listaCoches;
     }
+    // </editor-fold>
 
     @Override
     public int hashCode()

@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,6 +18,7 @@ import java.util.Date;
  * @author AAHG-PORTATIL
  */
 @Entity
+@Table(name="COMPRA") // Renombra la entidad en la BD
 public class Compra implements Serializable
 {
 
@@ -31,6 +33,11 @@ public class Compra implements Serializable
     @OneToOne(mappedBy="compra_Coche")
     private Long idCoche;
 
+    public Compra()
+    {
+        
+    }
+    
     public Compra(Long id, Date fechaCompra, float precioTotal, String direccionEntrega, Long idCoche)
     {
         this.id = id;
@@ -40,6 +47,7 @@ public class Compra implements Serializable
         this.idCoche = idCoche;
     }
     
+    //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public Long getId()
     {
         return this.id;
@@ -89,6 +97,7 @@ public class Compra implements Serializable
     {
         this.idCoche = idCoche;
     }
+    // </editor-fold>
 
     @Override
     public int hashCode() {
