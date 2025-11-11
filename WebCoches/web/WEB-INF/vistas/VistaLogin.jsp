@@ -1,38 +1,38 @@
-<%@include  file="templates/header.jspf"%>
-
-<div class="login-card">
-    <h3 class="text-center mb-4">Iniciar Sesi�n</h3>
-
-    <form action="${pageContext.request.contextPath}/sesion/login" method="post">
-        <div class="mb-3">
-            <label for="usuario" class="form-label">Usuario</label>
-            <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Introduce tu usuario" required>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@include file="templates/header.jspf"%>
+<div  class="container-fluid notebook-paper">
+    <!-- Encabezado -->
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col text-center">
+                <div class="bg-dark text-white d-inline-block px-4 py-2 rounded w-100">
+                    <strong>INICIO DE SESIÓN</strong>
+                </div>
+            </div>
         </div>
-
-        <div class="mb-3">
-            <label for="password" class="form-label">Contrase�a</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Introduce tu contrase�a" required>
+        <div class="row">
+            <div class="col">
+                <form name="formSesion" action="compruebaSesion.jsp">
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Usuario:</label>
+                        <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Contraseña:</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" button class="btn btn-primary btn-custom" name="enviaSesion" value="Iniciar Sesión">
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <h5 class="h5">¿Aún no estás registrado?</h4>
+                            <a href="${pageContext.request.contextPath}/sesion/registrar" button class="btn btn-primary btn-custom">Registrarse</a>
+                            <a href="${pageContext.request.contextPath}/inicio" button class="btn btn-secondary btn-custom">Cerrar</a>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <button type="submit" class="btn btn-primary w-100">Entrar</button>
-
-        <%-- Mensaje de error opcional --%>
-        <%
-            String error = (String) request.getAttribute("error");
-            if (error != null) {
-        %>
-        <div class="alert alert-danger mt-3 text-center">
-            <%= error%>
-        </div>
-        <% }%>
-
-        <p class="text-center mt-3 mb-0">
-            �No tienes cuenta?
-            <a href="${pageContext.request.contextPath}/sesion/registrar">Reg�strate</a>
-        </p>
-    </form>
+    </div>
 </div>
-
-<%@include file="templates/footer.jspf"%>
-
-
+<%@include  file="templates/footer.jspf"%>
