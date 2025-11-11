@@ -10,7 +10,11 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 
@@ -20,6 +24,11 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name="COCHE") // Renombra la entidad en la BD
+@NamedQueries({
+ @NamedQuery(name="Coche.findAll", query="SELECT c FROM Coche c"),
+ @NamedQuery(name="Coche.findById", query="SELECT c FROM Coche c WHERE c.idCoche = :id"),
+ @NamedQuery(name="Coche.findByName", query="SELECT c FROM Coche c WHERE c.nombreModelo = :nombreModelo"),
+})
 public class Coche implements Serializable
 {
     public enum TipoCombustible
@@ -47,34 +56,39 @@ public class Coche implements Serializable
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idCoche;
     private String nombreModelo;
     private String matricula;
     private String descripcion;
-    private Double precio;
-    private Double descuento;
+    private float precio;
+    private float descuento;
     private float cv;
     private float consumo;
     @Enumerated(EnumType.STRING)
     private TipoCombustible combustible;
     private String color;
+    private int fecha;
     private float km;
     @Enumerated(EnumType.STRING)
     private TipoCambio cajaCambios;
     private String foto;
     @Enumerated(EnumType.STRING)
     private TipoEstado estado;
+    @JoinColumn(name = "marcaCoche", referencedColumnName = "idMarca")
     @ManyToOne
     private Marca marca;
+    @JoinColumn(name = "compraCoche", referencedColumnName = "idCompra")
+    @OneToOne
+    private Compra compra;
 
     public Coche()
     {
         
     }
     
-    public Coche(Long id, String nombreModelo, String matricula, String descripcion, Double precio, Double descuento, float cv, float consumo, TipoCombustible combustible, String color, float km, TipoCambio cajaCambios, String foto, TipoEstado estado, Marca marca)
+    public Coche(Long id, String nombreModelo, String matricula, String descripcion, float precio, float descuento, float cv, float consumo, TipoCombustible combustible, String color, int fecha, float km, TipoCambio cajaCambios, String foto, TipoEstado estado, Marca marca)
     {
-        this.id = id;
+        this.idCoche = id;
         this.nombreModelo = nombreModelo;
         this.matricula = matricula;
         this.descripcion = descripcion;
@@ -84,6 +98,7 @@ public class Coche implements Serializable
         this.consumo = consumo;
         this.combustible = combustible;
         this.color = color;
+        this.fecha = fecha;
         this.km = km;
         this.cajaCambios = cajaCambios;
         this.foto = foto;
@@ -91,20 +106,41 @@ public class Coche implements Serializable
         this.marca = marca;
     }
     
+    public Coche(Long id, String nombreModelo, String matricula, String descripcion, float precio, float descuento, float cv, float consumo, TipoCombustible combustible, String color, int fecha, float km, TipoCambio cajaCambios, String foto, TipoEstado estado, Marca marca, Compra compra)
+    {
+        this.idCoche = id;
+        this.nombreModelo = nombreModelo;
+        this.matricula = matricula;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.descuento = descuento;
+        this.cv = cv;
+        this.consumo = consumo;
+        this.combustible = combustible;
+        this.color = color;
+        this.fecha = fecha;
+        this.km = km;
+        this.cajaCambios = cajaCambios;
+        this.foto = foto;
+        this.estado = estado;
+        this.marca = marca;
+        this.compra = compra;
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public Long getId()
     {
-        return this.id;
+        return this.idCoche;
     }
 
     public void setId(Long id)
     {
-        this.id = id;
+        this.idCoche = id;
     }
 
     public String getNombreModelo()
     {
-        return nombreModelo;
+        return this.nombreModelo;
     }
 
     public void setNombreModelo(String nombreModelo)
@@ -132,22 +168,22 @@ public class Coche implements Serializable
         this.descripcion = descripcion;
     }
 
-    public Double getPrecio()
+    public float getPrecio()
     {
         return this.precio;
     }
 
-    public void setPrecio(Double precio)
+    public void setPrecio(float precio)
     {
         this.precio = precio;
     }
 
-    public Double getDescuento()
+    public float getDescuento()
     {
         return this.descuento;
     }
 
-    public void setDescuento(Double descuento)
+    public void setDescuento(float descuento)
     {
         this.descuento = descuento;
     }
@@ -191,6 +227,16 @@ public class Coche implements Serializable
     public void setColor(String color)
     {
         this.color = color;
+    }
+
+    public int getFecha()
+    {
+        return fecha;
+    }
+
+    public void setFecha(int fecha)
+    {
+        this.fecha = fecha;
     }
 
     public float getKm()
@@ -245,9 +291,19 @@ public class Coche implements Serializable
     
     public String getMarcaModelo()
     {
-        String marca_modelo = this.marca + this.nombreModelo;
+        String marca_modelo = this.marca + " " + this.nombreModelo;
         
         return marca_modelo;
+    }
+
+    public Compra getCompraCoche()
+    {
+        return this.compra;
+    }
+
+    public void setCompracoche(Compra compra)
+    {
+        this.compra = compra;
     }
     // </editor-fold>
 
@@ -255,7 +311,7 @@ public class Coche implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (idCoche != null ? idCoche.hashCode() : 0);
         return hash;
     }
 
@@ -267,7 +323,7 @@ public class Coche implements Serializable
             return false;
         }
         Coche other = (Coche) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.idCoche == null && other.idCoche != null) || (this.idCoche != null && !this.idCoche.equals(other.idCoche))) {
             return false;
         }
         return true;
@@ -276,7 +332,7 @@ public class Coche implements Serializable
     @Override
     public String toString()
     {
-        return "modelos.Coche[ id=" + id + " ]";
+        return "modelos.Coche[ id=" + idCoche + " ]";
     }
     
 }

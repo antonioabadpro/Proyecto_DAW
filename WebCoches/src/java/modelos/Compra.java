@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
@@ -25,37 +27,40 @@ public class Compra implements Serializable
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idCompra;
     private Date fechaCompra;
     private float precioTotal;
     private String direccionEntrega;
-    
-    @OneToOne(mappedBy="compra_Coche")
-    private Long idCoche;
+    @JoinColumn(name = "usuarioCompra", referencedColumnName = "idUsuario")
+    @ManyToOne
+    private Usuario usuario;
+    @OneToOne(mappedBy="compra")
+    private Coche coche;
 
     public Compra()
     {
         
     }
     
-    public Compra(Long id, Date fechaCompra, float precioTotal, String direccionEntrega, Long idCoche)
+    public Compra(Long id, Date fechaCompra, float precioTotal, String direccionEntrega, Usuario u, Coche c)
     {
-        this.id = id;
+        this.idCompra = id;
         this.fechaCompra = fechaCompra;
         this.precioTotal = precioTotal;
         this.direccionEntrega = direccionEntrega;
-        this.idCoche = idCoche;
+        this.usuario = u;
+        this.coche = c;
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public Long getId()
     {
-        return this.id;
+        return this.idCompra;
     }
 
     public void setId(Long id)
     {
-        this.id = id;
+        this.idCompra = id;
     }
 
     public Date getFechaCompra()
@@ -88,21 +93,31 @@ public class Compra implements Serializable
         this.direccionEntrega = direccionEntrega;
     }
 
-    public Long getIdCoche()
+    public Coche getCocheCompra()
     {
-        return this.idCoche;
+        return this.coche;
     }
 
-    public void setIdCoche(Long idCoche)
+    public void setCocheCompra(Coche coche)
     {
-        this.idCoche = idCoche;
+        this.coche = coche;
+    }
+
+    public Usuario getUsuarioCompra()
+    {
+        return this.usuario;
+    }
+
+    public void setUsuarioCompra(Usuario usuario)
+    {
+        this.usuario = usuario;
     }
     // </editor-fold>
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (idCompra != null ? idCompra.hashCode() : 0);
         return hash;
     }
 
@@ -113,7 +128,7 @@ public class Compra implements Serializable
             return false;
         }
         Compra other = (Compra) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.idCompra == null && other.idCompra != null) || (this.idCompra != null && !this.idCompra.equals(other.idCompra))) {
             return false;
         }
         return true;
@@ -121,7 +136,7 @@ public class Compra implements Serializable
 
     @Override
     public String toString() {
-        return "modelos.Compra[ id=" + id + " ]";
+        return "modelos.Compra[ id=" + idCompra + " ]";
     }
     
 }

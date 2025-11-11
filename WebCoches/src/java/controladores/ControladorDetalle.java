@@ -4,6 +4,10 @@
  */
 package controladores;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -11,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modelos.Coche;
 
 /**
  *
@@ -19,6 +24,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "ControladorDetalle", urlPatterns = {"/detalle", "/detalle/*"})
 public class ControladorDetalle extends HttpServlet
 {
+    @PersistenceContext(unitName="WebCochesPU")
+    private EntityManager em;
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -33,8 +40,6 @@ public class ControladorDetalle extends HttpServlet
     {    
         String rutaServlet = request.getServletPath();
         
-        System.out.println("rutaServlet: " + rutaServlet);
-        
         String vista=null;
 
         if (rutaServlet == null)
@@ -46,6 +51,22 @@ public class ControladorDetalle extends HttpServlet
         {
             case "/detalle":
             {
+                String pathInfo = request.getPathInfo();
+                String pathInfo_split[] = pathInfo.split("/");
+                String idCoche_string = pathInfo_split[1];
+                Long idCoche = Long.valueOf(idCoche_string);
+        
+                // Obtenemos los datos del Coche para mostrarlos en la Vista
+                Coche c = buscarCochePorId(idCoche);
+                if(c != null)
+                {
+                    request.setAttribute("coche", c);
+                }
+                else
+                {
+                    System.out.println("NO hay ningun Coche con el id '" + idCoche + "'");
+                }
+                
                 vista="VistaDetalle";
             }; break;
         }
@@ -74,8 +95,32 @@ public class ControladorDetalle extends HttpServlet
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+    public String getServletInfo()
+    {
         return "Short description";
+    }
+    
+    /**
+     * Realiza una Consulta Nombrada en la Entidad Coches para buscar un Coche por su ID
+     * @return Devuelve el Coche cuyo 'id' coincida con el 'id' introducido por parametro
+     */
+    public Coche buscarCochePorId(Long idCoche)
+    {
+        Coche c = null;
+        
+        String consultaNombrada = "Coche.findById";
+        Query q = this.em.createNamedQuery(consultaNombrada);
+        q.setParameter("id", idCoche);
+        
+        try
+        {
+            c = (Coche) q.getSingleResult();
+        }
+        catch (NoResultException e)
+        {
+            System.err.println("NO hay ningun Coche con el ID: " + idCoche);
+        }
+        return c;
     }
 
 }

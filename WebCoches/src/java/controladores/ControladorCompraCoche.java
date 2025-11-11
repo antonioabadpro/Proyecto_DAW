@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author AAHG-PORTATIL
  */
-@WebServlet(name = "ControladorCompraCoche", urlPatterns = {"/comprar"})
+@WebServlet(name = "ControladorCompraCoche", urlPatterns = {"/comprar", "/comprar/*"})
 public class ControladorCompraCoche extends HttpServlet
 {
 

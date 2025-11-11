@@ -7,7 +7,7 @@
         <!-- Crear estructura de BD -->
       <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
       <!-- Script inicial de datos -->
-      <property name="jakarta.persistence.sql-load-script-source" value="scriptInicial.sql"/>
+      <property name="jakarta.persistence.sql-load-script-source" value="recursos/scriptInicial.sql"/>
       <!-- Logs detallados -->
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.ddl-generation.output-mode" value="database"/>

@@ -5,10 +5,10 @@
 package controladores;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import modelos.Coche;
-import modelos.Marca;
 
 /**
  *
@@ -25,6 +24,7 @@ import modelos.Marca;
 @WebServlet(name = "ControladorCoche", urlPatterns = {"/catalogo"})
 public class ControladorCatalogo extends HttpServlet
 {
+    @PersistenceContext(unitName="WebCochesPU")
     private EntityManager em;
 
     /**
@@ -37,7 +37,8 @@ public class ControladorCatalogo extends HttpServlet
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {    
+    {
+        
         String rutaServlet = request.getServletPath();
         String vista=null;
         
@@ -90,7 +91,7 @@ public class ControladorCatalogo extends HttpServlet
     }
     
     /**
-     * Realiza una consulta en la Entidad Coches para obtener todos los Coches de la BD
+     * Realiza una Consulta Dinamica Tipada en la Entidad Coches para obtener todos los Coches de la BD
      * @return Devuelve todos los Coches que hay en la BD
      */
     public List<Coche> obtenerCoches()

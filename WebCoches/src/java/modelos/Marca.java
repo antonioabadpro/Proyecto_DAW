@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,21 +25,21 @@ public class Marca implements Serializable
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idMarca;
     private String nombre;
     private String logo;
     
-    @OneToMany(mappedBy="marca_Coche")
-    private ArrayList<Coche> listaCoches;
+    @OneToMany(mappedBy="marca")
+    private List<Coche> listaCoches;
     
     public Marca()
     {
         
     }
 
-    public Marca(Long id, String nombre, String logo, ArrayList<Coche> listaCoches)
+    public Marca(Long id, String nombre, String logo, List<Coche> listaCoches)
     {
-        this.id = id;
+        this.idMarca = id;
         this.nombre = nombre;
         this.logo = logo;
         this.listaCoches = listaCoches;
@@ -48,12 +48,12 @@ public class Marca implements Serializable
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public Long getId()
     {
-        return this.id;
+        return this.idMarca;
     }
 
     public void setId(Long id)
     {
-        this.id = id;
+        this.idMarca = id;
     }
 
     public String getNombre()
@@ -76,12 +76,12 @@ public class Marca implements Serializable
         this.logo = logo;
     }
 
-    public ArrayList<Coche> getListaCoches()
+    public List<Coche> getListaCoches()
     {
         return this.listaCoches;
     }
 
-    public void setListaCoches(ArrayList<Coche> listaCoches)
+    public void setListaCoches(List<Coche> listaCoches)
     {
         this.listaCoches = listaCoches;
     }
@@ -91,7 +91,7 @@ public class Marca implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (idMarca != null ? idMarca.hashCode() : 0);
         return hash;
     }
 
@@ -102,7 +102,7 @@ public class Marca implements Serializable
             return false;
         }
         Marca other = (Marca) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.idMarca == null && other.idMarca != null) || (this.idMarca != null && !this.idMarca.equals(other.idMarca))) {
             return false;
         }
         return true;
@@ -111,7 +111,7 @@ public class Marca implements Serializable
     @Override
     public String toString()
     {
-        return "modelos.Marca[ id=" + id + " ]";
+        return "modelos.Marca[ id=" + idMarca + " ]";
     }
     
 }

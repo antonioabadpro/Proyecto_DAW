@@ -5,6 +5,8 @@
 package modelos;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,6 +15,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -22,6 +25,7 @@ import java.io.Serializable;
 @Table(name="USUARIO") // Renombra la entidad en la BD
 @NamedQueries({
  @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u"),
+ @NamedQuery(name="Usuario.findById", query="SELECT u FROM Usuario u WHERE u.idUsuario = :id"),
  @NamedQuery(name="Usuario.findByName", query="SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
 })
 public class Usuario implements Serializable
@@ -35,15 +39,16 @@ public class Usuario implements Serializable
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long idUsuario;
     private String dni;
     private String nombre;
     private String correo;
     private int telefono;
     private String direccion;
+    @Enumerated(EnumType.STRING)
     private TipoRol rol;
-    @OneToMany(mappedBy="usuario_Compra")
-    private Long idCompra;
+    @OneToMany(mappedBy="usuario")
+    private List<Compra> listaCompras;
 
     public Usuario()
     {
@@ -52,7 +57,7 @@ public class Usuario implements Serializable
     
     public Usuario(Long id, String dni, String nombre, String correo, int telefono, String direccion, TipoRol rol)
     {
-        this.id = id;
+        this.idUsuario = id;
         this.dni = dni;
         this.nombre = nombre;
         this.correo = correo;
@@ -61,27 +66,27 @@ public class Usuario implements Serializable
         this.rol = rol;
     }
     
-    public Usuario(Long id, String dni, String nombre, String correo, int telefono, String direccion, TipoRol rol, Long idCompra)
+    public Usuario(Long id, String dni, String nombre, String correo, int telefono, String direccion, TipoRol rol, List<Compra> listaCompras)
     {
-        this.id = id;
+        this.idUsuario = id;
         this.dni = dni;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
         this.direccion = direccion;
         this.rol = rol;
-        this.idCompra = idCompra;
+        this.listaCompras = listaCompras;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public Long getId()
     {
-        return this.id;
+        return this.idUsuario;
     }
 
     public void setId(Long id)
     {
-        this.id = id;
+        this.idUsuario = id;
     }
 
     public String getDni()
@@ -144,14 +149,14 @@ public class Usuario implements Serializable
         this.rol = rol;
     }
 
-    public Long getIdCompra()
+    public List<Compra> getListaCompras()
     {
-        return this.idCompra;
+        return this.listaCompras;
     }
 
-    public void setIdCompra(Long idCompra)
+    public void setListaCompras(List<Compra> listaCompras)
     {
-        this.idCompra = idCompra;
+        this.listaCompras = listaCompras;
     }
     // </editor-fold>
 
@@ -159,7 +164,7 @@ public class Usuario implements Serializable
     public int hashCode()
     {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (idUsuario != null ? idUsuario.hashCode() : 0);
         return hash;
     }
 
@@ -172,7 +177,7 @@ public class Usuario implements Serializable
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
+        if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario)))
         {
             return false;
         }
@@ -182,7 +187,7 @@ public class Usuario implements Serializable
     @Override
     public String toString()
     {
-        return "modelos.Usuario[ id=" + id + " ]";
+        return "modelos.Usuario[ id=" + idUsuario + " ]";
     }
     
 }

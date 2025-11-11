@@ -1,22 +1,15 @@
--- ===========================
--- MARCAS
--- ===========================
-INSERT INTO MARCA (id, nombre, logo) VALUES (1, 'Toyota', 'url/logo/toyota.png');
-INSERT INTO MARCA (id, nombre, logo) VALUES (2, 'Ford', 'url/logo/ford.png');
-INSERT INTO MARCA (id, nombre, logo) VALUES (3, 'Volkswagen', 'url/logo/vw.png');
-INSERT INTO MARCA (id, nombre, logo) VALUES (4, 'BMW', 'url/logo/bmw.png');
-
--- ===========================
--- COCHES
--- ===========================
-INSERT INTO COCHE (id, descripcion, color, precio, combustible, cajaCambios, estado, km, cv, marca_id) 
-VALUES (10, 'Corolla', 'Blanco', 22000.0, 'Hibrido', 'Automatico', 'Nuevo', 50.0, 122.0, 1);
-
-INSERT INTO COCHE (id, descripcion, color, precio, combustible, cajaCambios, estado, km, cv, marca_id) 
-VALUES (11, 'Yaris', 'Negro', 19000.0, 'Gasolina', 'Manual', 'ComoNuevo', 8000.0, 110.0, 1);
-
-INSERT INTO COCHE (id, descripcion, color, precio, combustible, cajaCambios, estado, km, cv, marca_id) 
-VALUES (12, 'Focus', 'Rojo', 25000.0, 'Diesel', 'Manual', 'Usado', 50000.0, 120.0, 2);
-
-INSERT INTO COCHE (id, descripcion, color, precio, combustible, cajaCambios, estado, km, cv, marca_id) 
-VALUES (13, 'Serie 3', 'Negro', 45000.0, 'Gasolina', 'Automatico', 'ComoNuevo', 4000.0, 184.0, 4);
+INSERT INTO MARCA (IDMARCA, NOMBRE, LOGO) VALUES (1, 'Toyota', 'toyota.png')
+INSERT INTO MARCA (IDMARCA, NOMBRE, LOGO) VALUES (2, 'Ford', 'ford.png')
+INSERT INTO MARCA (IDMARCA, NOMBRE, LOGO) VALUES (3, 'Volkswagen', 'volkswagen.png')
+INSERT INTO MARCA (IDMARCA, NOMBRE, LOGO) VALUES (4, 'BMW', 'bmw.png')
+INSERT INTO USUARIO (IDUSUARIO, DNI, NOMBRE, CORREO, TELEFONO, DIRECCION, ROL) VALUES (1, '11111111A', 'Cliente Ejemplo', 'cliente@mail.com', 600111222, 'Calle Falsa 123', 'Cliente')
+INSERT INTO USUARIO (IDUSUARIO, DNI, NOMBRE, CORREO, TELEFONO, DIRECCION, ROL) VALUES (2, '22222222B', 'Admin Ejemplo', 'admin@mail.com', 600333444, 'Avenida Siempre Viva 742', 'Admin')
+INSERT INTO COCHE (IDCOCHE, NOMBREMODELO, MATRICULA, DESCRIPCION, PRECIO, DESCUENTO, CV, CONSUMO, COMBUSTIBLE, COLOR, KM, CAJACAMBIOS, FOTO, ESTADO, MARCACOCHE, FECHA) VALUES (10, 'Corolla', '1234ABC', 'Un coche fiable y económico, perfecto para el día a día.', 22000.0, 0.0, 122.0, 5.5, 'Hibrido', 'Blanco', 80.0, 'Automatico', 'corolla.webp', 'Nuevo', 1, 2023)
+INSERT INTO COCHE (IDCOCHE, NOMBREMODELO, MATRICULA, DESCRIPCION, PRECIO, DESCUENTO, CV, CONSUMO, COMBUSTIBLE, COLOR, KM, CAJACAMBIOS, FOTO, ESTADO, MARCACOCHE, FECHA) VALUES (11, 'Yaris', '5678DEF', 'Compacto ágil, ideal para la ciudad.', 19000.0, 1000.0, 110.0, 4.8, 'Gasolina', 'Rojo', 5000.0, 'Manual', 'yaris.webp', 'ComoNuevo', 1, 2022)
+INSERT INTO COCHE (IDCOCHE, NOMBREMODELO, MATRICULA, DESCRIPCION, PRECIO, DESCUENTO, CV, CONSUMO, COMBUSTIBLE, COLOR, KM, CAJACAMBIOS, FOTO, ESTADO, MARCACOCHE, FECHA) VALUES (12, 'Focus', '9012GHI', 'Diseño deportivo y conducción divertida.', 26000.0, 500.0, 125.0, 5.8, 'Gasolina', 'Azul Metalizado', 40.0, 'Manual', 'focus.webp', 'Nuevo', 2, 2024)
+INSERT INTO COCHE (IDCOCHE, NOMBREMODELO, MATRICULA, DESCRIPCION, PRECIO, DESCUENTO, CV, CONSUMO, COMBUSTIBLE, COLOR, KM, CAJACAMBIOS, FOTO, ESTADO, MARCACOCHE, FECHA) VALUES (13, 'Puma', '3456JKL', 'Crossover con etiqueta ECO y gran maletero.', 27000.0, 1500.0, 155.0, 5.4, 'Hibrido', 'Blanco', 9000.0, 'Automatico', 'puma.webp', 'ComoNuevo', 2, 2023)
+INSERT INTO COCHE (IDCOCHE, NOMBREMODELO, MATRICULA, DESCRIPCION, PRECIO, DESCUENTO, CV, CONSUMO, COMBUSTIBLE, COLOR, KM, CAJACAMBIOS, FOTO, ESTADO, MARCACOCHE, FECHA) VALUES (14, 'Golf', '7890MNO', 'El compacto por excelencia, calidad alemana.', 28000.0, 0.0, 150.0, 6.2, 'Diesel', 'Negro', 25000.0, 'Automatico', 'golf.webp', 'Usado', 3, 2021)
+INSERT INTO COCHE (IDCOCHE, NOMBREMODELO, MATRICULA, DESCRIPCION, PRECIO, DESCUENTO, CV, CONSUMO, COMBUSTIBLE, COLOR, KM, CAJACAMBIOS, FOTO, ESTADO, MARCACOCHE, FECHA) VALUES (15, 'T-Roc', '1234PQR', 'SUV urbano y moderno, con un diseño atrevido.', 31000.0, 500.0, 150.0, 6.5, 'Gasolina', 'Gris', 15000.0, 'Manual', 'troc.webp', 'ComoNuevo', 3, 2022)
+INSERT INTO COCHE (IDCOCHE, NOMBREMODELO, MATRICULA, DESCRIPCION, PRECIO, DESCUENTO, CV, CONSUMO, COMBUSTIBLE, COLOR, KM, CAJACAMBIOS, FOTO, ESTADO, MARCACOCHE, FECHA) VALUES (16, 'Serie 1', '5678STU', 'Conducción premium y acabados de lujo.', 34000.0, 0.0, 140.0, 6.0, 'Gasolina', 'Negro', 18000.0, 'Automatico', 'serie1.webp', 'Usado', 4, 2021)
+INSERT INTO COCHE (IDCOCHE, NOMBREMODELO, MATRICULA, DESCRIPCION, PRECIO, DESCUENTO, CV, CONSUMO, COMBUSTIBLE, COLOR, KM, CAJACAMBIOS, FOTO, ESTADO, MARCACOCHE, FECHA) VALUES (17, 'X1', '9012VWX', 'El SUV compacto de BMW, espacioso y versátil.', 42000.0, 2000.0, 150.0, 6.8, 'Diesel', 'Gris Plata', 50.0, 'Automatico', 'x1.webp', 'Nuevo', 4, 2024)
+INSERT INTO COCHE (IDCOCHE, NOMBREMODELO, MATRICULA, DESCRIPCION, PRECIO, DESCUENTO, CV, CONSUMO, COMBUSTIBLE, COLOR, KM, CAJACAMBIOS, FOTO, ESTADO, MARCACOCHE, FECHA) VALUES (18, 'i4', '3456YZA', 'Eléctrico, deportivo y con gran autonomía.', 60000.0, 0.0, 340.0, 16.1, 'Electrico', 'Azul Eléctrico', 2000.0, 'Automatico', 'i4.webp', 'ComoNuevo', 4, 2023)

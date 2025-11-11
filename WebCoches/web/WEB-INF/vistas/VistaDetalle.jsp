@@ -1,16 +1,17 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include  file="templates/header.jspf"%>
 
   <div class="container">
     <!-- Encabezado -->
     <div class="text-center mb-3">
       <div class="bg-dark text-white d-inline-block px-4 py-2 rounded w-100">
-        <strong>DETALLE DEL VEH�CULO</strong>
+        <strong>DETALLE DEL VEHÍCULO</strong>
       </div>
     </div>
 
     <!-- Contenedor 2x2 con zonas diferenciadas -->
     <div class="row g-2 mb-3">
-      <!-- Zona 1: Imagen del vehi�culo -->
+      <!-- Zona 1: Imagen del vehi­culo -->
       <div class="col-6">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
@@ -23,22 +24,22 @@
                 </div>
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <img src="img_coches/arkana.webp" class="d-block w-100" alt="...">
+                    <img src="${pageContext.request.contextPath}/img_coches/${requestScope.coche.foto}" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
-                    <img src="img_coches/ateca.webp" class="d-block w-100" alt="...">
+                    <img src="${pageContext.request.contextPath}/img_coches/ateca.webp" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
-                    <img src="img_coches/clio.webp" class="d-block w-100" alt="...">
+                    <img src="${pageContext.request.contextPath}/img_coches/clio.webp" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
-                    <img src="img_coches/c3.webp" class="d-block w-100" alt="...">
+                    <img src="${pageContext.request.contextPath}/img_coches/c3.webp" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
-                    <img src="img_coches/kianiro.webp" class="d-block w-100" alt="...">
+                    <img src="${pageContext.request.contextPath}/img_coches/kianiro.webp" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
-                    <img src="img_coches/cupra.webp" class="d-block w-100" alt="...">
+                    <img src="${pageContext.request.contextPath}/img_coches/cupra.webp" class="d-block w-100" alt="...">
                   </div>
                 </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -51,18 +52,26 @@
               </button>
         </div>
       </div>
-      <!-- Zona 2: Prueba del vehículo -->
+      <!-- Zona 2: Prueba del vehÃ­culo -->
       <div class="col-6">
         <div class="border p-3 mb-3 rounded bg-light">
           <div class="zone">
-              <form name="formDatosVehiculo" method="GET" action="${pageContext.request.contextPath}/comprar" target="_self">
-                  <!-- Lista de características -->
+              <form name="formDatosVehiculo" method="GET" action="${pageContext.request.contextPath}/comprar/${requestScope.coche.id}" target="_self">
+                  <!-- Lista de caracterÃ­sticas -->
                   <ul class="list-unstyled small">
-                    <li><strong>Año:</strong> 2018</li>
-                    <li><strong>Kilometraje:</strong> 133.374 km</li>
-                    <li><strong>Combustible:</strong> Diesel</li>
-                    <li><strong>Transmisión:</strong> Manual</li>
-                    <li><strong>Potencia:</strong> 110 CV (81 kW)</li>
+                    <li><strong>Precio: </strong>${requestScope.coche.precio} €</li>
+                    <li><strong>Descuento: </strong>${requestScope.coche.descuento} %</li>
+                    <li><strong>Modelo: </strong>${requestScope.coche.nombreModelo}</li>
+                    <li><strong>Matrícula: </strong>${requestScope.coche.matricula}</li>
+                    <li><strong>Descripción: </strong>${requestScope.coche.descripcion}</li>
+                    <li><strong>Color: </strong>${requestScope.coche.color}</li>
+                    <li><strong>Año: </strong>${requestScope.coche.fecha}</li>
+                    <li><strong>Kilometraje: </strong>${requestScope.coche.km}</li>
+                    <li><strong>Combustible: </strong>${requestScope.coche.combustible}</li>
+                    <li><strong>Transmisión: </strong>${requestScope.coche.cajaCambios}</li>
+                    <li><strong>Potencia: </strong>${requestScope.coche.cv} CV</li>
+                    <li><strong>Consumo: </strong>${requestScope.coche.consumo} L/100</li>
+                    <li><strong>Estado: </strong>${requestScope.coche.estado}</li>
                   </ul>
           </div>  
          </div>   
@@ -71,14 +80,13 @@
       <div class="row g-2 mg-3">
         <div class="col-12">
                   <div class="d-flex justify-content-between mt-4">
-                    <input type="submit" class="btn btn-primary btn-custom" value="COMPRAR">
                     <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-secondary btn-custom">CANCELAR</a>
+                    <input type="submit" class="btn btn-primary btn-custom" value="COMPRAR">
                   </div>
               </form>
             </div>
         </div>
       </div>
-    
   </div>
                     
 <%@include  file="templates/footer.jspf"%>  
