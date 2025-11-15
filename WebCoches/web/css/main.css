@@ -1,3 +1,13 @@
+<!-- Estilo Header -->
+
+.tonicar-logo
+{
+    width: 25px;
+    height: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(164, 214, 94, 0.4); 
+}
+
 <!-- Estilo Formulario Login -->
 
 .login-card {
@@ -110,6 +120,14 @@ html, body {
     font-size: 1.1rem;
     line-height: 1.7;
 }
-.chuli{
-    background:linear-gradient(135deg, #f8f9fa, #e9ecef);
+
+
+
+<!-- Estilo Boton Salir -->
+
+.botonSalir
+{
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-decoration: none;
 }

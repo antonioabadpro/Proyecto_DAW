@@ -65,6 +65,15 @@ public class ControladorSesion extends HttpServlet
             {
                 vista="VistaRegistro";
             }; break;
+            
+            case "/cerrarSesion":
+            {
+                HttpSession sesion = request.getSession();
+                sesion.invalidate();
+                response.sendRedirect(request.getContextPath() + "/inicio");
+                return;
+                
+            }
         }
         
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/" + vista + ".jsp");
@@ -105,10 +114,9 @@ public class ControladorSesion extends HttpServlet
                     
                     HttpSession sesion = request.getSession();
                     sesion.setAttribute("usuarioLogueado", u);
+                    
+                    System.out.println("Usuario Logueado: " + u.getNomUsuario() + " - " + u.getPassword());
                 }
-                
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/VistaInicio.jsp");
-                rd.forward(request, response);
                 
             }; break;
 
@@ -152,8 +160,7 @@ public class ControladorSesion extends HttpServlet
             }; break;
         }
         
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/VistaInicio.jsp");
-        rd.forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/inicio");
     }
 
     /**

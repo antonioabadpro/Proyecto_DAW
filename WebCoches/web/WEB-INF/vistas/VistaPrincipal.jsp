@@ -8,19 +8,19 @@
                 <div id="carouselImages" class="carousel slide carousel-fade">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="imagenes/concesionario.webp" class="d-block w-100 rounded" alt="Coche 1">
+                            <img src="${pageContext.request.contextPath}/imagenes/concesionario.webp" class="d-block w-100 rounded" alt="Coche 1">
                         </div>
                         <div class="carousel-item ">
-                            <img src="imagenes/taller.jpg" class="d-block w-100 rounded"  alt="Coche 2">
+                            <img src="${pageContext.request.contextPath}/imagenes/taller.jpg" class="d-block w-100 rounded"  alt="Coche 2">
                         </div>
                         <div class="carousel-item ">
-                            <img src="imagenes/mecanico.jpg" class="d-block w-100 rounded" alt="Coche 3">
+                            <img src="${pageContext.request.contextPath}/imagenes/mecanico.jpg" class="d-block w-100 rounded" alt="Coche 3">
                         </div>
                         <div class="carousel-item">
-                            <img src="imagenes/cliente.avif" class="d-block w-100 rounded" alt="Coche 4">
+                            <img src="${pageContext.request.contextPath}/imagenes/cliente.avif" class="d-block w-100 rounded" alt="Coche 4">
                         </div>
                         <div class="carousel-item">
-                            <img src="imagenes/vendedor.webp" class="d-block w-100 rounded" alt="Coche 5">
+                            <img src="${pageContext.request.contextPath}/imagenes/vendedor.webp" class="d-block w-100 rounded" alt="Coche 5">
                         </div>
                     </div>
                 </div>
