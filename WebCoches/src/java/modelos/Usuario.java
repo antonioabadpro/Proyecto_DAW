@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -27,6 +28,7 @@ import java.util.List;
  @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u"),
  @NamedQuery(name="Usuario.findById", query="SELECT u FROM Usuario u WHERE u.idUsuario = :id"),
  @NamedQuery(name="Usuario.findByName", query="SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
+ @NamedQuery(name="Usuario.findByDni", query="SELECT u FROM Usuario u WHERE u.dni = :dni"),
 })
 public class Usuario implements Serializable
 {
@@ -40,9 +42,15 @@ public class Usuario implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idUsuario;
+    @Column(unique=true)
     private String dni;
     private String nombre;
+    @Column(unique=true)
+    private String nomUsuario;
+    @Column(unique=true)
     private String correo;
+    private String password;
+    @Column(unique=true)
     private int telefono;
     private String direccion;
     @Enumerated(EnumType.STRING)
@@ -55,23 +63,27 @@ public class Usuario implements Serializable
         
     }
     
-    public Usuario(Long id, String dni, String nombre, String correo, int telefono, String direccion, TipoRol rol)
+    public Usuario(Long id, String dni, String nombre, String nomUsuario, String correo, String password, int telefono, String direccion, TipoRol rol)
     {
         this.idUsuario = id;
         this.dni = dni;
         this.nombre = nombre;
+        this.nomUsuario = nomUsuario;
         this.correo = correo;
+        this.password = password;
         this.telefono = telefono;
         this.direccion = direccion;
         this.rol = rol;
     }
     
-    public Usuario(Long id, String dni, String nombre, String correo, int telefono, String direccion, TipoRol rol, List<Compra> listaCompras)
+    public Usuario(Long id, String dni, String nombre, String nomUsuario, String correo, String password, int telefono, String direccion, TipoRol rol, List<Compra> listaCompras)
     {
         this.idUsuario = id;
         this.dni = dni;
         this.nombre = nombre;
+        this.nomUsuario = nomUsuario;
         this.correo = correo;
+        this.password = password;
         this.telefono = telefono;
         this.direccion = direccion;
         this.rol = rol;
@@ -79,12 +91,12 @@ public class Usuario implements Serializable
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
-    public Long getId()
+    public Long getIdUsuario()
     {
         return this.idUsuario;
     }
 
-    public void setId(Long id)
+    public void setIdUsuario(Long id)
     {
         this.idUsuario = id;
     }
@@ -109,6 +121,16 @@ public class Usuario implements Serializable
         this.nombre = nombre;
     }
 
+    public String getNomUsuario()
+    {
+        return this.nomUsuario;
+    }
+
+    public void setNomUsuario(String nomUsuario)
+    {
+        this.nomUsuario = nomUsuario;
+    }
+
     public String getCorreo()
     {
         return this.correo;
@@ -117,6 +139,16 @@ public class Usuario implements Serializable
     public void setCorreo(String correo)
     {
         this.correo = correo;
+    }
+
+    public String getPassword()
+    {
+        return this.password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
     }
 
     public int getTelefono()

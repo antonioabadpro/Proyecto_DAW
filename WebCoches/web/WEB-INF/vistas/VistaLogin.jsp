@@ -12,10 +12,10 @@
         </div>
         <div class="row">
             <div class="col">
-                <form name="formSesion" action="compruebaSesion.jsp">
+                <form name="formSesion" method="POST" action="${pageContext.request.contextPath}/sesion/login">
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Usuario:</label>
-                        <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario">
+                        <input type="text" class="form-control" name="nomUsuario" id="nomUsuario" placeholder="Usuario">
                     </div>
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Contraseña:</label>

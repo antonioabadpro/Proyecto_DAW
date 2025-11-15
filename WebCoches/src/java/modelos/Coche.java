@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -57,7 +58,9 @@ public class Coche implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCoche;
+    @Column(unique=true)
     private String nombreModelo;
+    @Column(unique=true)
     private String matricula;
     private String descripcion;
     private float precio;
