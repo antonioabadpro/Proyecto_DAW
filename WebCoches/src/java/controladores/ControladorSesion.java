@@ -4,6 +4,7 @@
  */
 package controladores;
 
+import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
@@ -16,10 +17,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import modelos.Usuario;
-import jakarta.inject.Inject;
-import jakarta.security.enterprise.identitystore.PasswordHash;
 import jakarta.servlet.http.HttpSession;
-import static java.lang.System.console;
+import jakarta.transaction.NotSupportedException;
+import jakarta.transaction.SystemException;
+import jakarta.transaction.UserTransaction;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,12 +31,13 @@ import static java.lang.System.console;
 @WebServlet(name = "ControladorSesion", urlPatterns = {"/sesion/*"})
 public class ControladorSesion extends HttpServlet
 {
-    @PersistenceContext(unitName="WebCochesPU")
+    @PersistenceContext(unitName = "WebCochesPU")
     private EntityManager em;
-    
+    @Resource
+    private UserTransaction utx; // Atributo para gestionar las transacciones
+
     //@Inject
     //private PasswordHash passwordHash;
-    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -44,9 +48,9 @@ public class ControladorSesion extends HttpServlet
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {    
+    {
         String accion = request.getPathInfo();
-        String vista=null;
+        String vista = null;
 
         if (accion == null)
         {
@@ -57,25 +61,24 @@ public class ControladorSesion extends HttpServlet
         {
             case "/login":
             {
-                vista="VistaLogin";
-                
+                vista = "VistaLogin";
+
             }; break;
 
             case "/registrar":
             {
-                vista="VistaRegistro";
+                vista = "VistaRegistro";
             }; break;
-            
+
             case "/cerrarSesion":
             {
                 HttpSession sesion = request.getSession();
                 sesion.invalidate();
                 response.sendRedirect(request.getContextPath() + "/inicio");
                 return;
-                
             }
         }
-        
+
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/" + vista + ".jsp");
         rd.forward(request, response);
     }
@@ -103,63 +106,66 @@ public class ControladorSesion extends HttpServlet
             case "/login":
             {
                 // Obtenemos los valores del formulario de Login
-                String nomUsuario=request.getParameter("nomUsuario");
-                String password=request.getParameter("password");
-                
+                String nomUsuario = request.getParameter("nomUsuario");
+                String password = request.getParameter("password");
+
                 Usuario u = buscarUsuario(nomUsuario);
-                
-                if(u != null) // Si hemos encontrado el Usuario, guardamos el Usuario en el Ambito de la Sesion
+
+                if (u != null) // Si hemos encontrado el Usuario, guardamos el Usuario en el Ambito de la Sesion
                 {
                     //String passwordEncriptada = encriptarPassword(password);
-                    
+
                     HttpSession sesion = request.getSession();
                     sesion.setAttribute("usuarioLogueado", u);
-                    
-                    System.out.println("Usuario Logueado: " + u.getNomUsuario() + " - " + u.getPassword());
+
+                    //console.log("Usuario Logueado: " + u.getNomUsuario() + " - " + u.getPassword());
                 }
-                
+                else
+                {
+                    String textoError = "Usuario o Contraseña incorrectos.";
+                    request.setAttribute("error", textoError);
+
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/VistaLogin.jsp");
+                    rd.forward(request, response);
+                    return;
+                }
+
             }; break;
 
             case "/registrar":
             {
                 // Obtenemos los valores del formulario de Registro
+                String nomUsuario = request.getParameter("nomUsuario");
+                String password_sinEncriptar = request.getParameter("password");
                 String nombre = request.getParameter("nombre");
                 String dni = request.getParameter("dni");
                 String correo = request.getParameter("correo");
                 String telefono_string = request.getParameter("telefono");
+                int telefono = Integer.parseInt(telefono_string);
                 String direccion = request.getParameter("direccion");
-                String password_sinEncriptar = request.getParameter("password");
-                
-                //String passwordEncriptada = encriptarPassword(password_sinEncriptar);
-                
-                int telefono = 0;
-                try
-                {
-                    telefono = Integer.parseInt(telefono_string);
-                }
-                catch (NumberFormatException e)
-                {
-                    // Error si el teléfono no es un número
-                    System.out.println("Error -> El telefono NO es un numero");
-                }
+                String codigoPostal = request.getParameter("cp");
+                String provincia = request.getParameter("provincia");
 
+                //String passwordEncriptada = encriptarPassword(password_sinEncriptar);
                 // Creamos el Nuevo Usuario
                 Usuario nuevoUsuario = new Usuario();
-                //nuevoUsuario.setNomUsuario(nomUsuario);
+                nuevoUsuario.setNomUsuario(nomUsuario);
                 nuevoUsuario.setPassword(password_sinEncriptar);
                 nuevoUsuario.setNombre(nombre);
                 nuevoUsuario.setDni(dni);
                 nuevoUsuario.setCorreo(correo);
-                nuevoUsuario.setDireccion(direccion);
                 nuevoUsuario.setTelefono(telefono);
+                nuevoUsuario.setDireccion(direccion);
+                nuevoUsuario.setCodigoPostal(codigoPostal);
+                nuevoUsuario.setProvincia(provincia);
                 nuevoUsuario.setRol(Usuario.TipoRol.Cliente);
-                
-                // Guardamos el Nuevo Usuario en la BD
-                this.em.persist(nuevoUsuario);
+
+                // Insertamos el Nuevo Usuario en la BD
+                insertarUsuario(nuevoUsuario);
+                System.out.println("El usuaio con 'nomUsuario' " + nomUsuario + " se ha registrado en el sistema con exito");
                 
             }; break;
         }
-        
         response.sendRedirect(request.getContextPath() + "/inicio");
     }
 
@@ -173,7 +179,7 @@ public class ControladorSesion extends HttpServlet
     {
         return "Short description";
     }
-    
+
     /*
     public String encriptarPassword(String password_sinEncriptar)
     {
@@ -181,20 +187,20 @@ public class ControladorSesion extends HttpServlet
         
         return passwordEncriptada;
     }
-    */
-    
+     */
     /**
      * Realiza una Consulta Nombrada en la Entidad Usuario para buscar un Usuario por su campo 'nomUsuario'
+     *
      * @return Devuelve el Usuario cuyo 'nomUsuario' coincida con el 'nomUsuario' introducido por parametro
      */
     public Usuario buscarUsuario(String nomUsuario)
     {
         Usuario u = null;
-        
+
         String consulta = "SELECT u FROM Usuario u WHERE u.nomUsuario = :nomUsuario";
         TypedQuery<Usuario> q = this.em.createQuery(consulta, Usuario.class);
         q.setParameter("nomUsuario", nomUsuario);
-        
+
         try
         {
             u = (Usuario) q.getSingleResult();
@@ -204,6 +210,21 @@ public class ControladorSesion extends HttpServlet
             System.err.println("NO hay ningun Usuario con el 'nomUsuario': " + nomUsuario);
         }
         return u;
+    }
+
+    public void insertarUsuario(Usuario nuevoUsuario)
+    {
+        try
+        {
+            this.utx.begin();
+            this.em.persist(nuevoUsuario); // Inserta el usuario
+            this.utx.commit();
+            
+        } catch (Exception ex)
+        {
+            Logger.getLogger(ControladorSesion.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("NO se ha podido realizar la insercion de Usuario con 'nomUsuario': " + nuevoUsuario.getNomUsuario());
+        }
     }
 
 }

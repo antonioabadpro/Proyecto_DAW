@@ -1,3 +1,13 @@
+<!-- Estilo Header -->
+
+.tonicar-logo
+{
+    width: 25px;
+    height: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(164, 214, 94, 0.4); 
+}
+
 <!-- Estilo Formulario Login -->
 
 .login-card {
@@ -34,7 +44,9 @@
 
 <!-- Estilo Footer -->
 
-
+html, body {
+    height: 100%;
+}
 
 /* Wrapper para el contenido principal */
 .wrapper {
@@ -70,8 +82,11 @@ footer h5 {
     font-weight: 600;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
 
-/*
 .carousel-item {
     height: 100vh;
     display: flex;
@@ -105,29 +120,14 @@ footer h5 {
     font-size: 1.1rem;
     line-height: 1.7;
 }
-*/
-.chuli{
-    background:linear-gradient(135deg, #f8f9fa, #e9ecef);
-}
 
-.tonicar-logo {
-    width: 55px;
-    height: 55px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(164, 214, 94, 0.4);
-    transition: all 0.3s ease;
-}
-html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-y: auto; /* Activa el scroll si el contenido desborda */
-    height: 100vh;
-    width: 100%;
-}
-.main-content {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto; /* Activa el scroll si el contenido desborda */
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);      
+
+
+<!-- Estilo Boton Salir -->
+
+.botonSalir
+{
+    border-radius: 20px;
+    padding: 5px 15px;
+    text-decoration: none;
 }

@@ -12,7 +12,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <form name="formRegistro" action="comprobarCampos.js">
+                <form name="formRegistro" action="${pageContext.request.contextPath}/sesion/registrar" onsubmit="return validarRegistro()">
                     <div class="row">
                         <div class="col-3">
                             <div class="mb-3">
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-4">
                             <div class="mb-3">
                                 <label for="formGrupoRegistro" class="form-label">Nombre:</label>
                                 <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre y Apellidos" >
@@ -54,15 +54,29 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-3">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="form-label">Dirección Postal:</label>
-                                <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Dirección Postal">
+                                <label for="formGrupoRegistro" class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Teléfono de Contacto" maxlength="9">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-3">
+                            <div class="mb-4">
+                                <label for="formGrupoRegistro" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Dirección">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="mb-3">
+                                <label for="formGrupoRegistro" class="form-label">Código Postal:</label>
+                                <input type="text" class="form-control" name="cp" id="cp" placeholder="Dirección Postal">
+                            </div>
+                        </div>
+                        <div class="col-3">
                             <div class="mb-3">
                                 <label for="formGrupoRegistro" class="form-label">Provincia:</label>
                                 <select name="provincia" class="form-control" required>
@@ -120,14 +134,6 @@
                                     <option value="Zamora">Zamora</option>
                                     <option value="Zaragoza">Zaragoza</option>
                                 </select>   
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="mb-3">
-                                <label for="formGrupoRegistro" class="form-label">Teléfono de contacto:</label>
-                                <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" maxlength="9">
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,12 @@
-<%@ page pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/estilo_VistaPrincipal.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/estilo_VistaDetalle.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/estilo_VistaRegistro.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/estilo_VistaLogin.css" rel="stylesheet">
@@ -17,7 +18,7 @@
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/inicio">
-                        <img class="tonicar-logo" src="${pageContext.request.contextPath}/imagenes/logo_tonicar_1.png">
+                        <img class="tonicar-logo" src="${pageContext.request.contextPath}/imagenes/logo_tonicar_2.jpg">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>

@@ -53,6 +53,8 @@ public class Usuario implements Serializable
     @Column(unique=true)
     private int telefono;
     private String direccion;
+    private String codigoPostal;
+    private String provincia;
     @Enumerated(EnumType.STRING)
     private TipoRol rol;
     @OneToMany(mappedBy="usuario")
@@ -62,10 +64,10 @@ public class Usuario implements Serializable
     {
         
     }
-    
-    public Usuario(Long id, String dni, String nombre, String nomUsuario, String correo, String password, int telefono, String direccion, TipoRol rol)
+
+    public Usuario(Long idUsuario, String dni, String nombre, String nomUsuario, String correo, String password, int telefono, String direccion, String codigoPostal, String provincia, TipoRol rol, List<Compra> listaCompras)
     {
-        this.idUsuario = id;
+        this.idUsuario = idUsuario;
         this.dni = dni;
         this.nombre = nombre;
         this.nomUsuario = nomUsuario;
@@ -73,21 +75,25 @@ public class Usuario implements Serializable
         this.password = password;
         this.telefono = telefono;
         this.direccion = direccion;
-        this.rol = rol;
-    }
-    
-    public Usuario(Long id, String dni, String nombre, String nomUsuario, String correo, String password, int telefono, String direccion, TipoRol rol, List<Compra> listaCompras)
-    {
-        this.idUsuario = id;
-        this.dni = dni;
-        this.nombre = nombre;
-        this.nomUsuario = nomUsuario;
-        this.correo = correo;
-        this.password = password;
-        this.telefono = telefono;
-        this.direccion = direccion;
+        this.codigoPostal = codigoPostal;
+        this.provincia = provincia;
         this.rol = rol;
         this.listaCompras = listaCompras;
+    }
+
+    public Usuario(Long idUsuario, String dni, String nombre, String nomUsuario, String correo, String password, int telefono, String direccion, String codigoPostal, String provincia, TipoRol rol)
+    {
+        this.idUsuario = idUsuario;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.nomUsuario = nomUsuario;
+        this.correo = correo;
+        this.password = password;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.codigoPostal = codigoPostal;
+        this.provincia = provincia;
+        this.rol = rol;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
@@ -169,6 +175,26 @@ public class Usuario implements Serializable
     public void setDireccion(String direccion)
     {
         this.direccion = direccion;
+    }
+
+    public String getCodigoPostal()
+    {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal)
+    {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public String getProvincia()
+    {
+        return this.provincia;
+    }
+
+    public void setProvincia(String provincia)
+    {
+        this.provincia = provincia;
     }
 
     public TipoRol getRol()
