@@ -16,7 +16,7 @@
                 <c:forEach var="coche" items="${requestScope.listaCoches}">
                     <div class="col">
                         <div class="card shadow-sm">
-                            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="${pageContext.request.contextPath}/img_coches/${coche.foto}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>${coche.nombreModelo}</title><rect width="100%" height="100%" fill="#55595c"/>
+                            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="${pageContext.request.contextPath}/img_coches/${coche.foto1}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>${coche.nombreModelo}</title><rect width="100%" height="100%" fill="#55595c"/>
                             <div class="card-body">
                                 <!-- Tí­tulo del vehí­culo -->
                                 <h5 class="card-title">${coche.nombreModelo}</h5>
@@ -51,4 +51,4 @@
     </div>
 </div>
 
-<%@include  file="templates/footer.jspf"%>
+<%@include file="templates/footer.jspf"%>

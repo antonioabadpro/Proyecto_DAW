@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controladores;
 
 import jakarta.annotation.Resource;
@@ -115,13 +111,12 @@ public class ControladorSesion extends HttpServlet
 
                     HttpSession sesion = request.getSession();
                     sesion.setAttribute("usuarioLogueado", u);
-
-                    //console.log("Usuario Logueado: " + u.getNomUsuario() + " - " + u.getPassword());
                 }
                 else
                 {
                     String textoError = "Usuario o Contraseña incorrectos.";
                     request.setAttribute("error", textoError);
+                    System.out.println(textoError);
 
                     RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/VistaLogin.jsp");
                     rd.forward(request, response);
@@ -157,8 +152,6 @@ public class ControladorSesion extends HttpServlet
                 nuevoUsuario.setCodigoPostal(codigoPostal);
                 nuevoUsuario.setProvincia(provincia);
                 nuevoUsuario.setRol(Usuario.TipoRol.Cliente);
-                
-                System.out.println("PRUEBA");
 
                 // Insertamos el Nuevo Usuario en la BD
                 insertarUsuario(nuevoUsuario);
@@ -216,7 +209,6 @@ public class ControladorSesion extends HttpServlet
     {
         try
         {
-            System.out.println("Hola");
             this.utx.begin();
             this.em.persist(nuevoUsuario); // Inserta el usuario
             this.utx.commit();

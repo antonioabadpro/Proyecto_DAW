@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelos;
 
 import jakarta.persistence.Column;
@@ -74,7 +70,8 @@ public class Coche implements Serializable
     private float km;
     @Enumerated(EnumType.STRING)
     private TipoCambio cajaCambios;
-    private String foto;
+    private String foto1;
+    private String foto2;
     @Enumerated(EnumType.STRING)
     private TipoEstado estado;
     @JoinColumn(name = "marcaCoche", referencedColumnName = "idMarca")
@@ -88,10 +85,10 @@ public class Coche implements Serializable
     {
         
     }
-    
-    public Coche(Long id, String nombreModelo, String matricula, String descripcion, float precio, float descuento, float cv, float consumo, TipoCombustible combustible, String color, int fecha, float km, TipoCambio cajaCambios, String foto, TipoEstado estado, Marca marca)
+
+    public Coche(Long idCoche, String nombreModelo, String matricula, String descripcion, float precio, float descuento, float cv, float consumo, TipoCombustible combustible, String color, int fecha, float km, TipoCambio cajaCambios, String foto1, String foto2, TipoEstado estado, Marca marca)
     {
-        this.idCoche = id;
+        this.idCoche = idCoche;
         this.nombreModelo = nombreModelo;
         this.matricula = matricula;
         this.descripcion = descripcion;
@@ -104,14 +101,15 @@ public class Coche implements Serializable
         this.fecha = fecha;
         this.km = km;
         this.cajaCambios = cajaCambios;
-        this.foto = foto;
+        this.foto1 = foto1;
+        this.foto2 = foto2;
         this.estado = estado;
         this.marca = marca;
     }
-    
-    public Coche(Long id, String nombreModelo, String matricula, String descripcion, float precio, float descuento, float cv, float consumo, TipoCombustible combustible, String color, int fecha, float km, TipoCambio cajaCambios, String foto, TipoEstado estado, Marca marca, Compra compra)
+
+    public Coche(Long idCoche, String nombreModelo, String matricula, String descripcion, float precio, float descuento, float cv, float consumo, TipoCombustible combustible, String color, int fecha, float km, TipoCambio cajaCambios, String foto1, String foto2, TipoEstado estado, Marca marca, Compra compra)
     {
-        this.idCoche = id;
+        this.idCoche = idCoche;
         this.nombreModelo = nombreModelo;
         this.matricula = matricula;
         this.descripcion = descripcion;
@@ -124,7 +122,8 @@ public class Coche implements Serializable
         this.fecha = fecha;
         this.km = km;
         this.cajaCambios = cajaCambios;
-        this.foto = foto;
+        this.foto1 = foto1;
+        this.foto2 = foto2;
         this.estado = estado;
         this.marca = marca;
         this.compra = compra;
@@ -262,14 +261,24 @@ public class Coche implements Serializable
         this.cajaCambios = cajaCambios;
     }
 
-    public String getFoto()
+    public String getFoto1()
     {
-        return this.foto;
+        return this.foto1;
     }
 
-    public void setFoto(String foto)
+    public void setFoto1(String foto1)
     {
-        this.foto = foto;
+        this.foto1 = foto1;
+    }
+    
+    public String getFoto2()
+    {
+        return this.foto2;
+    }
+
+    public void setFoto2(String foto2)
+    {
+        this.foto2 = foto2;
     }
 
     public TipoEstado getEstado()

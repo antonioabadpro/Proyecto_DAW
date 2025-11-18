@@ -14,15 +14,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import modelos.Coche;
+import modelos.Usuario;
 
 /**
  *
  * @author AAHG-PORTATIL
  */
-@WebServlet(name = "ControladorCoche", urlPatterns = {"/catalogo"})
-public class ControladorCatalogo extends HttpServlet
+@WebServlet(name = "ControladorCoche", urlPatterns = {"/catalogo", "/gestion"})
+public class ControladorCatalogoGestion extends HttpServlet
 {
     @PersistenceContext(unitName="WebCochesPU")
     private EntityManager em;
@@ -38,7 +40,6 @@ public class ControladorCatalogo extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        
         String rutaServlet = request.getServletPath();
         String vista=null;
         
@@ -57,6 +58,40 @@ public class ControladorCatalogo extends HttpServlet
                     request.setAttribute("listaCoches", listaCoches);
                     
                     vista = "VistaCatalogo";
+                }; break;
+                
+                case "/gestion":
+                {
+                    HttpSession sesion = request.getSession();
+        
+                    if(sesion == null)
+                    {
+                        String textoErrorSesion = "El Usuario NO tiene la Sesion iniciada";
+                        request.setAttribute("textoErrorRol", textoErrorSesion);
+                        System.out.println(textoErrorSesion);
+                        response.sendRedirect(request.getContextPath() + "/inicio");
+                    }
+                    else // Si tiene sesion iniciada, comprobamos que sea de tipo "Admin"
+                    {
+                        Usuario u = (Usuario) sesion.getAttribute("usuarioLogueado");
+                        String rol = u.getRol().toString();
+                        
+                        if(rol.equals("Admin")) // Si el Usuario tiene el Rol de Admin
+                        {
+                            List<Coche> listaCoches = obtenerCoches();
+                    
+                            request.setAttribute("listaCoches", listaCoches);
+
+                            vista = "VistaGestionCoches";
+                        }
+                        else // Si el Usuario NO tiene el Rol de Admin
+                        {
+                            String textoErrorRol = "NO eres Admin, NO puedes realizar esta operacion";
+                            request.setAttribute("textoErrorRol", textoErrorRol);
+                            System.out.println(textoErrorRol);
+                            response.sendRedirect(request.getContextPath() + "/inicio");
+                        }
+                    }
                 }; break;
             }
             
