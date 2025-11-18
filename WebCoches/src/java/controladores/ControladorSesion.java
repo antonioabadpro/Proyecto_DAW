@@ -18,8 +18,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import modelos.Usuario;
 import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.NotSupportedException;
-import jakarta.transaction.SystemException;
 import jakarta.transaction.UserTransaction;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -111,7 +109,7 @@ public class ControladorSesion extends HttpServlet
 
                 Usuario u = buscarUsuario(nomUsuario);
 
-                if (u != null) // Si hemos encontrado el Usuario, guardamos el Usuario en el Ambito de la Sesion
+                if (u != null && password.equals(u.getPassword())) // Si hemos encontrado el Usuario, guardamos el Usuario en el Ambito de la Sesion
                 {
                     //String passwordEncriptada = encriptarPassword(password);
 
@@ -159,6 +157,8 @@ public class ControladorSesion extends HttpServlet
                 nuevoUsuario.setCodigoPostal(codigoPostal);
                 nuevoUsuario.setProvincia(provincia);
                 nuevoUsuario.setRol(Usuario.TipoRol.Cliente);
+                
+                System.out.println("PRUEBA");
 
                 // Insertamos el Nuevo Usuario en la BD
                 insertarUsuario(nuevoUsuario);
@@ -216,6 +216,7 @@ public class ControladorSesion extends HttpServlet
     {
         try
         {
+            System.out.println("Hola");
             this.utx.begin();
             this.em.persist(nuevoUsuario); // Inserta el usuario
             this.utx.commit();

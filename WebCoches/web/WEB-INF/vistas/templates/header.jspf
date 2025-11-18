@@ -28,9 +28,11 @@
                             <li class="nav-item nav-underline">
                                 <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/catalogo">Catálogo de Coches</a>
                             </li>
-                            <li class="nav-item nav-underline">
-                                <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/gestion">Gestión de Coches</a>
-                            </li>
+                            <c:if test="${sessionScope.usuarioLogueado.rol == 'Admin'}">
+                                <li class="nav-item nav-underline">
+                                    <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/gestion">Gestión de Coches</a>
+                                </li>
+                            </c:if>
                         </ul>
                         <%-- Comprobamos si el Usuario tiene la Sesion Iniciada --%>
                         <%-- Si el Usuario NO esta logueado --%>

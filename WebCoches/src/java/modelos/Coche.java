@@ -56,7 +56,7 @@ public class Coche implements Serializable
     
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCoche;
     @Column(unique=true)
     private String nombreModelo;

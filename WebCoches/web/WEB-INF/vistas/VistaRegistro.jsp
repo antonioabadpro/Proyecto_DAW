@@ -12,12 +12,12 @@
         </div>
         <div class="row">
             <div class="col">
-                <form name="formRegistro" action="${pageContext.request.contextPath}/sesion/registrar" onsubmit="return validarRegistro()">
+                <form name="formRegistro" method="POST" action="${pageContext.request.contextPath}/sesion/registrar" >
                     <div class="row">
                         <div class="col-3">
                             <div class="mb-3">
                                 <label for="formGrupoRegistro" class="form-label">Usuario:</label>
-                                <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario" >
+                                <input type="text" class="form-control" name="nomUsuario" id="nomUsuario" placeholder="Usuario" >
                             </div>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                         <div class="col-3">
                             <div class="mb-3">
                                 <label for="formGrupoRegistro" class="form-label">Contaseña:</label>
-                                <input type="password" class="form-control" name="clave" id="clave" placeholder="Contraseña" >
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" >
                             </div>
                         </div>
                     </div>
