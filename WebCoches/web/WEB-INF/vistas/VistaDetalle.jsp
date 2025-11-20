@@ -22,23 +22,28 @@
                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
                 </div>
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="${pageContext.request.contextPath}/img_coches/${requestScope.coche.foto}" class="d-block w-100" alt="...">
+                <div class="anchoCarrusel">
+                  <div class="elementoCarrusel active">
+                    <img src="${pageContext.request.contextPath}/img_coches/${requestScope.coche.foto1}" class="d-block w-100" alt="Imagen 1 ${coche.nombreModelo}">
                   </div>
-                  <div class="carousel-item">
+                  <div class="anchoCarrusel">
+                  <div class="elementoCarrusel active">
+                    <img src="${pageContext.request.contextPath}/img_coches/${requestScope.coche.foto2}" class="d-block w-100" alt="Imagen 2 ${requestScope.coche.nombreModelo}">
+                  </div>
+                  <!-- Imagenes de prueba para comprobar funcionamiento del carrousel-->
+                  <div class="elementoCarrusel">
                     <img src="${pageContext.request.contextPath}/img_coches/ateca.webp" class="d-block w-100" alt="...">
                   </div>
-                  <div class="carousel-item">
+                  <div class="elementoCarrusel">
                     <img src="${pageContext.request.contextPath}/img_coches/clio.webp" class="d-block w-100" alt="...">
                   </div>
-                  <div class="carousel-item">
+                  <div class="elementoCarrusel">
                     <img src="${pageContext.request.contextPath}/img_coches/c3.webp" class="d-block w-100" alt="...">
                   </div>
-                  <div class="carousel-item">
+                  <div class="elementoCarrusel">
                     <img src="${pageContext.request.contextPath}/img_coches/kianiro.webp" class="d-block w-100" alt="...">
                   </div>
-                  <div class="carousel-item">
+                  <div class="elementoCarrusel">
                     <img src="${pageContext.request.contextPath}/img_coches/cupra.webp" class="d-block w-100" alt="...">
                   </div>
                 </div>
@@ -57,7 +62,7 @@
         <div class="border p-3 mb-3 rounded bg-light">
           <div class="zone">
               <form name="formDatosVehiculo" method="GET" action="${pageContext.request.contextPath}/comprar/${requestScope.coche.id}" target="_self">
-                  <!-- Lista de caracterÃ­sticas -->
+                  <!-- Lista de caracteri­sticas -->
                   <ul class="list-unstyled small">
                     <li><strong>Precio: </strong>${requestScope.coche.precio} €</li>
                     <li><strong>Descuento: </strong>${requestScope.coche.descuento} %</li>

@@ -1,5 +1,5 @@
 <%@include file="templates/header.jspf"%>
-<div  class="container-fluid notebook-paper">
+<div class="container-fluid tarjetaLogin">
     <!-- Encabezado -->
     <div class="container mb-3">
         <div class="row">
@@ -18,12 +18,12 @@
             <div class="col">
                 <form name="formSesion" method="POST" action="${pageContext.request.contextPath}/sesion/login">
                     <div class="mb-3">
-                        <label for="formGroupExampleInput" class="form-label">Usuario:</label>
-                        <input required type="text" class="form-control w-50" name="nomUsuario" id="nomUsuario" placeholder="Usuario">
+                        <label for="formGroupExampleInput" class="formularioLabel">Usuario:</label>
+                        <input required type="text" class="formularioInput w-50" name="nomUsuario" id="nomUsuario" placeholder="Usuario">
                     </div>
                     <div class="mb-3">
-                        <label for="formGroupExampleInput" class="form-label">Contraseña:</label>
-                        <input required type="password" class="form-control w-50" name="password" id="password" placeholder="Contraseña">
+                        <label for="formGroupExampleInput" class="formularioLabel">Contraseña:</label>
+                        <input required type="password" class="formularioInput w-50" name="password" id="password" placeholder="Contraseña">
                     </div>
                     <div class="mb-3">
                         <input type="submit" button class="btn btn-primary btn-custom" name="enviaSesion" value="Iniciar Sesión">
@@ -39,4 +39,4 @@
         </div>
     </div>
 </div>
-<%@include  file="templates/footer.jspf"%>
+<%@include file="templates/footer.jspf"%>

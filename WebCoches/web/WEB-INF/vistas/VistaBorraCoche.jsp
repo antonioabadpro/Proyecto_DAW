@@ -20,14 +20,14 @@
 </head>
 <body class="bg-light">
 
-<div class="form-container">
+<div class="formularioContainer">
     <div class="card shadow">
         <!--
         <div class="card-header bg-black text-white">
             <h4>Confirmar eliminación del coche</h4>
         </div>
     -->
-           <div class="form-header">
+           <div class="formularioHeader">
                 <i class="bi bi-car-front-fill"></i><strong> Baja de Vehículo ${coche.matricula}</strong>
                 
             </div>

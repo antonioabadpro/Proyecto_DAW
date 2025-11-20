@@ -14,39 +14,39 @@
 </head>
 <body>
     <div class="container">
-        <div class="form-container">
-            <div class="form-header">
+        <div class="formularioContainer">
+            <div class="formularioHeader">
                 <h1><i class="bi bi-pencil-square"></i> Editar Vehículo ID: ${coche.matricula}</h1>
             </div>
             
-            <div class="form-body">
+            <div class="formularioCuerpo">
                 <form action="controladorEditaCoche.java" method="POST" id="formEditaCoche" enctype="multipart/form-data">
                     
                     <input type="hidden" name="idCoche" value="${coche.idCoche}">
                     
                     <div class="mb-5">
-                        <h3 class="section-title">
+                        <h3 class="seccionTitulo">
                             <i class="bi bi-info-circle-fill"></i>
                             Información Básica
                         </h3>
                         
                         <div class="row g-3">
                             <div class="col-md-4">
-                                <label for="matricula" class="form-label">
+                                <label for="matricula" class="formularioLabel">
                                     <i class="bi bi-card-text"></i>
-                                    Matrícula<span class="required">*</span>
+                                    Matrícula<span class="obligatorio">*</span>
                                 </label>
-                                <input type="text" class="form-control" id="matricula" 
+                                <input type="text" class="formularioInput" id="matricula" 
                                        name="matricula" value="${coche.matricula}" required **readonly**>
                                 <small class="text-muted">La matrícula no puede ser modificada.</small>
                             </div>
                             
                             <div class="col-md-4">
-                                <label for="marca" class="form-label">
+                                <label for="marca" class="formularioLabel">
                                     <i class="bi bi-bookmark-fill"></i>
-                                    Marca<span class="required">*</span>
+                                    Marca<span class="obligatorio">*</span>
                                 </label>
-                                <select class="form-select" id="marca" name="marca" required>
+                                <select class="formularioSelect" id="marca" name="marca" required>
                                     <option value="">Seleccione una marca</option>
                                     <c:forEach var="marca" items="${marcas}">
                                         <option value="${marca.idMarca}" 
@@ -58,37 +58,37 @@
                             </div>
                             
                             <div class="col-md-4">
-                                <label for="color" class="form-label">
+                                <label for="color" class="formularioLabel">
                                     <i class="bi bi-palette-fill"></i>
-                                    Color<span class="required">*</span>
+                                    Color<span class="obligatorio">*</span>
                                 </label>
-                                <input type="text" class="form-control" id="color" 
+                                <input type="text" class="formularioInput" id="color" 
                                        name="color" value="${coche.color}" required>
                             </div>
                             
                             <div class="col-12">
-                                <label for="descripcion" class="form-label">
+                                <label for="descripcion" class="formularioLabel">
                                     <i class="bi bi-pencil-square"></i>
-                                    Descripción<span class="required">*</span>
+                                    Descripción<span class="obligatorio">*</span>
                                 </label>
-                                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>${coche.descripcion}</textarea>
+                                <textarea class="formularioInput" id="descripcion" name="descripcion" rows="3" required>${coche.descripcion}</textarea>
                             </div>
                         </div>
                     </div>
                     
                     <div class="mb-5">
-                        <h3 class="section-title">
+                        <h3 class="seccionTitulo">
                             <i class="bi bi-gear-fill"></i>
                             Características Técnicas
                         </h3>
                         
                         <div class="row g-3">
                             <div class="col-md-3">
-                                <label for="combustible" class="form-label">
+                                <label for="combustible" class="formularioLabel">
                                     <i class="bi bi-fuel-pump-fill"></i>
-                                    Combustible<span class="required">*</span>
+                                    Combustible<span class="obligatorio">*</span>
                                 </label>
-                                <select class="form-select" id="combustible" name="combustible" required>
+                                <select class="formularioSelect" id="combustible" name="combustible" required>
                                     <option value="">Seleccione</option>
                                     <option value="gasolina" ${coche.combustible == 'gasolina' ? 'selected' : ''}>Gasolina</option>
                                     <option value="diesel" ${coche.combustible == 'diesel' ? 'selected' : ''}>Diesel</option>
@@ -99,29 +99,29 @@
                             </div>
                             
                             <div class="col-md-3">
-                                <label for="consumo" class="form-label">
+                                <label for="consumo" class="formularioLabel">
                                     <i class="bi bi-speedometer"></i>
-                                    Consumo (L/100km)<span class="required">*</span>
+                                    Consumo (L/100km)<span class="obligatorio">*</span>
                                 </label>
-                                <input type="number" class="form-control" id="consumo" 
+                                <input type="number" class="formularioInput" id="consumo" 
                                        name="consumo" step="0.1" value="${coche.consumo}" required>
                             </div>
                             
                             <div class="col-md-3">
-                                <label for="cv" class="form-label">
+                                <label for="cv" class="formularioLabel">
                                     <i class="bi bi-lightning-fill"></i>
-                                    Potencia (CV)<span class="required">*</span>
+                                    Potencia (CV)<span class="obligatorio">*</span>
                                 </label>
-                                <input type="number" class="form-control" id="cv" 
+                                <input type="number" class="formularioInput" id="cv" 
                                        name="cv" value="${coche.cv}" required>
                             </div>
                             
                             <div class="col-md-3">
-                                <label for="cambio" class="form-label">
+                                <label for="cambio" class="formularioLabel">
                                     <i class="bi bi-gear-wide-connected"></i>
-                                    Tipo de Cambio<span class="required">*</span>
+                                    Tipo de Cambio<span class="obligatorio">*</span>
                                 </label>
-                                <select class="form-select" id="cambio" name="cambio" required>
+                                <select class="formularioSelect" id="cambio" name="cambio" required>
                                     <option value="">Seleccione</option>
                                     <option value="manual" ${coche.cambio == 'manual' ? 'selected' : ''}>Manual</option>
                                     <option value="automatico" ${coche.cambio == 'automatico' ? 'selected' : ''}>Automático</option>
@@ -130,20 +130,20 @@
                             </div>
                             
                             <div class="col-md-4">
-                                <label for="kilometros" class="form-label">
+                                <label for="kilometros" class="formularioLabel">
                                     <i class="bi bi-speedometer2"></i>
-                                    Kilómetros<span class="required">*</span>
+                                    Kilómetros<span class="obligatorio">*</span>
                                 </label>
-                                <input type="number" class="form-control" id="kilometros" 
+                                <input type="number" class="formularioInput" id="kilometros" 
                                        name="kilometros" value="${coche.kilometros}" required>
                             </div>
                             
                             <div class="col-md-4">
-                                <label for="año" class="form-label">
+                                <label for="año" class="formularioLabel">
                                     <i class="bi bi-calendar-event"></i>
-                                    Año<span class="required">*</span>
+                                    Año<span class="obligatorio">*</span>
                                 </label>
-                                <select class="form-select" id="año" name="año" required>
+                                <select class="formularioSelect" id="año" name="año" required>
                                     <option value="">Seleccione</option>
                                     <c:forEach var="i" begin="0" end="45">
                                         <option value="${2025 - i}" 
@@ -155,11 +155,11 @@
                             </div>
                             
                             <div class="col-md-4">
-                                <label for="estado" class="form-label">
+                                <label for="estado" class="formularioLabel">
                                     <i class="bi bi-info-circle"></i>
-                                    Estado<span class="required">*</span>
+                                    Estado<span class="obligatorio">*</span>
                                 </label>
-                                <select class="form-select" id="estado" name="estado" required>
+                                <select class="formularioSelect" id="estado" name="estado" required>
                                     <option value="">Seleccione</option>
                                     <option value="a" ${coche.estado == 'a' ? 'selected' : ''}>A - Excelente</option>
                                     <option value="b" ${coche.estado == 'b' ? 'selected' : ''}>B - Bueno</option>
@@ -170,27 +170,27 @@
                     </div>
                     
                     <div class="mb-5">
-                        <h3 class="section-title">
+                        <h3 class="seccionTitulo">
                             <i class="bi bi-currency-euro"></i>
                             Precio y Descuento
                         </h3>
                         
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="precio" class="form-label">
+                                <label for="precio" class="formularioLabel">
                                     <i class="bi bi-cash-stack"></i>
-                                    Precio (€)<span class="required">*</span>
+                                    Precio (€)<span class="obligatorio">*</span>
                                 </label>
-                                <input type="number" class="form-control" id="precio" 
+                                <input type="number" class="formularioInput" id="precio" 
                                        name="precio" step="0.01" value="${coche.precio}" required>
                             </div>
                             
                             <div class="col-md-6">
-                                <label for="descuento" class="form-label">
+                                <label for="descuento" class="formularioLabel">
                                     <i class="bi bi-tag-fill"></i>
                                     Descuento (%)
                                 </label>
-                                <input type="number" class="form-control" id="descuento" 
+                                <input type="number" class="formularioInput" id="descuento" 
                                        name="descuento" min="0" max="100" step="1" 
                                        value="${coche.descuento}">
                             </div>
@@ -198,12 +198,12 @@
                     </div>
                     
                     <div class="mb-4">
-                        <h3 class="section-title">
+                        <h3 class="seccionTitulo">
                             <i class="bi bi-images"></i>
                             Imágenes del Vehículo
                         </h3>
                         
-                        <div class="image-upload-section">
+                        <div class="subirImagenSection">
                             <p class="text-muted mb-3">
                                 <i class="bi bi-info-circle"></i> 
                                 Puede actualizar o agregar imágenes (formatos: JPG, PNG, máx. 5MB)
@@ -216,8 +216,8 @@
                                     <c:set var="imagenActualFieldName" value="imagen${i}_actual"/>
                                     <c:set var="imagenValue" value="${coche['imagen_' + i]}"/>
                                     
-                                    <div class="col-md-6 image-upload-item">
-                                        <label for="${imagenFieldName}" class="form-label">
+                                    <div class="col-md-6 SubirImagenItem">
+                                        <label for="${imagenFieldName}" class="formularioLabel">
                                             <i class="bi bi-image"></i> Imagen ${i}
                                             <c:if test="${i eq 1}">(Principal)</c:if>
                                         </label>
@@ -226,7 +226,7 @@
                                             <img src="${imagenValue}" class="current-image" alt="Imagen ${i}">
                                         </c:if>
                                         
-                                        <input type="file" class="form-control" id="${imagenFieldName}" 
+                                        <input type="file" class="formularioInput" id="${imagenFieldName}" 
                                                 name="${imagenFieldName}" accept="image/*">
                                                 
                                         <input type="hidden" name="${imagenActualFieldName}" value="${imagenValue}">
@@ -237,7 +237,7 @@
                     </div>
                 </form>
                 
-                <div class="btn-group-form">
+                <div class="botonFormulario">
                     <button type="button" class="btn btn-primary btn-custom" onclick="actualizarCoche()"> 
                         <i class="bi bi-check-circle-fill"></i> Actualizar
                     </button>

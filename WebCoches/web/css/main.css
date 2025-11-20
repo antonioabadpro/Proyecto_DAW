@@ -1,133 +1,233 @@
-<!-- Estilo Formulario Login -->
+/* --------- Variables --------- */
+:root
+{
+    --verdeOscuroTonicar: #2d5f4f;
+    --verdeLimaTonicar: #a4d65e;
+    --verdeOscuroCarruselTonicar: #1a3a2e;
+    --grisTonicar: #f8f9fa;
+    --azulOscuro: #2c3e50;
+    --azulClaro: #3498db;
+    --verdeExito: #27ae60;
+    --rojoError: #e74c3c;
+}
 
-.login-card {
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    padding: 2.5rem;
+/* --------- Estilo General --------- */
+.negrita
+{
+    font-family: bold;
+}
+
+html
+{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-y:auto;
+    height: 100vh;
     width: 100%;
-    max-width: 400px;
 }
 
-.form-control:focus {
-    box-shadow: none;
-    border-color: #6c63ff;
-}
-.btn-primary {
-    background-color: #6c63ff;
-    border: none;
-}
-.btn-primary:hover {
-    background-color: #5848d6;
-}
-
-<!-- Estilo Formulario Login -->
-
-.register-card {
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    padding: 2.5rem;
-    width: 100%;
-    max-width: 500px;
-}
-
-<!-- Estilo Footer -->
-
-
-
-/* Wrapper para el contenido principal */
-.wrapper {
-    min-height: 100%;
+body
+{
     display: flex;
     flex-direction: column;
 }
 
-/* El contenido principal crece para empujar el footer abajo */
-.content {
-    flex: 1;
-}
-
-/* Estilos del footer */
-footer {
-    background-color: #212529;
-    color: #adb5bd;
-    margin-top: auto;
-}
-
-footer a {
-    color: #dee2e6;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-footer a:hover {
-    color: #ffffff;
-}
-
-footer h5 {
-    color: #ffffff;
-    font-weight: 600;
-}
-
-
-/*
-.carousel-item {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-}
-
-.carousel-item img {
-    object-fit: cover;
-    width: 100%;
-    height: 100vh;
-}
-
-.carousel {
-    position: relative;
-    overflow: hidden;
-}
-
-.text-carousel .carousel-item {
-    padding: 2rem;
-    background-color: #fff;
-}
-
-.text-carousel h3 {
-    color: #0d6efd;
-}
-
-.text-carousel p {
-    color: #6c757d;
-    font-size: 1.1rem;
-    line-height: 1.7;
-}
-*/
-.chuli{
-    background:linear-gradient(135deg, #f8f9fa, #e9ecef);
-}
-
-.tonicar-logo {
+.logoTonicar
+{
     width: 55px;
     height: 55px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(164, 214, 94, 0.4);
     transition: all 0.3s ease;
 }
-html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-y: auto; /* Activa el scroll si el contenido desborda */
-    height: 100vh;
-    width: 100%;
+
+/* Wrapper para el contenido principal */
+.wrapper
+{
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
-.main-content {
+
+/* El contenido principal crece para empujar el footer abajo */
+.content
+{
     flex: 1;
-    min-height: 0;
-    overflow-y: auto; /* Activa el scroll si el contenido desborda */
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* --------- Estilo Footer --------- */
+footer
+{
+    background-color: #212529;
+    color: #adb5bd;
+    margin-top: auto;
+}
+
+footer a
+{
+    color: #dee2e6;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer a:hover
+{
+    color: #ffffff;
+}
+
+footer h5
+{
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* --------- Estilo Formularios --------- */
+.formularioContainer
+{
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.formularioHeader
+{
+    background: rgb(26, 58, 46);
+    color: white;
+    padding: 5px;
+    text-align: center;
+    max-height: 50px;
+    font-size: 1.3rem;
+}
+
+.formularioHeader h1
+{
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 10px;
+}
+
+.formularioHeader p
+{
+    margin: 10px 0 0;
+    opacity: 0.9;
+    font-size: 1rem;
+}
+
+.formularioCuerpo
+{
+    padding: 40px;
+}
+
+.formularioLabel
+{
+    font-weight: 600;
+    color: var(--colorPrincipal);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.formularioLabel i
+{
+    color: var(--azulClaro);
+    font-size: 1.1rem;
+}
+
+.formularioInput, .formularioSelect
+{
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+}
+
+.formularioInput:focus, .formularioSelect:focus
+{
+    border-color: var(--azulClaro);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* --------- Estilo Botones Formulario --------- */
+.botonFormulario
+{
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    padding: 30px;
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    margin: 40px -40px -40px;
+}
+
+.botonGuardar
+{
+    background: linear-gradient(135deg, var(--verdeExito), #229954);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+.botonGuardar:hover
+{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(39, 174, 96, 0.4);
+}
+
+.botonLimpliar
+{
+    background: white;
+    color: #6c757d;
+    border: 2px solid #6c757d;
+    padding: 15px 40px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.botonLimpliar:hover
+{
+    background: #6c757d;
+    color: white;
+}
+
+/* --------- Estilo Botones --------- */
+.botonCerrar
+{
+    background: white;
+    color: var(--rojoError);
+    border: 2px solid var(--rojoError);
+    padding: 15px 40px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.botonCerrar:hover
+{
+    background: var(--rojoError);
+    color: white;
+}
+
+/* --------- Modificacion Estilo Botones Bootstrap --------- */
+.btn-primary
+{
+    background-color: #6c63ff;
+    border: none;
+}
+
+.btn-primary:hover
+{
+    background-color: #5848d6;
 }

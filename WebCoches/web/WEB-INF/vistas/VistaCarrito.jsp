@@ -72,29 +72,29 @@
       </div>
       <form name="formCarrito" id="formCarrito" action="vistaConfirmado.jsp" target="_self">
         <div class="mb-3 text-start"  id="prueba">
-          <label for="titular" class="form-label">Titular de la cuenta</label>
-          <input type="text" class="form-control" id="titular">
+          <label for="titular" class="formularioLabel">Titular de la cuenta</label>
+          <input type="text" class="formularioInput" id="titular">
         </div>
         <div class="mb-3 text-start" style="max-width: 400px; margin: 0 auto;">
-          <label for="iban" class="form-label">IBAN</label>
-          <input type="text" class="form-control" id="iban" placeholder="ESXX XXXX XXXX XX XXXXXXXXXX">
+          <label for="iban" class="formularioLabel">IBAN</label>
+          <input type="text" class="formularioInput" id="iban" placeholder="ESXX XXXX XXXX XX XXXXXXXXXX">
         </div>
         <div class="mb-3 text-start" style="max-width: 400px; margin: 0 auto;">
-          <label for="bic" class="form-label">BIC/SWIFT</label>
-          <input type="text" class="form-control" id="bic">
+          <label for="bic" class="formularioLabel">BIC/SWIFT</label>
+          <input type="text" class="formularioInput" id="bic">
         </div>
         <div class="mb-3 text-start" style="max-width: 400px; margin: 0 auto;">
-          <label for="tarjeta" class="form-label">Número de tarjeta</label>
-          <input type="text" class="form-control" id="tarjeta" placeholder="XXXX XXXX XXXX XXXX">
+          <label for="tarjeta" class="formularioLabel">Número de tarjeta</label>
+          <input type="text" class="formularioInput" id="tarjeta" placeholder="XXXX XXXX XXXX XXXX">
         </div>
         <div class="row">
           <div class="col-6 mb-3 text-start">
-            <label for="caducidad" class="form-label">Caducidad</label>
-            <input type="text" class="form-control" id="caducidad" placeholder="MM/AA">
+            <label for="caducidad" class="formularioLabel">Caducidad</label>
+            <input type="text" class="formularioInput" id="caducidad" placeholder="MM/AA">
           </div>
           <div class="col-6 mb-3 text-start">
-            <label for="cvv" class="form-label">CVV</label>
-            <input type="text" class="form-control" id="cvv" placeholder="XXX">
+            <label for="cvv" class="formularioLabel">CVV</label>
+            <input type="text" class="formularioInput" id="cvv" placeholder="XXX">
           </div>
         </div>
         <button type="submit" class="btn btn-primary">Confirmar Pago</button>

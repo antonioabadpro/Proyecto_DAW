@@ -1,6 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="templates/header.jspf"%>
-<div  class="container notebook-paper">
+<div class="container tarjetaRegistro">
     <!-- Encabezado -->
     <div class="container mb-3">
         <div class="row">
@@ -16,104 +15,104 @@
                     <div class="row">
                         <div class="col-3">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="form-label">Usuario:</label>
-                                <input type="text" class="form-control" name="nomUsuario" id="nomUsuario" placeholder="Usuario" >
+                                <label for="formGrupoRegistro" class="formularioLabel">Usuario:</label>
+                                <input type="text" class="formularioInput" name="nomUsuario" id="nomUsuario" placeholder="Usuario" >
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-3">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="form-label">Contase√±a:</label>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Contrase√±a" >
+                                <label for="formGrupoRegistro" class="formularioLabel">ContaseÒa:</label>
+                                <input type="password" class="formularioInput" name="password" id="password" placeholder="ContraseÒa" >
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre y Apellidos" >
+                                <label for="formGrupoRegistro" class="formularioLabel">Nombre:</label>
+                                <input type="text" class="formularioInput" name="nombre" id="nombre" placeholder="Nombre y Apellidos" >
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-3">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="form-label">DNI:</label>
-                                <input type="text" class="form-control" name="dni" id="dni" placeholder="DNI" maxlength="10">
+                                <label for="formGrupoRegistro" class="formularioLabel">DNI:</label>
+                                <input type="text" class="formularioInput" name="dni" id="dni" placeholder="DNI" maxlength="10">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-3">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="form-label">Correo Electr√≥nico:</label>
-                                <input type="text" class="form-control" name="correo" id="correo" placeholder="Correo">
+                                <label for="formGrupoRegistro" class="formularioLabel">Correo ElectrÛnico:</label>
+                                <input type="text" class="formularioInput" name="correo" id="correo" placeholder="Correo">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-3">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="form-label">Tel√©fono</label>
-                                <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Tel√©fono de Contacto" maxlength="9">
+                                <label for="formGrupoRegistro" class="formularioLabel">TelÈfono</label>
+                                <input type="text" class="formularioInput" name="telefono" id="telefono" placeholder="TelÈfono de Contacto" maxlength="9">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-3">
                             <div class="mb-4">
-                                <label for="formGrupoRegistro" class="form-label">Direcci√≥n</label>
-                                <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direcci√≥n">
+                                <label for="formGrupoRegistro" class="formularioLabel">DirecciÛn</label>
+                                <input type="text" class="formularioInput" name="direccion" id="direccion" placeholder="DirecciÛn">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-2">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="form-label">C√≥digo Postal:</label>
-                                <input type="text" class="form-control" name="cp" id="cp" placeholder="Direcci√≥n Postal">
+                                <label for="formGrupoRegistro" class="formularioLabel">CÛdigo Postal:</label>
+                                <input type="text" class="formularioInput" name="cp" id="cp" placeholder="DirecciÛn Postal">
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="form-label">Provincia:</label>
-                                <select name="provincia" class="form-control" required>
+                                <label for="formGrupoRegistro" class="formularioLabel">Provincia:</label>
+                                <select name="provincia" class="formularioInput" required>
                                     <option value="0" selected>Elige Provincia:</option>
-                                    <option value="√Ålava">√Ålava</option>
+                                    <option value="¡lava">¡lava</option>
                                     <option value="Albacete">Albacete</option>
                                     <option value="Alicante">Alicante</option>
-                                    <option value="Almer√≠a">Almer√≠a</option>
+                                    <option value="AlmerÌa">AlmerÌa</option>
                                     <option value="Asturias">Asturias</option>
-                                    <option value="√Åvila">√Åvila</option>
+                                    <option value="¡vila">¡vila</option>
                                     <option value="Badajoz">Badajoz</option>
                                     <option value="Barcelona">Barcelona</option>
                                     <option value="Burgos">Burgos</option>
-                                    <option value="C√°ceres">C√°ceres</option>
-                                    <option value="C√°diz">C√°diz</option>
+                                    <option value="C·ceres">C·ceres</option>
+                                    <option value="C·diz">C·diz</option>
                                     <option value="Cantabria">Cantabria</option>
-                                    <option value="Castell√≥n">Castell√≥n</option>
+                                    <option value="CastellÛn">CastellÛn</option>
                                     <option value="Ceuta">Ceuta</option>
                                     <option value="Ciudad Real">Ciudad Real</option>
-                                    <option value="C√≥rdoba">C√≥rdoba</option>
+                                    <option value="CÛrdoba">CÛrdoba</option>
                                     <option value="Cuenca">Cuenca</option>
                                     <option value="Gerona">Gerona</option>
                                     <option value="Granada">Granada</option>
                                     <option value="Guadalajara">Guadalajara</option>
-                                    <option value="Guip√∫zcoa">Guip√∫zcoa</option>
+                                    <option value="Guip˙zcoa">Guip˙zcoa</option>
                                     <option value="Huelva">Huelva</option>
                                     <option value="Huesca">Huesca</option>
                                     <option value="Islas Baleares">Islas Baleares</option>
-                                    <option value="Ja√©n">Ja√©n</option>
-                                    <option value="La Coru√±a">La Coru√±a</option>
+                                    <option value="JaÈn">JaÈn</option>
+                                    <option value="La CoruÒa">La CoruÒa</option>
                                     <option value="La Rioja">La Rioja</option>
                                     <option value="Las Palmas">Las Palmas</option>
-                                    <option value="Le√≥n">Le√≥n</option>
-                                    <option value="L√©rida">L√©rida</option>
+                                    <option value="LeÛn">LeÛn</option>
+                                    <option value="LÈrida">LÈrida</option>
                                     <option value="Lugo">Lugo</option>
                                     <option value="Madrid">Madrid</option>
-                                    <option value="M√°laga">M√°laga</option>
+                                    <option value="M·laga">M·laga</option>
                                     <option value="Melilla">Melilla</option>
                                     <option value="Murcia">Murcia</option>
                                     <option value="Navarra">Navarra</option>
