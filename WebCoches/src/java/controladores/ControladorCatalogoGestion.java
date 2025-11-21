@@ -63,17 +63,18 @@ public class ControladorCatalogoGestion extends HttpServlet
                 case "/gestion":
                 {
                     HttpSession sesion = request.getSession();
+                    Usuario u = (Usuario) sesion.getAttribute("usuarioLogueado");
         
-                    if(sesion == null)
+                    if(u == null)
                     {
                         String textoErrorSesion = "El Usuario NO tiene la Sesion iniciada";
                         request.setAttribute("textoErrorRol", textoErrorSesion);
                         System.out.println(textoErrorSesion);
                         response.sendRedirect(request.getContextPath() + "/inicio");
+                        return;
                     }
                     else // Si tiene sesion iniciada, comprobamos que sea de tipo "Admin"
                     {
-                        Usuario u = (Usuario) sesion.getAttribute("usuarioLogueado");
                         String rol = u.getRol().toString();
                         
                         if(rol.equals("Admin")) // Si el Usuario tiene el Rol de Admin
@@ -90,6 +91,7 @@ public class ControladorCatalogoGestion extends HttpServlet
                             request.setAttribute("textoErrorRol", textoErrorRol);
                             System.out.println(textoErrorRol);
                             response.sendRedirect(request.getContextPath() + "/inicio");
+                            return;
                         }
                     }
                 }; break;
