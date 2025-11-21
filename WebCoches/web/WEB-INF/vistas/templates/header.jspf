@@ -10,11 +10,13 @@
         <link href="${pageContext.request.contextPath}/css/estilo_VistaDetalle.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/estilo_VistaRegistro.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/estilo_VistaLogin.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/estilo_VistaError.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/estilo_CRUD_Coche.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
         <title>ToniCar Web</title>
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <header>
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
@@ -36,9 +38,8 @@
                             </c:if>
                         </ul>
                         <%-- Comprobamos si el Usuario tiene la Sesion Iniciada --%>
-                        <%-- Si el Usuario NO esta logueado --%>
                         <c:choose>
-                            <c:when test="${empty sessionScope.usuarioLogueado}">
+                            <c:when test="${empty sessionScope.usuarioLogueado}"> <%-- Si el Usuario NO esta logueado --%>
                                 <form class="d-flex" role="search" action="${pageContext.request.contextPath}/sesion/login">
                                     <button class="btn btn-outline-success" type="submit">Iniciar Sesión</button>
                                 </form>
@@ -47,15 +48,29 @@
                                 </form>
                             </c:when>
                             <c:otherwise> <%-- Si el Usuario esta Logueado --%>
-                                <span class="me-2">
+                                <span class="navbar-text me-2">
                                     Hola, <strong>${sessionScope.usuarioLogueado.nomUsuario}</strong>
-                                    <c:if test="${sessionScope.usuarioLogueado.rol == 'Admin'}"> (Admin)</c:if>
                                 </span>
-                                <a href="${pageContext.request.contextPath}/sesion/cerrarSesion" id="botonSalir" class="btn btn-danger btn-sm text-white">
-                                    <i class="bi bi-power"></i> Salir
-                                </a>
+                                    <c:choose> <%-- Comprobamos el Rol del Usuario para mostrar una imagen u otra --%>
+                                        <c:when test="${sessionScope.usuarioLogueado.rol == 'Admin'}"> <%-- Si el Usuario es Admin --%>
+                                            <div class="dropdown-center">
+                                                <img class="dropdown-toggle imagenUsuarioHeader" src="${pageContext.request.contextPath}/imagenes/logo_admin_1.png" data-bs-toggle="dropdown" aria-expanded="false" title="Rol Admin"/>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li><a id="desplegableCerrarSesion" class="dropdown-item" href="${pageContext.request.contextPath}/sesion/cerrarSesion"> <i class="bi bi-power"></i> Cerrar Sesión</a></li>
+                                                </ul>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise> <%-- Si el Usuario es Cliente --%>
+                                            <div class="dropdown-center">
+                                                <img class="dropdown-toggle imagenUsuarioHeader" src="${pageContext.request.contextPath}/imagenes/logo_usuario.png" data-bs-toggle="dropdown" aria-expanded="false" title="Rol Usuario"/>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li><a id="desplegableCerrarSesion" class="dropdown-item" href="${pageContext.request.contextPath}/sesion/cerrarSesion"> <i class="bi bi-power"></i> Cerrar Sesión</a></li>
+                                                </ul>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
                             </c:otherwise>
-                       </c:choose>
+                        </c:choose>
                     </div>
                 </div>
             </nav>

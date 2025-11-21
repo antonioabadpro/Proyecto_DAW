@@ -68,9 +68,10 @@ public class ControladorCatalogoGestion extends HttpServlet
                     if(u == null)
                     {
                         String textoErrorSesion = "El Usuario NO tiene la Sesion iniciada";
-                        request.setAttribute("textoErrorRol", textoErrorSesion);
+                        request.setAttribute("textoErrorSesion", textoErrorSesion);
                         System.out.println(textoErrorSesion);
-                        response.sendRedirect(request.getContextPath() + "/inicio");
+                        response.sendError(401, textoErrorSesion);
+                        //response.sendRedirect(request.getContextPath() + "/inicio");
                         return;
                     }
                     else // Si tiene sesion iniciada, comprobamos que sea de tipo "Admin"
@@ -90,7 +91,8 @@ public class ControladorCatalogoGestion extends HttpServlet
                             String textoErrorRol = "NO eres Admin, NO puedes realizar esta operacion";
                             request.setAttribute("textoErrorRol", textoErrorRol);
                             System.out.println(textoErrorRol);
-                            response.sendRedirect(request.getContextPath() + "/inicio");
+                            response.sendError(403, textoErrorRol);
+                            //response.sendRedirect(request.getContextPath() + "/inicio");
                             return;
                         }
                     }
