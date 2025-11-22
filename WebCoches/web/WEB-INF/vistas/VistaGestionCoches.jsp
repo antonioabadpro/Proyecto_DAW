@@ -1,6 +1,17 @@
 <%@include file="templates/header.jspf"%>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div class="container mt-5">
+    <c:if test="${!empty requestScope.textoResultado}">
+        <div class="alert alert-${requestScope.tipoMensaje} alert-dismissible fade show" role="alert">
+            <c:if test="${requestScope.tipoMensaje == 'success'}">
+                <i class="bi bi-check-circle-fill"> ${requestScope.textoResultado}</i>
+            </c:if>
+            <c:if test="${requestScope.tipoMensaje == 'danger'}">
+                <i class="bi bi-exclamation-triangle-fill"> ${requestScope.textoResultado}</i>
+            </c:if>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </c:if>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3><i class="bi bi-car-front"></i> Gestión de Coches</h3>
         <a href="${pageContext.request.contextPath}/gestion/insertar" class="btn btn-success">

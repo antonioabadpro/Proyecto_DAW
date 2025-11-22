@@ -64,6 +64,17 @@ public class ControladorCatalogoGestion extends HttpServlet
                 {
                     HttpSession sesion = request.getSession();
                     Usuario u = (Usuario) sesion.getAttribute("usuarioLogueado");
+                    
+                    // Mostramos los mensajes de Feedback devueltos por la vista 'VistaGestionCoches' despues de realizar una operacion CRUD
+                    if(sesion.getAttribute("textoResultado") != null)
+                    {
+                        request.setAttribute("textoResultado", sesion.getAttribute("textoResultado"));
+                        request.setAttribute("tipoMensaje", sesion.getAttribute("tipoMensaje"));
+                        
+                        // Eliminamos los Atributos de la Sesion para que NO vuelvan a salir despues
+                        sesion.removeAttribute("textoResultado");
+                        sesion.removeAttribute("tipoMensaje");
+                    }
         
                     if(u == null) // Si NO tiene la Sesion iniciada, lanzamos un error 401
                     {

@@ -54,20 +54,19 @@ public class Coche implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCoche;
-    @Column(unique=true)
     private String nombreModelo;
     @Column(unique=true)
     private String matricula;
     private String descripcion;
     private float precio;
     private float descuento;
-    private float cv;
+    private int cv;
     private float consumo;
     @Enumerated(EnumType.STRING)
     private TipoCombustible combustible;
     private String color;
     private int fecha;
-    private float km;
+    private int km;
     @Enumerated(EnumType.STRING)
     private TipoCambio cajaCambios;
     private String foto1;
@@ -86,7 +85,7 @@ public class Coche implements Serializable
         
     }
 
-    public Coche(Long idCoche, String nombreModelo, String matricula, String descripcion, float precio, float descuento, float cv, float consumo, TipoCombustible combustible, String color, int fecha, float km, TipoCambio cajaCambios, String foto1, String foto2, TipoEstado estado, Marca marca)
+    public Coche(Long idCoche, String nombreModelo, String matricula, String descripcion, float precio, float descuento, int cv, float consumo, TipoCombustible combustible, String color, int fecha, int km, TipoCambio cajaCambios, String foto1, String foto2, TipoEstado estado, Marca marca)
     {
         this.idCoche = idCoche;
         this.nombreModelo = nombreModelo;
@@ -107,7 +106,7 @@ public class Coche implements Serializable
         this.marca = marca;
     }
 
-    public Coche(Long idCoche, String nombreModelo, String matricula, String descripcion, float precio, float descuento, float cv, float consumo, TipoCombustible combustible, String color, int fecha, float km, TipoCambio cajaCambios, String foto1, String foto2, TipoEstado estado, Marca marca, Compra compra)
+    public Coche(Long idCoche, String nombreModelo, String matricula, String descripcion, float precio, float descuento, int cv, float consumo, TipoCombustible combustible, String color, int fecha, int km, TipoCambio cajaCambios, String foto1, String foto2, TipoEstado estado, Marca marca, Compra compra)
     {
         this.idCoche = idCoche;
         this.nombreModelo = nombreModelo;
@@ -190,13 +189,13 @@ public class Coche implements Serializable
         this.descuento = descuento;
     }
 
-    public float getCv()
+    public int getCv()
     
     {
         return this.cv;
     }
 
-    public void setCv(float cv)
+    public void setCv(int cv)
     {
         this.cv = cv;
     }
@@ -241,12 +240,12 @@ public class Coche implements Serializable
         this.fecha = fecha;
     }
 
-    public float getKm()
+    public int getKm()
     {
         return this.km;
     }
 
-    public void setKm(float km)
+    public void setKm(int km)
     {
         this.km = km;
     }

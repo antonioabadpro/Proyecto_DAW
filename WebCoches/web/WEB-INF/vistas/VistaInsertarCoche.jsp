@@ -8,48 +8,57 @@
         </div>
         
         <div class="formularioCuerpo">
-            <form action="${pageContext.request.contextPath}/gestion/insertar" method="POST" id="formAltaCoche" enctype="multipart/form-data">
+            <form action="${pageContext.request.contextPath}/gestion/insertar" method="POST" enctype="multipart/form-data">
                 <!-- INFORMACIÓN BÁSICA -->
                 <div class="mb-5">
                     <h3 class="tituloSeccion"><i class="bi bi-info-circle-fill"></i> Información Básica</h3>
 
                     <div class="row g-3">
                         <!-- Matrícula -->
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="matricula" class="formularioLabel">
                                 <i class="bi bi-card-text"></i> Matrícula<span class="obligatorio">*</span>
                             </label>
-                            <input type="text" class="formularioInput w-50" id="matricula"
-                                   name="matricula" maxlength="7" placeholder="Ej: 1234ABC" required>
+                            <input type="text" class="formularioInput w-50" id="matricula" name="matricula" maxlength="7" placeholder="Ej: 1234ABC" required>
                         </div>
 
                         <!-- Marca -->
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="marca" class="formularioLabel">
                                 <i class="bi bi-bookmark-fill"></i> Marca<span class="obligatorio">*</span>
                             </label>
                             <select class="formularioSelect w-auto" id="marca" name="marca" required>
                                 <option value="">Seleccione</option>
                                 <c:forEach var="marca" items="${requestScope.listaMarcas}">
-                                    <option value="${marca.idMarca}">${marca.nombre}</option>
+                                    <option value="${marca.idMarca}">
+                                        ${marca.nombre}
+                                    </option>
                                 </c:forEach>
                             </select>
                         </div>
+                        
+                        <!-- Modelo -->
+                        <div class="col-md-3">
+                            <label for="modelo" class="formularioLabel">
+                                <i class="bi bi-book"></i> Modelo<span class="required">*</span>
+                            </label>
+                            <input type="text" class="formularioInput w-50" id="modelo" name="modelo" placeholder="Ej: Focus" required>
+                        </div>
 
                         <!-- Color -->
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="color" class="formularioLabel">
                                 <i class="bi bi-palette-fill"></i> Color<span class="obligatorio">*</span>
                             </label>
-                            <input type="text" class="formularioInput w-auto" id="color" name="color" placeholder="Ej: Rojo" required>
+                            <input type="text" class="formularioInput w-50" id="color" name="color" placeholder="Ej: Rojo" required>
                         </div>
 
                         <!-- Descripción -->
                         <div class="col-12">
                             <label for="descripcion" class="formularioLabel">
-                                <i class="bi bi-pencil-square"></i> Descripción<span class="obligatorio">*</span>
+                                <i class="bi bi-pencil-square"></i> Descripción
                             </label>
-                            <textarea class="formularioInput w-100" id="descripcion" name="descripcion" rows="3" placeholder="Descripción detallada del vehículo" required></textarea>
+                            <textarea class="formularioInput w-100" id="descripcion" name="descripcion" rows="3" placeholder="Descripción detallada del vehículo"></textarea>
                         </div>
                     </div>
                 </div>
@@ -106,7 +115,7 @@
                             <label for="kilometros" class="formularioLabel">
                                 <i class="bi bi-speedometer2"></i> Kilómetros<span class="obligatorio">*</span>
                             </label>
-                            <input type="number" class="formularioInput w-auto" id="km" name="km" min="0" required>
+                            <input type="number" class="formularioInput w-auto" id="km" name="km" min="0" placeholder="0" required>
                         </div>
 
                         <!-- Año -->
@@ -127,8 +136,7 @@
                         <!-- Estado -->
                         <div class="col-md-4">
                             <label for="estado" class="formularioLabel">
-                                <i class="bi bi-info-circle"></i>
-                                Estado<span class="obligatorio">*</span>
+                                <i class="bi bi-info-circle"></i> Estado<span class="obligatorio">*</span>
                             </label>
                             <select class="formularioSelect w-auto" id="estado" name="estado" required>
                                 <option value="">Seleccione</option>

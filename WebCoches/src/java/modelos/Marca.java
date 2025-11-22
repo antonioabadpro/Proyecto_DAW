@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
@@ -20,6 +22,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="MARCA") // Renombra la entidad en la BD
+@NamedQueries({
+ @NamedQuery(name="Marca.findAll", query="SELECT m FROM Marca m"),
+ @NamedQuery(name="Marca.findById", query="SELECT m FROM Marca m WHERE m.idMarca = :id"),
+ @NamedQuery(name="Marca.findByName", query="SELECT m FROM Marca m WHERE m.nombre = :nombre"),
+})
 public class Marca implements Serializable
 {
 
@@ -49,12 +56,12 @@ public class Marca implements Serializable
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
-    public Long getId()
+    public Long getIdMarca()
     {
         return this.idMarca;
     }
 
-    public void setId(Long id)
+    public void setIdMarca(Long id)
     {
         this.idMarca = id;
     }

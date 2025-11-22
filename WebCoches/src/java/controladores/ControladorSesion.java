@@ -205,6 +205,10 @@ public class ControladorSesion extends HttpServlet
         return u;
     }
 
+    /**
+     * Inserta un nuevo Usuario en la BD
+     * @param nuevoUsuario Es el Usuario que queremos insertar en la BD
+     */
     public void insertarUsuario(Usuario nuevoUsuario)
     {
         try
