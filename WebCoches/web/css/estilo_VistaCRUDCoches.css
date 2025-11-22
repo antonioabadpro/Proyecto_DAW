@@ -1,4 +1,16 @@
-.seccionTitulo
+:root
+{
+    --verdeOscuroTonicar: #2d5f4f;
+    --verdeLimaTonicar: #a4d65e;
+    --verdeOscuroCarruselTonicar: #1a3a2e;
+    --grisTonicar: #f8f9fa;
+    --azulOscuro: #2c3e50;
+    --azulClaro: #3498db;
+    --verdeExito: #27ae60;
+    --rojoError: #e74c3c;
+}
+
+.tituloSeccion
 {
     color: var(--colorPrincipal);
     font-size: 1.3rem;
@@ -11,7 +23,7 @@
     gap: 10px;
 }
 
-.seccionTitulo i /* Para los iconos dentro del titulo */
+.tituloSeccion i /* Para los iconos dentro del titulo de la Seccion del Formulario*/
 {
     color: var(--azulClaro);
 }
@@ -22,7 +34,7 @@
     margin-left: 4px;
 }
 
-.subirImagenSection
+.seccionSubirImagen
 {
     background: #f8f9fa;
     padding: 20px;
@@ -30,16 +42,9 @@
     border: 2px dashed #dee2e6;
 }
 
-.SubirImagenItem
+.subirImagen
 {
     margin-bottom: 15px;
-}
-
-.optionMarca
-{
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 
 @media (max-width: 768px) /* Para <=768px */

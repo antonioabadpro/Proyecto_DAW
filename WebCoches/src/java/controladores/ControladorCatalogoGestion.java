@@ -65,13 +65,10 @@ public class ControladorCatalogoGestion extends HttpServlet
                     HttpSession sesion = request.getSession();
                     Usuario u = (Usuario) sesion.getAttribute("usuarioLogueado");
         
-                    if(u == null)
+                    if(u == null) // Si NO tiene la Sesion iniciada, lanzamos un error 401
                     {
                         String textoErrorSesion = "El Usuario NO tiene la Sesion iniciada";
-                        request.setAttribute("textoErrorSesion", textoErrorSesion);
-                        System.out.println(textoErrorSesion);
                         response.sendError(401, textoErrorSesion);
-                        //response.sendRedirect(request.getContextPath() + "/inicio");
                         return;
                     }
                     else // Si tiene sesion iniciada, comprobamos que sea de tipo "Admin"
@@ -86,13 +83,10 @@ public class ControladorCatalogoGestion extends HttpServlet
 
                             vista = "VistaGestionCoches";
                         }
-                        else // Si el Usuario NO tiene el Rol de Admin
+                        else // Si el Usuario NO tiene el Rol de Admin, lanzamos un error 403
                         {
                             String textoErrorRol = "NO eres Admin, NO puedes realizar esta operacion";
-                            request.setAttribute("textoErrorRol", textoErrorRol);
-                            System.out.println(textoErrorRol);
                             response.sendError(403, textoErrorRol);
-                            //response.sendRedirect(request.getContextPath() + "/inicio");
                             return;
                         }
                     }

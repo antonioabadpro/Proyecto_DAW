@@ -25,7 +25,7 @@
                     <input type="hidden" name="idCoche" value="${coche.idCoche}">
                     
                     <div class="mb-5">
-                        <h3 class="seccionTitulo">
+                        <h3 class="tituloSeccion">
                             <i class="bi bi-info-circle-fill"></i>
                             Información Básica
                         </h3>
@@ -77,7 +77,7 @@
                     </div>
                     
                     <div class="mb-5">
-                        <h3 class="seccionTitulo">
+                        <h3 class="tituloSeccion">
                             <i class="bi bi-gear-fill"></i>
                             Características Técnicas
                         </h3>
@@ -170,7 +170,7 @@
                     </div>
                     
                     <div class="mb-5">
-                        <h3 class="seccionTitulo">
+                        <h3 class="tituloSeccion">
                             <i class="bi bi-currency-euro"></i>
                             Precio y Descuento
                         </h3>
@@ -198,12 +198,12 @@
                     </div>
                     
                     <div class="mb-4">
-                        <h3 class="seccionTitulo">
+                        <h3 class="tituloSeccion">
                             <i class="bi bi-images"></i>
                             Imágenes del Vehículo
                         </h3>
                         
-                        <div class="subirImagenSection">
+                        <div class="seccionSubirImagen">
                             <p class="text-muted mb-3">
                                 <i class="bi bi-info-circle"></i> 
                                 Puede actualizar o agregar imágenes (formatos: JPG, PNG, máx. 5MB)
@@ -216,7 +216,7 @@
                                     <c:set var="imagenActualFieldName" value="imagen${i}_actual"/>
                                     <c:set var="imagenValue" value="${coche['imagen_' + i]}"/>
                                     
-                                    <div class="col-md-6 SubirImagenItem">
+                                    <div class="col-md-6 subirImagen">
                                         <label for="${imagenFieldName}" class="formularioLabel">
                                             <i class="bi bi-image"></i> Imagen ${i}
                                             <c:if test="${i eq 1}">(Principal)</c:if>

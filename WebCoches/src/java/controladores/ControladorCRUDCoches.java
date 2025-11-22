@@ -43,38 +43,45 @@ public class ControladorCRUDCoches extends HttpServlet
         else // Si tiene sesion iniciada, comprobamos que sea de tipo "Admin"
         {
             Usuario u = (Usuario) sesion.getAttribute("usuarioLogueado");
-            String rol = u.getRol().toString();
             
-            if(rol.equals("Admin")) // Si el Usuario tiene el Rol de Admin
+            if(u == null) // Si NO tiene la Sesion iniciada, lanzamos un error 401
             {
-                switch(pathInfo)
-                {
-                    case "/insertar":
-                    {
-
-                        vista = "VistaInsertarCoche";
-                    }; break;
-
-                    case "/eliminar":
-                    {
-
-                    }; break;
-
-                    case "/editar":
-                    {
-
-                    }; break;
-                }
-                
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/" + vista + ".jsp");
-                rd.forward(request, response);
+                String textoErrorSesion = "El Usuario NO tiene la Sesion iniciada";
+                response.sendError(401, textoErrorSesion);
+                return;
             }
-            else // Si el Usuario NO tiene el Rol de Admin
+            else // Si tiene sesion iniciada, comprobamos que sea de tipo "Admin"
             {
-                String textoErrorRol = "NO eres Admin, NO puedes realizar esta operacion";
-                request.setAttribute("textoErrorRol", textoErrorRol);
-                System.out.println(textoErrorRol);
-                response.sendRedirect(request.getContextPath() + "/inicio");
+                String rol = u.getRol().toString();
+                if(rol.equals("Admin")) // Si el Usuario tiene el Rol de Admin
+                {
+                    switch(pathInfo)
+                    {
+                        case "/insertar":
+                        {
+                            
+                            vista = "VistaInsertarCoche";
+                        }; break;
+
+                        case "/eliminar":
+                        {
+
+                        }; break;
+
+                        case "/modificar":
+                        {
+
+                        }; break;
+                    }
+
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/" + vista + ".jsp");
+                    rd.forward(request, response);
+                }
+                else // Si el Usuario NO tiene el Rol de Admin, lanzamos un error 403
+                {
+                    String textoErrorRol = "NO eres Admin, NO puedes realizar esta operacion";
+                    response.sendError(403, textoErrorRol);
+                }
             }
         }
     }
