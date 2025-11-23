@@ -59,7 +59,7 @@ public class Coche implements Serializable
     private String matricula;
     private String descripcion;
     private float precio;
-    private float descuento;
+    private int descuento;
     private int cv;
     private float consumo;
     @Enumerated(EnumType.STRING)
@@ -85,7 +85,7 @@ public class Coche implements Serializable
         
     }
 
-    public Coche(Long idCoche, String nombreModelo, String matricula, String descripcion, float precio, float descuento, int cv, float consumo, TipoCombustible combustible, String color, int fecha, int km, TipoCambio cajaCambios, String foto1, String foto2, TipoEstado estado, Marca marca)
+    public Coche(Long idCoche, String nombreModelo, String matricula, String descripcion, float precio, int descuento, int cv, float consumo, TipoCombustible combustible, String color, int fecha, int km, TipoCambio cajaCambios, String foto1, String foto2, TipoEstado estado, Marca marca)
     {
         this.idCoche = idCoche;
         this.nombreModelo = nombreModelo;
@@ -106,7 +106,7 @@ public class Coche implements Serializable
         this.marca = marca;
     }
 
-    public Coche(Long idCoche, String nombreModelo, String matricula, String descripcion, float precio, float descuento, int cv, float consumo, TipoCombustible combustible, String color, int fecha, int km, TipoCambio cajaCambios, String foto1, String foto2, TipoEstado estado, Marca marca, Compra compra)
+    public Coche(Long idCoche, String nombreModelo, String matricula, String descripcion, float precio, int descuento, int cv, float consumo, TipoCombustible combustible, String color, int fecha, int km, TipoCambio cajaCambios, String foto1, String foto2, TipoEstado estado, Marca marca, Compra compra)
     {
         this.idCoche = idCoche;
         this.nombreModelo = nombreModelo;
@@ -179,12 +179,12 @@ public class Coche implements Serializable
         this.precio = precio;
     }
 
-    public float getDescuento()
+    public int getDescuento()
     {
         return this.descuento;
     }
 
-    public void setDescuento(float descuento)
+    public void setDescuento(int descuento)
     {
         this.descuento = descuento;
     }

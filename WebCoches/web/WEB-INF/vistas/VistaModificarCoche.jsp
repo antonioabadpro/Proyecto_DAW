@@ -1,283 +1,244 @@
-<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>-->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Vehículo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="css/estilo_CRUD_Coche.css">
-    
-</head>
-<body>
-    <div class="container">
-        <div class="formularioContainer">
-            <div class="formularioHeader">
-                <h1><i class="bi bi-pencil-square"></i> Editar Vehículo ID: ${coche.matricula}</h1>
-            </div>
-            
-            <div class="formularioCuerpo">
-                <form action="controladorEditaCoche.java" method="POST" id="formEditaCoche" enctype="multipart/form-data">
-                    
-                    <input type="hidden" name="idCoche" value="${coche.idCoche}">
-                    
-                    <div class="mb-5">
-                        <h3 class="tituloSeccion">
-                            <i class="bi bi-info-circle-fill"></i>
-                            Información Básica
-                        </h3>
-                        
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <label for="matricula" class="formularioLabel">
-                                    <i class="bi bi-card-text"></i>
-                                    Matrícula<span class="obligatorio">*</span>
-                                </label>
-                                <input type="text" class="formularioInput" id="matricula" 
-                                       name="matricula" value="${coche.matricula}" required **readonly**>
-                                <small class="text-muted">La matrícula no puede ser modificada.</small>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <label for="marca" class="formularioLabel">
-                                    <i class="bi bi-bookmark-fill"></i>
-                                    Marca<span class="obligatorio">*</span>
-                                </label>
-                                <select class="formularioSelect" id="marca" name="marca" required>
-                                    <option value="">Seleccione una marca</option>
-                                    <c:forEach var="marca" items="${marcas}">
-                                        <option value="${marca.idMarca}" 
-                                            ${coche.idMarca == marca.idMarca ? 'selected' : ''}>
-                                            ${marca.nombre}
-                                        </option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <label for="color" class="formularioLabel">
-                                    <i class="bi bi-palette-fill"></i>
-                                    Color<span class="obligatorio">*</span>
-                                </label>
-                                <input type="text" class="formularioInput" id="color" 
-                                       name="color" value="${coche.color}" required>
-                            </div>
-                            
-                            <div class="col-12">
-                                <label for="descripcion" class="formularioLabel">
-                                    <i class="bi bi-pencil-square"></i>
-                                    Descripción<span class="obligatorio">*</span>
-                                </label>
-                                <textarea class="formularioInput" id="descripcion" name="descripcion" rows="3" required>${coche.descripcion}</textarea>
-                            </div>
+<%@include file="templates/header.jspf"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<div class="container">
+    <div class="formularioContainer mx-auto my-4">
+        <div class="formularioHeader">
+            <i class="bi bi-car-front-fill"></i><strong> Modificar Vehículo #${requestScope.coche.idCoche}</strong>
+        </div>
+
+        <div class="formularioCuerpo">
+            <form action="${pageContext.request.contextPath}/gestion/modificar/${requestScope.coche.idCoche}" method="POST" enctype="multipart/form-data">
+                <!-- INFORMACIÓN BÁSICA -->
+                <div class="mb-5">
+                    <h3 class="tituloSeccion"><i class="bi bi-info-circle-fill"></i> Información Básica</h3>
+
+                    <div class="row g-3">
+                        <!-- Matrícula -->
+                        <div class="col-md-3">
+                            <label for="matricula" class="formularioLabel">
+                                <i class="bi bi-card-text"></i> Matrícula<span class="obligatorio">*</span>
+                            </label>
+                            <input type="text" class="formularioInput w-50" id="matricula" value="${requestScope.coche.matricula}" name="matricula" maxlength="7" placeholder="Ej: 1234ABC" required readonly>
+                        </div>
+
+                        <!-- Marca -->
+                        <div class="col-md-3">
+                            <label for="marca" class="formularioLabel">
+                                <i class="bi bi-bookmark-fill"></i> Marca<span class="obligatorio">*</span>
+                            </label>
+                            <select class="formularioSelect w-auto" id="marca" name="marca" required>
+                                <c:forEach var="marca" items="${requestScope.listaMarcas}">
+                                    <c:choose>
+                                        <c:when test="${marca.idMarca == requestScope.coche.marca.idMarca}">
+                                            <option value="${marca.idMarca}" selected="true">
+                                                ${marca.nombre}
+                                            </option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${marca.idMarca}">
+                                                ${marca.nombre}
+                                            </option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
+                        </div>
+
+                        <!-- Modelo -->
+                        <div class="col-md-3">
+                            <label for="nombreModelo" class="formularioLabel">
+                                <i class="bi bi-book"></i> Modelo<span class="required">*</span>
+                            </label>
+                            <input type="text" class="formularioInput w-50" id="nombreModelo" value="${requestScope.coche.nombreModelo}" name="nombreModelo" placeholder="Ej: Focus" required>
+                        </div>
+
+                        <!-- Color -->
+                        <div class="col-md-3">
+                            <label for="color" class="formularioLabel">
+                                <i class="bi bi-palette-fill"></i> Color<span class="obligatorio">*</span>
+                            </label>
+                            <input type="text" class="formularioInput w-50" id="color" value="${requestScope.coche.color}" name="color" placeholder="Ej: Rojo" required>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="col-12">
+                            <label for="descripcion" class="formularioLabel">
+                                <i class="bi bi-pencil-square"></i> Descripción
+                            </label>
+                            <textarea class="formularioInput w-100" id="descripcion" value="${requestScope.coche.descripcion}" name="descripcion" rows="3" placeholder="Descripción detallada del vehículo"></textarea>
                         </div>
                     </div>
-                    
-                    <div class="mb-5">
-                        <h3 class="tituloSeccion">
-                            <i class="bi bi-gear-fill"></i>
-                            Características Técnicas
-                        </h3>
-                        
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <label for="combustible" class="formularioLabel">
-                                    <i class="bi bi-fuel-pump-fill"></i>
-                                    Combustible<span class="obligatorio">*</span>
-                                </label>
-                                <select class="formularioSelect" id="combustible" name="combustible" required>
-                                    <option value="">Seleccione</option>
-                                    <option value="gasolina" ${coche.combustible == 'gasolina' ? 'selected' : ''}>Gasolina</option>
-                                    <option value="diesel" ${coche.combustible == 'diesel' ? 'selected' : ''}>Diesel</option>
-                                    <option value="electrico" ${coche.combustible == 'electrico' ? 'selected' : ''}>Eléctrico</option>
-                                    <option value="hibrido" ${coche.combustible == 'hibrido' ? 'selected' : ''}>Híbrido</option>
-                                    <option value="gas" ${coche.combustible == 'gas' ? 'selected' : ''}>Gas</option>
+                </div>
+
+                <!-- CARACTERÍSTICAS TÉCNICAS -->
+                <div class="mb-5">
+                    <h3 class="tituloSeccion"><i class="bi bi-gear-fill"></i> Características Técnicas</h3>
+
+                    <div class="row g-3">
+                        <!-- Combustible -->
+                        <div class="col-md-3">
+                            <label for="combustible" class="formularioLabel">
+                                <i class="bi bi-fuel-pump-fill"></i> Combustible<span class="obligatorio">*</span>
+                            </label>
+                            <select class="formularioSelect w-auto" id="combustible" name="combustible" required>
+                                <option value="Gasolina" <c:if test="${requestScope.coche.combustible == 'Gasolina'}"> selected="true" </c:if> >Gasolina</option>
+                                <option value="Diesel" <c:if test="${requestScope.coche.combustible == 'Diesel'}"> selected="true" </c:if> >Diésel</option>
+                                <option value="Electrico" <c:if test="${requestScope.coche.combustible == 'Electrico'}"> selected="true" </c:if> >Eléctrico</option>
+                                <option value="Hibrido" <c:if test="${requestScope.coche.combustible == 'Hibrido'}"> selected="true" </c:if> >Híbrido</option>
                                 </select>
                             </div>
-                            
+
+                            <!-- Consumo -->
                             <div class="col-md-3">
                                 <label for="consumo" class="formularioLabel">
-                                    <i class="bi bi-speedometer"></i>
-                                    Consumo (L/100km)<span class="obligatorio">*</span>
+                                    <i class="bi bi-speedometer"></i> Consumo (L/100km)<span class="obligatorio">*</span>
                                 </label>
-                                <input type="number" class="formularioInput" id="consumo" 
-                                       name="consumo" step="0.1" value="${coche.consumo}" required>
-                            </div>
-                            
-                            <div class="col-md-3">
-                                <label for="cv" class="formularioLabel">
-                                    <i class="bi bi-lightning-fill"></i>
-                                    Potencia (CV)<span class="obligatorio">*</span>
-                                </label>
-                                <input type="number" class="formularioInput" id="cv" 
-                                       name="cv" value="${coche.cv}" required>
-                            </div>
-                            
-                            <div class="col-md-3">
-                                <label for="cambio" class="formularioLabel">
-                                    <i class="bi bi-gear-wide-connected"></i>
-                                    Tipo de Cambio<span class="obligatorio">*</span>
-                                </label>
-                                <select class="formularioSelect" id="cambio" name="cambio" required>
-                                    <option value="">Seleccione</option>
-                                    <option value="manual" ${coche.cambio == 'manual' ? 'selected' : ''}>Manual</option>
-                                    <option value="automatico" ${coche.cambio == 'automatico' ? 'selected' : ''}>Automático</option>
-                                    <option value="semiautomatico" ${coche.cambio == 'semiautomatico' ? 'selected' : ''}>Semiautomático</option>
+                                <input type="number" class="formularioInput w-auto" id="consumo" value="${requestScope.coche.consumo}" name="consumo" min="0" max="100" step="0.1" placeholder="Ej: 5.5" required>
+                        </div>
+
+                        <!-- Potencia (CV) -->
+                        <div class="col-md-3">
+                            <label for="cv" class="formularioLabel">
+                                <i class="bi bi-lightning-fill"></i> Potencia (CV)<span class="obligatorio">*</span>
+                            </label>
+                            <input type="number" class="formularioInput w-auto" value="${requestScope.coche.cv}" id="cv" min="1" name="cv" placeholder="Ej: 100" required>
+                        </div>
+
+                        <!-- Tipo de Cambio -->
+                        <div class="col-md-3">
+                            <label for="cajaCambios" class="formularioLabel">
+                                <i class="bi bi-gear-wide-connected"></i> Tipo de Cambio<span class="obligatorio">*</span>
+                            </label>
+                            <select class="formularioSelect w-auto" id="cajaCambios" name="cajaCambios" required>
+                                <option value="Manual" <c:if test="${requestScope.coche.cajaCambios == 'Manual'}"> selected="true" </c:if> >Manual</option>
+                                <option value="Automatico" <c:if test="${requestScope.coche.cajaCambios == 'Automatico'}"> selected="true" </c:if> >Automático</option>
                                 </select>
                             </div>
-                            
-                            <div class="col-md-4">
-                                <label for="kilometros" class="formularioLabel">
-                                    <i class="bi bi-speedometer2"></i>
-                                    Kilómetros<span class="obligatorio">*</span>
+
+                            <!-- Kilómetros -->
+                            <div class="col-md-3">
+                                <label for="km" class="formularioLabel">
+                                    <i class="bi bi-speedometer2"></i> Kilómetros<span class="obligatorio">*</span>
                                 </label>
-                                <input type="number" class="formularioInput" id="kilometros" 
-                                       name="kilometros" value="${coche.kilometros}" required>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <label for="año" class="formularioLabel">
-                                    <i class="bi bi-calendar-event"></i>
-                                    Año<span class="obligatorio">*</span>
-                                </label>
-                                <select class="formularioSelect" id="año" name="año" required>
-                                    <option value="">Seleccione</option>
-                                    <c:forEach var="i" begin="0" end="45">
-                                        <option value="${2025 - i}" 
-                                            ${coche.anio == (2025 - i) ? 'selected' : ''}>
-                                            ${2025 - i}
-                                        </option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <label for="estado" class="formularioLabel">
-                                    <i class="bi bi-info-circle"></i>
-                                    Estado<span class="obligatorio">*</span>
-                                </label>
-                                <select class="formularioSelect" id="estado" name="estado" required>
-                                    <option value="">Seleccione</option>
-                                    <option value="a" ${coche.estado == 'a' ? 'selected' : ''}>A - Excelente</option>
-                                    <option value="b" ${coche.estado == 'b' ? 'selected' : ''}>B - Bueno</option>
-                                    <option value="c" ${coche.estado == 'c' ? 'selected' : ''}>C - Regular</option>
+                                <input type="number" class="formularioInput w-auto" id="km" value="${requestScope.coche.km}" name="km" min="0" placeholder="0" required>
+                        </div>
+
+                        <!-- Año -->
+                        <div class="col-md-3">
+                            <label for="fecha" class="formularioLabel">
+                                <i class="bi bi-calendar-event"></i> Año<span class="obligatorio">*</span>
+                            </label>
+                            <select class="formularioSelect w-auto" id="fecha" name="fecha" required>
+                                <c:forEach var="anio" begin="1980" end="2025">
+                                    <c:choose>
+                                        <c:when test="${anio == requestScope.coche.fecha}">
+                                            <option value="${2025 - anio + 1980}" selected="true">
+                                                ${2025 - anio + 1980}
+                                            </option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${2025 - anio + 1980}">
+                                                ${2025 - anio + 1980}
+                                            </option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
+                        </div>
+
+                        <!-- Estado -->
+                        <div class="col-md-4">
+                            <label for="estado" class="formularioLabel">
+                                <i class="bi bi-info-circle"></i> Estado<span class="obligatorio">*</span>
+                            </label>
+                            <select class="formularioSelect w-auto" id="estado" name="estado" required>
+                                <option value="Nuevo" <c:if test="${requestScope.coche.estado == 'Nuevo'}"> selected="true" </c:if> >Nuevo</option>
+                                <option value="ComoNuevo" <c:if test="${requestScope.coche.estado == 'ComoNuevo'}"> selected="true" </c:if> >Como Nuevo</option>
+                                <option value="Usado" <c:if test="${requestScope.coche.estado == 'Usado'}"> selected="true" </c:if> >Usado</option>
+                                <option value="PorReparar" <c:if test="${requestScope.coche.estado == 'PorReparar'}"> selected="true" </c:if> >Por Reparar</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    
+
+                    <!-- PRECIO Y DESCUENTO -->
                     <div class="mb-5">
                         <h3 class="tituloSeccion">
-                            <i class="bi bi-currency-euro"></i>
-                            Precio y Descuento
-                        </h3>
-                        
+                            <i class="bi bi-currency-euro"></i> Precio y Descuento</h3>
+
                         <div class="row g-3">
+                            <!-- Precio -->
                             <div class="col-md-6">
                                 <label for="precio" class="formularioLabel">
-                                    <i class="bi bi-cash-stack"></i>
-                                    Precio (€)<span class="obligatorio">*</span>
+                                    <i class="bi bi-cash-stack"></i> Precio (€)<span class="obligatorio">*</span>
                                 </label>
-                                <input type="number" class="formularioInput" id="precio" 
-                                       name="precio" step="0.01" value="${coche.precio}" required>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label for="descuento" class="formularioLabel">
-                                    <i class="bi bi-tag-fill"></i>
-                                    Descuento (%)
-                                </label>
-                                <input type="number" class="formularioInput" id="descuento" 
-                                       name="descuento" min="0" max="100" step="1" 
-                                       value="${coche.descuento}">
-                            </div>
+                                <input type="number" class="formularioInput w-25" id="precio" value="${requestScope.coche.precio}" name="precio" min="500" placeholder="Ej: 25000€" required>
+                        </div>
+
+                        <!-- Descuento -->
+                        <div class="col-md-6">
+                            <label for="descuento" class="formularioLabel">
+                                <i class="bi bi-tag-fill"></i> Descuento (%)</label>
+                            <input type="number" class="formularioInput w-25" id="descuento" value="${requestScope.coche.descuento}" name="descuento" value="0" min="0" max="100" step="1">
                         </div>
                     </div>
-                    
-                    <div class="mb-4">
-                        <h3 class="tituloSeccion">
-                            <i class="bi bi-images"></i>
-                            Imágenes del Vehículo
-                        </h3>
-                        
-                        <div class="seccionSubirImagen">
-                            <p class="text-muted mb-3">
-                                <i class="bi bi-info-circle"></i> 
-                                Puede actualizar o agregar imágenes (formatos: JPG, PNG, máx. 5MB)
-                            </p>
-                            
-                            <div class="row g-3">
-                                <c:set var="imageCount" value="5"/>
-                                <c:forEach var="i" begin="1" end="${imageCount}">
-                                    <c:set var="imagenFieldName" value="imagen${i}"/>
-                                    <c:set var="imagenActualFieldName" value="imagen${i}_actual"/>
-                                    <c:set var="imagenValue" value="${coche['imagen_' + i]}"/>
-                                    
-                                    <div class="col-md-6 subirImagen">
-                                        <label for="${imagenFieldName}" class="formularioLabel">
-                                            <i class="bi bi-image"></i> Imagen ${i}
-                                            <c:if test="${i eq 1}">(Principal)</c:if>
-                                        </label>
-                                        
-                                        <c:if test="${not empty imagenValue}">
-                                            <img src="${imagenValue}" class="current-image" alt="Imagen ${i}">
-                                        </c:if>
-                                        
-                                        <input type="file" class="formularioInput" id="${imagenFieldName}" 
-                                                name="${imagenFieldName}" accept="image/*">
-                                                
-                                        <input type="hidden" name="${imagenActualFieldName}" value="${imagenValue}">
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                
-                <div class="botonFormulario">
-                    <button type="button" class="btn btn-primary btn-custom" onclick="actualizarCoche()"> 
-                        <i class="bi bi-check-circle-fill"></i> Actualizar
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-custom" onclick="cerrarVista()">
-                        <i class="bi bi-x-circle-fill"></i> Cerrar
-                    </button>
                 </div>
-            </div>
-        </div>
+
+                <!-- IMÁGENES -->
+                <div class="mb-4">
+                    <h3 class="tituloSeccion">
+                        <i class="bi bi-images"></i>
+                        Imágenes del Vehículo
+                    </h3>
+
+                    <div class="seccionSubirImagen">
+                        <p class="text-muted mb-3">
+                            <i class="bi bi-info-circle"></i> Puede actualizar las imágenes (formatos: JPG, PNG). Si no selecciona ninguna, se mantendrá la actual.
+                        </p>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6 subirImagen">
+                                <label for="foto1" class="formularioLabel">
+                                    <i class="bi bi-image"></i> Imagen 1 (Principal)
+                                </label>
+
+                                <c:if test="${not empty requestScope.coche.foto1}">
+                                    <div class="mb-2">
+                                        <small class="text-muted d-block">Imagen actual:</small>
+                                        <img src="${pageContext.request.contextPath}/img_coches/${requestScope.coche.foto1}" alt="Foto 1" class="img-thumbnail">
+                                    </div>
+                                </c:if>
+
+                                <input type="file" class="formularioInput" id="foto1" name="foto1" accept="image/*">
+                            </div>
+
+                            <div class="col-md-6 subirImagen">
+                                <label for="foto2" class="formularioLabel">
+                                    <i class="bi bi-image"></i> Imagen 2
+                                </label>
+
+                                <c:if test="${not empty requestScope.coche.foto2}">
+                                    <div class="mb-2">
+                                        <small class="text-muted d-block">Imagen actual:</small>
+                                        <img src="${pageContext.request.contextPath}/img_coches/${requestScope.coche.foto2}" alt="Foto 2" class="img-thumbnail">
+                                    </div>
+                                </c:if>
+                                <input type="file" class="formularioInput" id="foto2" name="foto2" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones de Accion del Formulario -->
+                <div class="botonFormulario">
+                    <button type="submit" class="btn btn-primary btn-custom">Actualizar</button>
+                    <button type="button" class="btn btn-secondary btn-custom" onclick="cerrarVista()">Cerrar</button>
+                </div>
+            </form>
+        </div> 
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function actualizarCoche() {
-            const form = document.getElementById('formEditaCoche');
-            
-            // --- Validación de Negocio ---
-            const precio = parseFloat(document.getElementById('precio').value);
-            const descuento = parseFloat(document.getElementById('descuento').value);
-            
-            if (precio <= 0) {
-                alert('El precio debe ser mayor que 0');
-                return false;
-            }
-            
-            if (descuento < 0 || descuento > 100) {
-                alert('El descuento debe estar entre 0 y 100');
-                return false;
-            }
-            
-            // --- Confirmación y Envío ---
-            if (confirm('¿Está seguro de que desea actualizar este vehículo?')) {
-                form.submit(); // Envía el formulario al EditaCocheServlet
-            }
-        }
-        
-        function cerrarVista() {
-            // Asumiendo que 'vistaGestionCoches.jsp' es la página de listado
-            window.location.href = 'vistaGestionCoches.jsp';
-        }
-    </script>
-</body>
-</html>
+</div>
+
+<%@include file="templates/footer.jspf"%>

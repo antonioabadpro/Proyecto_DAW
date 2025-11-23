@@ -86,7 +86,6 @@ public class ControladorCRUDCoches extends HttpServlet
                         case "/insertar":
                         {
                             List<Marca> listaMarcas = obtenerMarcas();
-                    
                             request.setAttribute("listaMarcas", listaMarcas);
                     
                             vista = "VistaInsertarCoche";
@@ -110,9 +109,19 @@ public class ControladorCRUDCoches extends HttpServlet
 
                         case "/modificar":
                         {
-                            List<Marca> listaMarcas = obtenerMarcas();
-                    
-                            request.setAttribute("listaMarcas", listaMarcas);
+                            if(pathInfo_partes.length > 1)
+                            {
+                                List<Marca> listaMarcas = obtenerMarcas();
+                                request.setAttribute("listaMarcas", listaMarcas);
+                            
+                                String idCocheModificar_string = pathInfo_partes[2];
+                                Long idCocheModificar = Long.valueOf(idCocheModificar_string);
+
+                                // Buscamos el Coche con el 'idCoche' obtenido en la 'VistaGestionCoche' en la BD
+                                Coche cocheModificar = this.em.find(Coche.class, idCocheModificar);
+                                
+                                request.setAttribute("coche", cocheModificar);
+                            }
                             
                             vista = "VistaModificarCoche";
                         }; break;
@@ -154,7 +163,7 @@ public class ControladorCRUDCoches extends HttpServlet
             {
                 // Obtenemos los valores del formulario de Insertar Coche
                 String matricula = request.getParameter("matricula");
-                String nombreModelo = request.getParameter("modelo");
+                String nombreModelo = request.getParameter("nombreModelo");
                 String color = request.getParameter("color");
                 String descripcion = request.getParameter("descripcion");
                 String combustible = request.getParameter("combustible");
@@ -171,7 +180,7 @@ public class ControladorCRUDCoches extends HttpServlet
                 String precio_string = request.getParameter("precio");
                 float precio = Float.parseFloat(precio_string);
                 String descuento_string = request.getParameter("descuento");
-                float descuento = Float.parseFloat(descuento_string);
+                int descuento = Integer.parseInt(descuento_string);
                 String idMarca_string = request.getParameter("marca");
                 
                 Long idMarca = Long.valueOf(idMarca_string);
@@ -256,6 +265,7 @@ public class ControladorCRUDCoches extends HttpServlet
                         String textoError = "NO se ha podido realizar la eliminación del Coche con matrícula '" + c.getMatricula() + "'";
                         sesion.setAttribute("textoResultado", textoError); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
                         sesion.setAttribute("tipoMensaje", "danger");
+                        Logger.getLogger(ControladorCRUDCoches.class.getName()).log(Level.SEVERE, null, e);
                     }
                 }
 
@@ -263,7 +273,89 @@ public class ControladorCRUDCoches extends HttpServlet
 
             case "/modificar":
             {
+                if(pathInfo_partes.length > 1)
+                {
+                    String idCocheModificar_string = pathInfo_partes[2];
+                    Long idCocheModificar = Long.valueOf(idCocheModificar_string);
+                    
+                    // Obtenemos los valores del formulario de Insertar Coche
+                    String nombreModelo = request.getParameter("nombreModelo");
+                    String color = request.getParameter("color");
+                    String descripcion = request.getParameter("descripcion");
+                    String combustible = request.getParameter("combustible");
+                    String consumo_string = request.getParameter("consumo");
+                    float consumo = Float.parseFloat(consumo_string);
+                    String cv_string = request.getParameter("cv");
+                    int cv = Integer.parseInt(cv_string);
+                    String cajaCambios = request.getParameter("cajaCambios");
+                    String km_string = request.getParameter("km");
+                    int km = Integer.parseInt(km_string);
+                    String fecha_string = request.getParameter("fecha");
+                    int fecha = Integer.parseInt(fecha_string);
+                    String estado = request.getParameter("estado");
+                    String precio_string = request.getParameter("precio");
+                    float precio = Float.parseFloat(precio_string);
+                    String descuento_string = request.getParameter("descuento");
+                    int descuento = Integer.parseInt(descuento_string);
+                    String idMarca_string = request.getParameter("marca");
 
+                    Long idMarca = Long.valueOf(idMarca_string);                    
+
+                    // Buscamos el objeto en la BD
+                    Marca marca = this.em.find(Marca.class, idMarca);
+
+                    // Buscamos el Coche que queremos modificar para poder mostrar su matricula como mensaje de Feedback tras la eliminacion
+                    Coche cocheModificado = this.em.find(Coche.class, idCocheModificar);
+                    cocheModificado.setNombreModelo(nombreModelo);
+                    cocheModificado.setDescripcion(descripcion);
+                    cocheModificado.setPrecio(precio);
+                    cocheModificado.setEstado(Coche.TipoEstado.valueOf(estado));
+                    cocheModificado.setDescuento(descuento);
+                    cocheModificado.setCv(cv);
+                    cocheModificado.setConsumo(consumo);
+                    cocheModificado.setCombustible(Coche.TipoCombustible.valueOf(combustible));
+                    cocheModificado.setColor(color);
+                    cocheModificado.setFecha(fecha);
+                    cocheModificado.setKm(km);
+                    cocheModificado.setCajaCambios(Coche.TipoCambio.valueOf(cajaCambios));
+                    cocheModificado.setMarca(marca);
+                    
+                    // Insertamos la imagen en nuestro Proyecto
+                    String rutaImagenProyecto = getServletContext().getRealPath("/img_coches");
+
+                    for(int i=0; i<2; i++)
+                    {
+                        String nombreFoto = "foto" + (i+1);
+
+                        // Obtenemos la ruta local desde donde el admin quiere subir la imagen (la que recuperamos del formulario)
+                        Part informacionImagen = request.getPart(nombreFoto);
+                        System.out.println("informacionImagen: " + informacionImagen);
+
+                        if(informacionImagen != null && informacionImagen.getSize() > 0)
+                        {
+                            String nombreImagenGuardada = subirImagen(informacionImagen, rutaImagenProyecto);
+
+                            if(i==0) cocheModificado.setFoto1(nombreImagenGuardada);
+                            if(i==1) cocheModificado.setFoto2(nombreImagenGuardada);
+                        }
+                    }
+
+                    try
+                    {
+                        // Modificamos el Coche de la BD
+                        modificarCoche(cocheModificado);
+                        String textoExito = "El Coche con matrícula '" + cocheModificado.getMatricula() + "' ha sido modificado en el sistema con éxito";
+                        sesion.setAttribute("textoResultado", textoExito); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
+                        sesion.setAttribute("tipoMensaje", "success");
+                    }
+                    catch (Exception e)
+                    {
+                        String textoError = "NO se ha podido realizar la modificacion del Coche con matrícula '" + cocheModificado.getMatricula() + "'";
+                        sesion.setAttribute("textoResultado", textoError); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
+                        sesion.setAttribute("tipoMensaje", "danger");
+                        Logger.getLogger(ControladorCRUDCoches.class.getName()).log(Level.SEVERE, null, e);
+                    }
+                }
             }; break;
         }
         
@@ -329,6 +421,24 @@ public class ControladorCRUDCoches extends HttpServlet
     }
     
     /**
+     * Modifica o Actualiza un Coche en la BD
+     * @param cocheModificar id del Coche que queremos modificar en la BD
+     * @throws jakarta.transaction.NotSupportedException
+     * @throws jakarta.transaction.SystemException
+     * @throws jakarta.transaction.RollbackException
+     * @throws jakarta.transaction.HeuristicMixedException
+     * @throws jakarta.transaction.HeuristicRollbackException
+     */
+    public void modificarCoche(Coche cocheModificar) throws NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException
+    {
+        this.utx.begin();
+        // Buscamos el Coche con el 'idCoche' obtenido en la 'VistaGestionCoche' en la BD
+        //Coche cocheModificar = this.em.find(Coche.class, idCocheEliminar);
+        this.em.merge(cocheModificar); // Modifico el Coche
+        this.utx.commit();
+    }
+    
+    /**
      * 
      * @param informacionImagen
      * @param rutaImagenProyecto
@@ -338,12 +448,15 @@ public class ControladorCRUDCoches extends HttpServlet
     {
         // Obtenemos el nombre de la imagen que queremos guardar en la BD
         String nombreArchivo = informacionImagen.getSubmittedFileName();
+        System.out.println("nombreArchivo: " + nombreArchivo);
 
         // Realizamos una Limpieza básica, ya que a veces el navegador Edge envía rutas completas
         nombreArchivo = new java.io.File(nombreArchivo).getName();
+        System.out.println("nombreArchivo Limpio: " + nombreArchivo);
         
         // Definimos la Ruta de Destino donde queremos subir la imagen en nuestro proyecto
         java.nio.file.Path rutaDestino = java.nio.file.Paths.get(rutaImagenProyecto, nombreArchivo);
+        System.out.println("rutaDestino: " + rutaDestino);
 
         // Guardamos la imagen en nuestro proyecto (Si existe, la reemplaza)
         try (java.io.InputStream input = informacionImagen.getInputStream())

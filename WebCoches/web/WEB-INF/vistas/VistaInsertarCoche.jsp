@@ -39,10 +39,10 @@
                         
                         <!-- Modelo -->
                         <div class="col-md-3">
-                            <label for="modelo" class="formularioLabel">
+                            <label for="nombreModelo" class="formularioLabel">
                                 <i class="bi bi-book"></i> Modelo<span class="required">*</span>
                             </label>
-                            <input type="text" class="formularioInput w-50" id="modelo" name="modelo" placeholder="Ej: Focus" required>
+                            <input type="text" class="formularioInput w-50" id="nombreModelo" name="nombreModelo" placeholder="Ej: Focus" required>
                         </div>
 
                         <!-- Color -->
