@@ -49,8 +49,11 @@ public class ControladorCRUDCoches extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        String pathInfo = request.getPathInfo();
         String vista=null;
+        String pathInfo = request.getPathInfo();
+        
+        String[] pathInfo_partes = pathInfo.split("/");
+        String pathInfo_accion = "/" + pathInfo_partes[1];
         
         HttpSession sesion = request.getSession();
         
@@ -76,7 +79,7 @@ public class ControladorCRUDCoches extends HttpServlet
                 String rol = u.getRol().toString();
                 if(rol.equals("Admin")) // Si el Usuario tiene el Rol de Admin
                 {
-                    switch(pathInfo)
+                    switch(pathInfo_accion)
                     {
                         case "/insertar":
                         {
@@ -89,8 +92,18 @@ public class ControladorCRUDCoches extends HttpServlet
 
                         case "/eliminar":
                         {
-                            vista = "VistaEliminarCoche";
+                            if(pathInfo_partes.length > 1)
+                            {
+                                String idCocheEliminar_string = pathInfo_partes[2];
+                                Long idCocheEliminar = Long.valueOf(idCocheEliminar_string);
 
+                                // Buscamos el Coche con el 'idCoche' obtenido en la 'VistaGestionCoche' en la BD
+                                Coche cocheEliminar = this.em.find(Coche.class, idCocheEliminar);
+
+                                request.setAttribute("coche", cocheEliminar);
+                            }
+                            
+                            vista = "VistaEliminarCoche";
                         }; break;
 
                         case "/modificar":
@@ -265,6 +278,22 @@ public class ControladorCRUDCoches extends HttpServlet
     {
         this.utx.begin();
         this.em.persist(nuevoCoche); // Inserta el Coche
+        this.utx.commit();
+    }
+    
+    /**
+     * Elimina un Coche de la BD
+     * @param cocheEliminar Coche que queremos eliminar de la BD
+     * @throws jakarta.transaction.NotSupportedException
+     * @throws jakarta.transaction.SystemException
+     * @throws jakarta.transaction.RollbackException
+     * @throws jakarta.transaction.HeuristicMixedException
+     * @throws jakarta.transaction.HeuristicRollbackException
+     */
+    public void eliminarCoche(Coche cocheEliminar) throws NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException
+    {
+        this.utx.begin();
+        this.em.remove(cocheEliminar); // Elimina el Coche
         this.utx.commit();
     }
     

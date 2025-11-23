@@ -53,12 +53,12 @@ public class Compra implements Serializable
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
-    public Long getId()
+    public Long getIdCompra()
     {
         return this.idCompra;
     }
 
-    public void setId(Long id)
+    public void setIdCompra(Long id)
     {
         this.idCompra = id;
     }

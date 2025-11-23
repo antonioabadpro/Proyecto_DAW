@@ -4,10 +4,10 @@
     <c:if test="${!empty requestScope.textoResultado}">
         <div class="alert alert-${requestScope.tipoMensaje} alert-dismissible fade show" role="alert">
             <c:if test="${requestScope.tipoMensaje == 'success'}">
-                <i class="bi bi-check-circle-fill"> ${requestScope.textoResultado}</i>
+                <i class="bi bi-check-circle-fill me-1"> ${requestScope.textoResultado}</i>
             </c:if>
             <c:if test="${requestScope.tipoMensaje == 'danger'}">
-                <i class="bi bi-exclamation-triangle-fill"> ${requestScope.textoResultado}</i>
+                <i class="bi bi-exclamation-triangle-fill me-1"> ${requestScope.textoResultado}</i>
             </c:if>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -15,13 +15,13 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3><i class="bi bi-car-front"></i> Gestión de Coches</h3>
         <a href="${pageContext.request.contextPath}/gestion/insertar" class="btn btn-success">
-            <i class="bi bi-plus-lg"></i> Insertar Coche
+            <i class="bi bi-plus-lg me-1"></i> Insertar Coche
         </a>
     </div>
 
     <div class="card shadow-sm mb-5">
         <div class="card-body p-0">
-            <div class="table-responsive">
+            <div class="table-responsive rounded-3 overflow-hidden">
                 <table class="table table-striped table-hover align-middle mb-0">
                     <thead class="table-dark text-nowrap">
                         <tr>
@@ -41,7 +41,7 @@
                             <c:when test="${not empty listaCoches}">
                                 <c:forEach var="coche" items="${requestScope.listaCoches}">
                                     <tr>
-                                        <td>${coche.id}</td>
+                                        <td>${coche.idCoche}</td>
                                         <td>${coche.matricula}</td>
                                         <td>${coche.color}</td>
                                         <td>${coche.precio}</td>
@@ -83,12 +83,10 @@
                                         <%-- Acciones --%>
                                         <td>
                                             <div class="d-flex gap-2 justify-content-center">
-                                                <form action="${pageContext.request.contextPath}/gestion/modificar" method="GET">
-                                                    <input type="hidden" name="idCoche" value="${coche.id}">
+                                                <form action="${pageContext.request.contextPath}/gestion/modificar/${coche.idCoche}" method="GET" target="_self">
                                                     <button type="submit" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i> Modificar</button>
                                                 </form>
-                                                <form action="${pageContext.request.contextPath}/gestion/eliminar" method="GET">
-                                                    <input type="hidden" name="idCoche" value="${coche.id}">
+                                                <form action="${pageContext.request.contextPath}/gestion/eliminar/${coche.idCoche}" method="GET" target="_self">
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Eliminar</button>
                                                 </form>
                                             </div>

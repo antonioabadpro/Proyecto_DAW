@@ -110,7 +110,7 @@ public class ControladorDetalle extends HttpServlet
         
         String consultaNombrada = "Coche.findById";
         Query q = this.em.createNamedQuery(consultaNombrada);
-        q.setParameter("id", idCoche);
+        q.setParameter("idCoche", idCoche);
         
         try
         {

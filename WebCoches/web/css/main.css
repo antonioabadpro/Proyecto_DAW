@@ -249,3 +249,9 @@ footer h5
 {
     background-color: #5848d6;
 }
+
+/* --------- Estilo Tablas --------- */
+.cabeceraTabla
+{
+    color: var(--verdeOscuroTonicar);
+}

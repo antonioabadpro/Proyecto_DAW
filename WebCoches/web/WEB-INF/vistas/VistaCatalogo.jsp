@@ -35,7 +35,7 @@
 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a href="${pageContext.request.contextPath}/detalle/${coche.id}" class="btn btn-sm btn-outline-secondary">Ver Detalle</a>
+                                        <a href="${pageContext.request.contextPath}/detalle/${coche.idCoche}" class="btn btn-sm btn-outline-secondary">Ver Detalle</a>
                                     </div>
                                 </div>
                             </div>

@@ -23,7 +23,7 @@ import java.io.Serializable;
 @Table(name="COCHE") // Renombra la entidad en la BD
 @NamedQueries({
  @NamedQuery(name="Coche.findAll", query="SELECT c FROM Coche c"),
- @NamedQuery(name="Coche.findById", query="SELECT c FROM Coche c WHERE c.idCoche = :id"),
+ @NamedQuery(name="Coche.findById", query="SELECT c FROM Coche c WHERE c.idCoche = :idCoche"),
  @NamedQuery(name="Coche.findByName", query="SELECT c FROM Coche c WHERE c.nombreModelo = :nombreModelo"),
 })
 public class Coche implements Serializable
@@ -129,12 +129,12 @@ public class Coche implements Serializable
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
-    public Long getId()
+    public Long getIdCoche()
     {
         return this.idCoche;
     }
 
-    public void setId(Long id)
+    public void setIdCoche(Long id)
     {
         this.idCoche = id;
     }
