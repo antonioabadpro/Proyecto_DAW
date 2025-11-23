@@ -102,6 +102,7 @@ public class ControladorDetalle extends HttpServlet
     
     /**
      * Realiza una Consulta Nombrada en la Entidad Coches para buscar un Coche por su ID
+     * @param idCoche id del Coche que queremos buscar
      * @return Devuelve el Coche cuyo 'id' coincida con el 'id' introducido por parametro
      */
     public Coche buscarCochePorId(Long idCoche)

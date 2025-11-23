@@ -100,7 +100,7 @@
 
                         <!-- Tipo de Cambio -->
                         <div class="col-md-3">
-                            <label for="cambio" class="formularioLabel">
+                            <label for="cajaCambios" class="formularioLabel">
                                 <i class="bi bi-gear-wide-connected"></i> Tipo de Cambio<span class="obligatorio">*</span>
                             </label>
                             <select class="formularioSelect w-auto" id="cajaCambios" name="cajaCambios" required>
@@ -112,7 +112,7 @@
 
                         <!-- Kilómetros -->
                         <div class="col-md-3">
-                            <label for="kilometros" class="formularioLabel">
+                            <label for="km" class="formularioLabel">
                                 <i class="bi bi-speedometer2"></i> Kilómetros<span class="obligatorio">*</span>
                             </label>
                             <input type="number" class="formularioInput w-auto" id="km" name="km" min="0" placeholder="0" required>
@@ -120,7 +120,7 @@
 
                         <!-- Año -->
                         <div class="col-md-3">
-                            <label for="año" class="formularioLabel">
+                            <label for="fecha" class="formularioLabel">
                                 <i class="bi bi-calendar-event"></i> Año<span class="obligatorio">*</span>
                             </label>
                             <select class="formularioSelect w-auto" id="fecha" name="fecha" required>

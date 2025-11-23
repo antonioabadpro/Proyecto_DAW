@@ -21,6 +21,8 @@ import jakarta.transaction.RollbackException;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.UserTransaction;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelos.Coche;
 import modelos.Marca;
 import modelos.Usuario;
@@ -140,9 +142,13 @@ public class ControladorCRUDCoches extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         String pathInfo = request.getPathInfo();
-        HttpSession sesion = request.getSession(); // Para mostrar los mensajes de Feedback despues de realizar la operacion CRUD en la 'VistaGestionCoches'
         
-        switch(pathInfo)
+        String[] pathInfo_partes = pathInfo.split("/");
+        String pathInfo_accion = "/" + pathInfo_partes[1];
+        
+        HttpSession sesion = request.getSession();
+        
+        switch(pathInfo_accion)
         {
             case "/insertar":
             {
@@ -229,6 +235,29 @@ public class ControladorCRUDCoches extends HttpServlet
 
             case "/eliminar":
             {
+                if(pathInfo_partes.length > 1)
+                {
+                    String idCocheEliminar_string = pathInfo_partes[2];
+                    Long idCocheEliminar = Long.valueOf(idCocheEliminar_string);
+                    
+                    // Buscamos el Coche que queremos eliminar para poder mostrar su matricula como mensaje de Feedback tras la eliminacion
+                    Coche c = this.em.find(Coche.class, idCocheEliminar);
+
+                    try
+                    {
+                        // Eliminamos el Coche de la BD
+                        eliminarCoche(idCocheEliminar);
+                        String textoExito = "El Coche con matrícula '" + c.getMatricula() + "' se ha eliminado del sistema con éxito";
+                        sesion.setAttribute("textoResultado", textoExito); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
+                        sesion.setAttribute("tipoMensaje", "success");
+                    }
+                    catch (Exception e)
+                    {
+                        String textoError = "NO se ha podido realizar la eliminación del Coche con matrícula '" + c.getMatricula() + "'";
+                        sesion.setAttribute("textoResultado", textoError); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
+                        sesion.setAttribute("tipoMensaje", "danger");
+                    }
+                }
 
             }; break;
 
@@ -283,16 +312,18 @@ public class ControladorCRUDCoches extends HttpServlet
     
     /**
      * Elimina un Coche de la BD
-     * @param cocheEliminar Coche que queremos eliminar de la BD
+     * @param idCocheEliminar id del Coche que queremos eliminar de la BD
      * @throws jakarta.transaction.NotSupportedException
      * @throws jakarta.transaction.SystemException
      * @throws jakarta.transaction.RollbackException
      * @throws jakarta.transaction.HeuristicMixedException
      * @throws jakarta.transaction.HeuristicRollbackException
      */
-    public void eliminarCoche(Coche cocheEliminar) throws NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException
+    public void eliminarCoche(Long idCocheEliminar) throws NotSupportedException, SystemException, RollbackException, HeuristicMixedException, HeuristicRollbackException
     {
         this.utx.begin();
+        // Buscamos el Coche con el 'idCoche' obtenido en la 'VistaGestionCoche' en la BD
+        Coche cocheEliminar = this.em.find(Coche.class, idCocheEliminar);
         this.em.remove(cocheEliminar); // Elimina el Coche
         this.utx.commit();
     }
