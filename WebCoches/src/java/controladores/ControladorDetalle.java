@@ -67,7 +67,7 @@ public class ControladorDetalle extends HttpServlet
                     System.out.println("NO hay ningun Coche con el id '" + idCoche + "'");
                 }
                 
-                vista="VistaDetalle2";
+                vista="VistaDetalle";
             }; break;
         }
         

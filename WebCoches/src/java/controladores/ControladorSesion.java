@@ -15,8 +15,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import modelos.Usuario;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.UserTransaction;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelos.Coche;
+import modelos.Compra;
 
 /**
  *
@@ -71,6 +74,38 @@ public class ControladorSesion extends HttpServlet
                 response.sendRedirect(request.getContextPath() + "/inicio");
                 return;
             }
+            
+            case "/misPedidos":
+            {
+                HttpSession sesion = request.getSession();
+                Usuario u = (Usuario) sesion.getAttribute("usuarioLogueado");
+                
+                if(u == null) // Si NO tiene la Sesion iniciada, lanzamos un error 401
+                {
+                    String textoErrorSesion = "El Usuario NO tiene la Sesion iniciada";
+                    response.sendError(401, textoErrorSesion);
+                    return;
+                }
+                else // Si tiene sesion iniciada, comprobamos que sea de tipo "Cliente"
+                {
+                    String rol = u.getRol().toString();
+
+                    if(rol.equals("Cliente")) // Si el Usuario tiene el Rol de Cliente
+                    {
+                        // Buscamos todos los pedidos del Usuario en la Tabla de Compra
+                        List<Compra> listaCompras = obtenerComprasUsuario(u.getIdUsuario());
+                        request.setAttribute("listaCompras", listaCompras);
+
+                        vista = "VistaMisPedidos";
+                    }
+                    else // Si el Usuario NO tiene el Rol de Cliente, lanzamos un error 403
+                    {
+                        String textoErrorRol = "NO eres Cliente, NO puedes realizar esta operacion";
+                        response.sendError(403, textoErrorRol);
+                        return;
+                    }
+                }
+            }; break;
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/" + vista + ".jsp");
@@ -183,7 +218,7 @@ public class ControladorSesion extends HttpServlet
      */
     /**
      * Realiza una Consulta Nombrada en la Entidad Usuario para buscar un Usuario por su campo 'nomUsuario'
-     *
+     * @param nomUsuario Nombre de usuario del Usuario que queremos buscar en la BD
      * @return Devuelve el Usuario cuyo 'nomUsuario' coincida con el 'nomUsuario' introducido por parametro
      */
     public Usuario buscarUsuario(String nomUsuario)
@@ -222,6 +257,22 @@ public class ControladorSesion extends HttpServlet
             Logger.getLogger(ControladorSesion.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("NO se ha podido realizar la insercion de Usuario con 'nomUsuario': " + nuevoUsuario.getNomUsuario());
         }
+    }
+    
+    /**
+     * Realiza una Consulta Dinamica Tipada en la Entidad Compra para obtener las compras que ha realizado un usuario
+     * @param idUsuario id del Usuario del que queremos obtener sus compras
+     * @return Devuelve las Compras que ha realizado el usuario con el id introducido por parametro
+     */
+    public List<Compra> obtenerComprasUsuario(Long idUsuario)
+    {
+        String consulta = "SELECT c FROM Compra c WHERE c.usuario.idUsuario = :idUsuario";
+        TypedQuery<Compra> q = this.em.createQuery(consulta, Compra.class);
+        q.setParameter("idUsuario", idUsuario);
+        
+        List<Compra> listaCompras = q.getResultList();
+        
+        return listaCompras;        
     }
 
 }

@@ -15,8 +15,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import modelos.Coche;
+import modelos.Compra;
 import modelos.Usuario;
 
 /**
@@ -54,8 +56,17 @@ public class ControladorCatalogoGestion extends HttpServlet
                 case "/catalogo":
                 {
                     List<Coche> listaCoches = obtenerCoches();
+                    List<Coche> listaCochesCatalogo = new ArrayList<Coche>(); // Contiene los Coches que NO han sido comprados
                     
-                    request.setAttribute("listaCoches", listaCoches);
+                    for(Coche c: listaCoches)
+                    {
+                        if(c.getCompra() == null) // Si el Coche NO ha sido Comprado, lo añadimos a la Lista
+                        {
+                            listaCochesCatalogo.add(c);
+                        }
+                    }
+                    
+                    request.setAttribute("listaCoches", listaCochesCatalogo);
                     
                     vista = "VistaCatalogo";
                 }; break;
@@ -145,7 +156,7 @@ public class ControladorCatalogoGestion extends HttpServlet
         
         List<Coche> listaCoches = q.getResultList();
         
-        return listaCoches;        
+        return listaCoches;      
     }
 
 }

@@ -1,0 +1,22 @@
+.success-card {
+            max-width: 700px;
+            margin: 50px auto;
+            border: none;
+            border-radius: 20px;
+            text-align: center;
+            padding: 40px;
+        }
+        .icon-check {
+            font-size: 5rem;
+            color: #198754;
+        }
+        .code-box {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin: 20px 0;
+            border: 2px dashed #adb5bd;
+        }

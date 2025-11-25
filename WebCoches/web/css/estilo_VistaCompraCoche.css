@@ -1,0 +1,14 @@
+.tarjetaCarrito
+{
+         
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: relative;
+      margin: 30px auto;
+      max-width: 600px;
+     
+}
+

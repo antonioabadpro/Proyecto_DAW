@@ -10,10 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -21,6 +22,9 @@ import java.util.Date;
  */
 @Entity
 @Table(name="COMPRA") // Renombra la entidad en la BD
+@NamedQueries({
+ @NamedQuery(name="Compra.findAll", query="SELECT c FROM Compra c")
+})
 public class Compra implements Serializable
 {
 
@@ -28,9 +32,6 @@ public class Compra implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCompra;
-    private Date fechaCompra;
-    private float precioTotal;
-    private String direccionEntrega;
     @JoinColumn(name = "usuarioCompra", referencedColumnName = "idUsuario")
     @ManyToOne
     private Usuario usuario;
@@ -42,12 +43,9 @@ public class Compra implements Serializable
         
     }
     
-    public Compra(Long id, Date fechaCompra, float precioTotal, String direccionEntrega, Usuario u, Coche c)
+    public Compra(Long id, Usuario u, Coche c)
     {
         this.idCompra = id;
-        this.fechaCompra = fechaCompra;
-        this.precioTotal = precioTotal;
-        this.direccionEntrega = direccionEntrega;
         this.usuario = u;
         this.coche = c;
     }
@@ -63,52 +61,22 @@ public class Compra implements Serializable
         this.idCompra = id;
     }
 
-    public Date getFechaCompra()
-    {
-        return this.fechaCompra;
-    }
-
-    public void setFechaCompra(Date fechaCompra)
-    {
-        this.fechaCompra = fechaCompra;
-    }
-
-    public float getPrecioTotal()
-    {
-        return this.precioTotal;
-    }
-
-    public void setPrecioTotal(float precioTotal)
-    {
-        this.precioTotal = precioTotal;
-    }
-
-    public String getDireccionEntrega()
-    {
-        return this.direccionEntrega;
-    }
-
-    public void setDireccionEntrega(String direccionEntrega)
-    {
-        this.direccionEntrega = direccionEntrega;
-    }
-
-    public Coche getCocheCompra()
+    public Coche getCoche()
     {
         return this.coche;
     }
 
-    public void setCocheCompra(Coche coche)
+    public void setCoche(Coche coche)
     {
         this.coche = coche;
     }
 
-    public Usuario getUsuarioCompra()
+    public Usuario getUsuario()
     {
         return this.usuario;
     }
 
-    public void setUsuarioCompra(Usuario usuario)
+    public void setUsuario(Usuario usuario)
     {
         this.usuario = usuario;
     }

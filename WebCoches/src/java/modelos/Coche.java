@@ -307,12 +307,12 @@ public class Coche implements Serializable
         return marca_modelo;
     }
 
-    public Compra getCompraCoche()
+    public Compra getCompra()
     {
         return this.compra;
     }
 
-    public void setCompracoche(Compra compra)
+    public void setCompra(Compra compra)
     {
         this.compra = compra;
     }

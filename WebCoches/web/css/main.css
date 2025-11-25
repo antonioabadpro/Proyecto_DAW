@@ -28,16 +28,33 @@ body
     width: 100%;
 }
 
+#desplegableFotoSesion
+{
+    background-color: #f1f5f9; /* Gris muy claro (tono pizarra suave) */
+    color: #334155 !important; /* Texto gris oscuro */
+    border-radius: 8px; /* Bordes un poco más redondeados */
+    font-weight: 600; /* Texto un poco más grueso */
+    transition: all 0.2s ease;
+}
+
+#desplegableFotoSesion:hover
+{
+    background-color: #e2e8f0; /* Gris un poco más oscuro al pasar el ratón */
+    color: #1e293b !important; /* Texto casi negro */
+}
+
 #desplegableCerrarSesion
 {
     background-color: #dc3545; /* Rojo Bootstrap */
-    color: white !important;   /* Forzamos el texto blanco */
-    transition: all 0.3s ease;
+    color: white !important; /* Forzamos el texto blanco */
+    border-radius: 8px;
+    margin-top: 5px;
+    transition: all 0.2s ease;
 }
 
 #desplegableCerrarSesion:hover
 {
-    background-color: #bb2d3b; 
+    background-color: #bb2d3b;
     color: white;
 }
 

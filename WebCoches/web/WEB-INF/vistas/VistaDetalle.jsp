@@ -1,82 +1,196 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@include  file="templates/header.jspf"%>
+<%@include file="templates/header.jspf"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="container">
-    <!-- Encabezado -->
-    <div class="text-center mb-3">
-        <div class="bg-dark text-white d-inline-block px-4 py-2 rounded w-100">
-            <strong>DETALLE DEL VEHÍCULO</strong>
-        </div>
-    </div>
-
-    <!-- Contenedor 2x2 con zonas diferenciadas -->
-
-    <div class="row g-2 mb-3">
-        <!-- Zona 1: Imagen del vehi­culo -->
-        <div class="col-6">
-            <c:if test="${!empty requestScope.coche.foto1}">
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                    <div class="indicadorCarrusel">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    </div>
-                    <div class="anchoCarrusel">
-                        <div class="elementoCarrusel active">
-                            <img src="${pageContext.request.contextPath}/img_coches/${requestScope.coche.foto1}" class="d-block w-100" alt="Imagen 1 ${requestScope.coche.nombreModelo}">
+    <div class="container">
+        <div class="detail-card  mx-auto my-4">
+            <div class="row g-0">
+                <!-- Columna Izquierda: Carrusel de Imágenes -->
+                <div class="col-lg-6">
+                    <div id="carouselCoche" class="carousel slide carousel-container" data-bs-ride="carousel">
+                                              
+                        <!-- Indicadores -->
+                        <div class="carousel-indicators">
+                            <c:if test="${!empty requestScope.coche.foto1}">
+                                <button type="button" data-bs-target="#carouselCoche" data-bs-slide-to="0" class="active"></button>
+                            </c:if>
+                            <c:if test="${!empty requestScope.coche.foto2}">
+                                <button type="button" data-bs-target="#carouselCoche" data-bs-slide-to="1"></button>
+                            </c:if>
+                            
                         </div>
-                        <c:if test="${!empty requestScope.coche.foto2}">
-                            <div class="anchoCarrusel">
-                                <div class="elementoCarrusel active">
+                        
+                        <!-- Slides -->
+                        <div class="carousel-inner">
+                            <c:if test="${!empty requestScope.coche.foto1}">
+                                <div class="carousel-item active">
+                                    <img src="${pageContext.request.contextPath}/img_coches/${requestScope.coche.foto1}" class="d-block w-100" alt="Imagen 1 ${requestScope.coche.nombreModelo}">
+                                </div>
+                            </c:if>
+                            <c:if test="${!empty requestScope.coche.foto2}">
+                                <div class="carousel-item">
                                     <img src="${pageContext.request.contextPath}/img_coches/${requestScope.coche.foto2}" class="d-block w-100" alt="Imagen 2 ${requestScope.coche.nombreModelo}">
                                 </div>
-                            </div>
-                        </c:if>
-                        <button class="anteriorCarrusel" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            </c:if>
+                            
+                            
+                            <!-- Imagen por defecto si no hay imágenes -->
+                            <c:if test="${empty requestScope.coche.foto1 and empty requestScope.coche.foto2}">
+                                <div class="carousel-item active">
+                                    <img src="${pageContext.request.contextPath}/img_coches/no_coche.jpg" class="d-block w-100" alt="Sin coche">
+                                </div>
+                            </c:if>
+                        </div>
+                        
+                        <!-- Controles -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselCoche" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
+                            <span class="visually-hidden">Anterior</span>
                         </button>
-                        <button class="siguienteCarrusel" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselCoche" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
+                            <span class="visually-hidden">Siguiente</span>
                         </button>
                     </div>
                 </div>
-            </c:if>
-
-            <!-- Zona 2: Prueba del vehí­culo -->
-            <div class="col-6">
-                <div class="border p-3 mb-3 rounded bg-light">
-                    <div class="zone">
-                        <form name="formDatosVehiculo" method="GET" action="${pageContext.request.contextPath}/comprar/${requestScope.coche.idCoche}" target="_self">
-                            <!-- Lista de caracteri­sticas -->
-                            <ul class="list-unstyled small">
-                                <li><strong>Precio: </strong>${requestScope.coche.precio} €</li>
-                                <li><strong>Descuento: </strong>${requestScope.coche.descuento} %</li>
-                                <li><strong>Modelo: </strong>${requestScope.coche.nombreModelo}</li>
-                                <li><strong>Matrícula: </strong>${requestScope.coche.matricula}</li>
-                                <li><strong>Descripción: </strong>${requestScope.coche.descripcion}</li>
-                                <li><strong>Color: </strong>${requestScope.coche.color}</li>
-                                <li><strong>Año: </strong>${requestScope.coche.fecha}</li>
-                                <li><strong>Kilometraje: </strong>${requestScope.coche.km}</li>
-                                <li><strong>Combustible: </strong>${requestScope.coche.combustible}</li>
-                                <li><strong>Transmisión: </strong>${requestScope.coche.cajaCambios}</li>
-                                <li><strong>Potencia: </strong>${requestScope.coche.cv} CV</li>
-                                <li><strong>Consumo: </strong>${requestScope.coche.consumo} L/100</li>
-                                <li><strong>Estado: </strong>${requestScope.coche.estado}</li>
-                            </ul>
-                    </div>  
-                </div>   
-            </div>
-            <!-- Botones -->
-            <div class="row g-2 mg-3">
-                <div class="col-12">
-                    <div class="d-flex justify-content-between mt-4">
-                        <a href="${pageContext.request.contextPath}/catalogo" class="btn btn-secondary btn-custom">CANCELAR</a>
-                        <input type="submit" class="btn btn-primary btn-custom" value="COMPRAR">
+                
+                <!-- Columna Derecha: Información del Vehículo -->
+                <div class="col-lg-6">
+                    <div class="info-section">
+                        <!-- Título y Matrícula -->
+                        <h1 class="tituloCoche">${requestScope.coche.marca.nombre} ${requestScope.coche.nombreModelo}</h1>
+                        <p class="matriculaCoche">
+                            <i class="bi bi-card-text"></i> ${requestScope.coche.matricula}
+                        </p>
+                        
+                        <!-- Sección de Precio -->
+                        <div class="precioCoche">
+                            <c:if test="${requestScope.coche.descuento > 0}">
+                                <span class="elementoDescuento">
+                                    <i class="bi bi-tag-fill"></i> -${requestScope.coche.descuento}%
+                                </span>
+                            </c:if>
+                            
+                            <div class="etiquetaPrecio">Precio</div>
+                            <div class="valorPrecio">
+                                <c:choose>
+                                    <c:when test="${requestScope.coche.descuento > 0}">
+                                        <fmt:formatNumber value="${requestScope.coche.precio * (1 - requestScope.coche.descuento / 100)}" type="currency" currencySymbol="€" maxFractionDigits="2"/>
+                                        <div class="precioOriginal">
+                                            <fmt:formatNumber value="${requestScope.coche.precio}" type="currency" currencySymbol="€" maxFractionDigits="2"/>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <fmt:formatNumber value="${requestScope.coche.precio}" type="currency" currencySymbol="€" maxFractionDigits="2"/>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                        
+                        <!-- Grid de Información -->
+                        <div class="gridElementosInformacion">
+                            <!-- Color -->
+                            <div class="elementoInformacion">
+                                <div class="etiquetaInformacion">
+                                    <i class="bi bi-palette-fill"></i> Color
+                                </div>
+                                <div class="textoInformacion">${requestScope.coche.color}</div>
+                            </div>
+                            
+                            <!-- Combustible -->
+                            <div class="elementoInformacion">
+                                <div class="etiquetaInformacion">
+                                    <i class="bi bi-fuel-pump-fill"></i> Combustible
+                                </div>
+                                <div class="textoInformacion text-capitalize">${requestScope.coche.combustible}</div>
+                            </div>
+                            
+                            <!-- Consumo -->
+                            <div class="elementoInformacion">
+                                <div class="etiquetaInformacion">
+                                    <i class="bi bi-speedometer"></i> Consumo
+                                </div>
+                                <div class="textoInformacion">
+                                    ${requestScope.coche.consumo != null ? requestScope.coche.consumo : 'N/A'} L/100km
+                                </div>
+                            </div>
+                            <!-- CV -->
+                            <div class="elementoInformacion">
+                                <div class="etiquetaInformacion">
+                                    <i class="bi bi-lightning"></i> Potencia
+                                </div>
+                                <div class="textoInformacion">
+                                    ${requestScope.coche.cv != null ? requestScope.coche.cv : 'N/A'} CV
+                                </div>
+                            </div>
+                            <!-- Kilómetros -->
+                            <div class="elementoInformacion">
+                                <div class="etiquetaInformacion">
+                                    <i class="bi bi-speedometer2"></i> Kilómetros
+                                </div>
+                                <div class="textoInformacion">
+                                    <fmt:formatNumber value="${requestScope.coche.km}" groupingUsed="true"/> km
+                                </div>
+                            </div>
+                            
+                            <!-- Tipo de Cambio -->
+                            <div class="elementoInformacion">
+                                <div class="etiquetaInformacion">
+                                    <i class="bi bi-gear-fill"></i> Cambio
+                                </div>
+                                <div class="textoInformacion text-capitalize">${requestScope.coche.cajaCambios}</div>
+                            </div>
+                            
+                            <!-- Año -->
+                            <div class="elementoInformacion">
+                                <div class="etiquetaInformacion">
+                                    <i class="bi bi-calendar-event"></i> Año
+                                </div>
+                                <div class="textoInformacion">${requestScope.coche.fecha}</div>
+                            </div>
+                            
+                            <!-- Estado -->
+                            <div class="elementoInformacion">
+                                <div class="etiquetaInformacion">
+                                    <i class="bi bi-info-circle-fill"></i> Estado
+                                </div>
+                                <div class="textoInformacion">
+                                    <c:choose>
+                                        <c:when test="${requestScope.coche.estado == 'Nuevo'}">
+                                            <span class="elementoEstado estadoNuevo">Nuevo</span>
+                                        </c:when>
+                                        <c:when test="${requestScope.coche.estado == 'ComoNuevo'}">
+                                            <span class="elementoEstado estadoComoNuevo">Como Nuevo</span>
+                                        </c:when>
+                                        <c:when test="${requestScope.coche.estado == 'Usado'}">
+                                            <span class="elementoEstado estadoUsado">Usado</span>
+                                        </c:when>
+                                        <c:when test="${requestScope.coche.estado == 'PorReparar'}">
+                                            <span class="elementoEstado estadoPorReparar">Por Reparar</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="elementoEstado">${requestScope.coche.estado}</span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Pie del Card: Botones de Acción -->
+            <div class="botonAccion">
+                <div class="d-flex">
+                    <form action="${pageContext.request.contextPath}/comprar/${requestScope.coche.idCoche}" method="GET">
+                        <button type="submit" class="botonComprar">
+                            <i class="bi bi-cart-check-fill"></i> Comprar Ahora
+                        </button>
                     </form>
+                    <a href="${pageContext.request.contextPath}/catalogo" class="botonCerrar d-flex align-items-center justify-content-center ms-4"><i class="bi bi-x-lg me-1"></i> Cerrar</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <%@include  file="templates/footer.jspf"%>  
+<%@include file="templates/footer.jspf"%>
