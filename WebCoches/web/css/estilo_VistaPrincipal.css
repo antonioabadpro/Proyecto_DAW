@@ -1,26 +1,28 @@
 .contenido
 {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /*flex: 1;*/
+    min-height: 55vh;
+    overflow-y: hidden;/*auto;*/
+    background-color: var(--verdeLimaTonicar);
 }
 
 .contenedorCarrusel
 {
-    height: 100%;
-    overflow: hidden;
+   /* height: 20%;/*100%;*/
+   
+    overflow:hidden;
 }
 
 .imagenCarrusel
 {
-    height: 100%;
-    background: var(--verdeOscuroCarruselTonicar);
+   /* height: 100%;*/
+    /*background: var(--verdeOscuroCarruselTonicar);*/
+ min-height: 200vh;
 }
 
 .imagenCarrusel .anchoCarrusel, .imagenCarrusel .elementoCarrusel
 {
-    height: 100%;
+    min-height: 100%;
 }
 
 .imagenCarrusel img

@@ -100,8 +100,16 @@ public class ControladorCatalogoGestion extends HttpServlet
                         if(rol.equals("Admin")) // Si el Usuario tiene el Rol de Admin
                         {
                             List<Coche> listaCoches = obtenerCoches();
-                    
-                            request.setAttribute("listaCoches", listaCoches);
+                            List<Coche> listaCochesCatalogo = new ArrayList<Coche>(); // Contiene los Coches que NO han sido comprados
+
+                            for(Coche c: listaCoches)
+                            {
+                                if(c.getCompra() == null) // Si el Coche NO ha sido Comprado, lo añadimos a la Lista
+                                {
+                                    listaCochesCatalogo.add(c);
+                                }
+                            }
+                            request.setAttribute("listaCoches", listaCochesCatalogo);
 
                             vista = "VistaGestionCoches";
                         }

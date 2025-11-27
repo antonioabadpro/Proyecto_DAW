@@ -50,7 +50,6 @@ public class Usuario implements Serializable
     @Column(unique=true)
     private String correo;
     private String password;
-    @Column(unique=true)
     private int telefono;
     private String direccion;
     private String codigoPostal;

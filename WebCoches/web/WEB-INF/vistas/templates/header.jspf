@@ -67,6 +67,7 @@
                                                 <img class="dropdown-toggle imagenUsuarioHeader" src="${pageContext.request.contextPath}/imagenes/logo_usuario.png" data-bs-toggle="dropdown" aria-expanded="false" title="Rol Usuario"/>
                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                     <li><a id="desplegableFotoSesion" class="dropdown-item" href="${pageContext.request.contextPath}/sesion/misPedidos"> <i class="bi bi-bag-check-fill"></i> Mis Pedidos</a></li>
+                                                    <li><hr class="dropdown-divider"></li>
                                                     <li><a id="desplegableCerrarSesion" class="dropdown-item" href="${pageContext.request.contextPath}/sesion/cerrarSesion"> <i class="bi bi-power"></i> Cerrar Sesión</a></li>
                                                 </ul>
                                             </div>

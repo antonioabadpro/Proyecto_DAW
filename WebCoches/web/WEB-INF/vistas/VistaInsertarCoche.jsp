@@ -40,7 +40,7 @@
                         <!-- Modelo -->
                         <div class="col-md-3">
                             <label for="nombreModelo" class="formularioLabel">
-                                <i class="bi bi-book"></i> Modelo<span class="required">*</span>
+                                <i class="bi bi-book"></i> Modelo<span class="obligatorio">*</span>
                             </label>
                             <input type="text" class="formularioInput w-50" id="nombreModelo" name="nombreModelo" placeholder="Ej: Focus" required>
                         </div>
@@ -166,7 +166,8 @@
                         <!-- Descuento -->
                         <div class="col-md-6">
                             <label for="descuento" class="formularioLabel">
-                                <i class="bi bi-tag-fill"></i> Descuento (%)</label>
+                                <i class="bi bi-tag-fill"></i> Descuento (%) <span class="obligatorio">*</span>
+                            </label>
                             <input type="number" class="formularioInput w-25" id="descuento" name="descuento" value="0" min="0" max="100" step="1">
                         </div>
                     </div>
