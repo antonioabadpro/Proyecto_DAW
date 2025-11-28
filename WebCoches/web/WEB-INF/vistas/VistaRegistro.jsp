@@ -73,7 +73,10 @@
                                 <label for="formGrupoRegistro" class="formularioLabel">
                                     <i class="bi bi-at"></i>Correo Electrónico: <span class="obligatorio">*</span>
                                 </label>
-                                <input id="correo" type="text" class="formularioInput w-100 me-1" name="correo" placeholder="Ej: tucorreo@dominio.es">
+                                <input id="correo" type="email" class="formularioInput w-75 me-1" name="correo" placeholder="Ej: tucorreo@dominio.es" onblur="validarCorreoFetch()">
+                                <i id="checkCorreo" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                                <i id="errorCorreo" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Ya existe un Usuario con el correo introducido"></i>
+                                <i id="errorFormatoCorreo" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El correo debe tener el formato 'correo@dominio.algo'"></i>
                             </div>
                         </div>
                         <div class="col-3">

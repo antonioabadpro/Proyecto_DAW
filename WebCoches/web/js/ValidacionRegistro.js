@@ -205,6 +205,97 @@ function validarDni()
 }
 
 /**
+ * Funcion llamada desde 'validarCorreoFetch()' para comprobar que el correo cumple con el formato cuando NO existe en la BD
+ * El Correo debe cumplir con el formato 'correo@dominio.algo'
+ * @param {type} correo Es el Correo del Usuario del que queremos validar el formato, ya que sabemos que NO existe en la BD
+ * @returns {Boolean}
+ */
+function validarCorreo(correo)
+{
+    let esValido = false;
+    let iconoCheck = document.getElementById("checkCorreo");
+    let iconoError = document.getElementById("errorCorreo");
+    let iconoErrorFormato = document.getElementById("errorFormatoCorreo");
+    //let correo = document.getElementById("correo").value.trim();
+    
+    let formatoValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
+    
+    if(formatoValido === true) // Si el DNI cumple con el formato
+    {
+        esValido = true;
+        // Mostramos el icono del check
+        iconoCheck.classList.remove("d-none");
+        
+        // Ocultamos el icono del error del formato y el icono del error porque ya existe
+        iconoErrorFormato.classList.add("d-none");
+        iconoError.classList.add("d-none");
+        
+        // Añadimos el borde verde
+        correo.classList.add("is-valid");
+        correo.classList.remove("is-invalid");
+    }
+    else // Si el DNI NO cumple con el formato
+    {
+        esValido = false;
+        // Ocultamos el icono del check y el icono del error porque ya existe
+        iconoCheck.classList.add("d-none");
+        iconoError.classList.add("d-none");
+        
+        // Mostramos el icono del error
+        iconoErrorFormato.classList.remove("d-none");
+        
+        // Añadimos el borde rojo
+        correo.classList.add("is-invalid");
+        correo.classList.remove("is-valid");
+    }
+    
+    return esValido;
+}
+
+async function validarCorreoFetch()
+{
+    //let esValido = false;
+    let iconoCheck = document.getElementById("checkCorreo");
+    let iconoError = document.getElementById("errorCorreo");
+    let iconoErrorFormato = document.getElementById("errorFormatoCorreo");
+    let correo = document.getElementById("correo");
+    
+    let parametrosEnviados = new URLSearchParams(); // Datos enviados al Servidor/Controlador
+    parametrosEnviados.append("correoFetch", correo.value);
+    
+    let respuestaServidor = await fetch("/WebCoches/sesion/comprobarCorreo", {
+        method: 'POST',
+        body: parametrosEnviados
+    });
+    
+    if(respuestaServidor.ok) // Si el Servidor ha realizado la peticion correctamente (Estado HTTP 200-299)
+    {
+        let resultadoConsulta = await respuestaServidor.text();
+        
+        console.log("resultadoConsulta desde JS: " + resultadoConsulta);
+        
+        if(resultadoConsulta === "NOexisteCorreo") // Si NO existe un Usuario con ese correo en la BD
+        {
+            validarCorreo(correo.value.trim());
+        }
+        else
+        {
+            // Ocultamos el icono del check y el del error por el formato
+            iconoCheck.classList.add("d-none");
+            iconoErrorFormato.classList.add("d-none");
+            
+
+            // Mostramos el icono del error
+            iconoError.classList.remove("d-none");
+
+            // Añadimos el borde rojo
+            correo.classList.add("is-invalid");
+            correo.classList.remove("is-valid");
+        }
+    }
+}
+
+/**
  * El campo Telefono debe tener 9 numeros
  * @returns {Boolean}
  */

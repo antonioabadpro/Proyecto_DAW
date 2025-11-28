@@ -195,6 +195,28 @@ public class ControladorSesion extends HttpServlet
                 System.out.println("El usuaio con 'nomUsuario' " + nomUsuario + " se ha registrado en el sistema con exito");
                 
             }; break;
+            
+            case "/comprobarCorreo": // Peticion Fetch proveniente del campo correo del formulario de Registro
+            {
+                String resultadoConsulta;
+                String correo = request.getParameter("correoFetch");
+                
+                // Realizamos una Consulta para comprobar si el correo existe en la BD
+                Usuario u = buscarUsuarioPorCorreo(correo);
+                
+                System.out.println("correo desde el controlador: " + correo);
+                
+                if(u == null) // Si NO existe un Usuario con ese correo en la BD
+                {
+                    resultadoConsulta = "NOexisteCorreo";
+                }
+                else // Si existe un Usuario con ese correo en la BD
+                {
+                    resultadoConsulta = "existeCorreo";
+                }
+                response.getWriter().write(resultadoConsulta); // Enviamos la respuesta a la funcion JS
+                return;
+            }
         }
         response.sendRedirect(request.getContextPath() + "/inicio");
     }
@@ -293,6 +315,30 @@ public class ControladorSesion extends HttpServlet
         List<Compra> listaCompras = q.getResultList();
         
         return listaCompras;        
+    }
+    
+    /**
+     * Realiza una Consulta Nombrada en la Entidad Usuario para buscar un Usuario por su campo 'correo'
+     * @param correo Correo del Usuario que queremos buscar en la BD
+     * @return Devuelve el Usuario cuyo correo coincida con el 'correo' introducido por parametro
+     */
+    public Usuario buscarUsuarioPorCorreo(String correo)
+    {
+        Usuario u = null;
+
+        String consulta = "SELECT u FROM Usuario u WHERE u.correo = :correo";
+        TypedQuery<Usuario> q = this.em.createQuery(consulta, Usuario.class);
+        q.setParameter("correo", correo);
+
+        try
+        {
+            u = (Usuario) q.getSingleResult();
+        }
+        catch (NoResultException e)
+        {
+            System.err.println("NO hay ningun Usuario con el 'correo': " + correo);
+        }
+        return u;
     }
 
 }
