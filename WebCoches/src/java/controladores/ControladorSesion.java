@@ -15,6 +15,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import modelos.Usuario;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.UserTransaction;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -137,13 +139,13 @@ public class ControladorSesion extends HttpServlet
                 // Obtenemos los valores del formulario de Login
                 String nomUsuario = request.getParameter("nomUsuario");
                 String password = request.getParameter("password");
+                
+                String passwordEncriptada = encriptarPassword(password);
 
                 Usuario u = buscarUsuario(nomUsuario);
 
-                if (u != null && password.equals(u.getPassword())) // Si hemos encontrado el Usuario, guardamos el Usuario en el Ambito de la Sesion
+                if (u != null && passwordEncriptada.equals(u.getPassword())) // Si hemos encontrado el Usuario, guardamos el Usuario en el Ambito de la Sesion
                 {
-                    //String passwordEncriptada = encriptarPassword(password);
-
                     HttpSession sesion = request.getSession();
                     sesion.setAttribute("usuarioLogueado", u);
                 }
@@ -174,11 +176,11 @@ public class ControladorSesion extends HttpServlet
                 String codigoPostal = request.getParameter("cp");
                 String provincia = request.getParameter("provincia");
 
-                //String passwordEncriptada = encriptarPassword(password_sinEncriptar);
+                String passwordEncriptada = encriptarPassword(password_sinEncriptar);
                 // Creamos el Nuevo Usuario
                 Usuario nuevoUsuario = new Usuario();
                 nuevoUsuario.setNomUsuario(nomUsuario);
-                nuevoUsuario.setPassword(password_sinEncriptar);
+                nuevoUsuario.setPassword(passwordEncriptada);
                 nuevoUsuario.setNombre(nombre);
                 nuevoUsuario.setDni(dni);
                 nuevoUsuario.setCorreo(correo);
@@ -207,15 +209,33 @@ public class ControladorSesion extends HttpServlet
     {
         return "Short description";
     }
-
-    /*
-    public String encriptarPassword(String password_sinEncriptar)
+    
+    public static String encriptarPassword(String password_sinEncriptar)
     {
-       String passwordEncriptada = this.passwordHash.generate(password_sinEncriptar.toCharArray());
-        
+        String passwordModificada = password_sinEncriptar + "llevalatararaunvestidoblancollenodecascabeles";
+        String passwordEncriptada = null;
+        MessageDigest md;
+                
+        try
+        {
+            md = MessageDigest.getInstance("MD5");
+            md.update(passwordModificada.getBytes());
+            byte[] bytePassword = md.digest(); // Encriptamos los datos
+            StringBuilder sb = new StringBuilder();
+            
+            for(byte b : bytePassword)
+            {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+            passwordEncriptada = sb.toString();
+        }
+        catch (NoSuchAlgorithmException ex)
+        {
+            System.err.println("Error al encriptar la contraseña del Usuario");
+        }
         return passwordEncriptada;
     }
-     */
+
     /**
      * Realiza una Consulta Nombrada en la Entidad Usuario para buscar un Usuario por su campo 'nomUsuario'
      * @param nomUsuario Nombre de usuario del Usuario que queremos buscar en la BD

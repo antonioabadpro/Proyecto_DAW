@@ -45,7 +45,7 @@
                                     </td>
 
                                     <td class="fw-bold">
-                                        <fmt:formatNumber value="${coche.precio * (1 - coche.descuento / 100)}" type="currency" currencySymbol="€"/>
+                                        <fmt:formatNumber value="${coche.precio * (1 - coche.descuento / 100)}" type="currency" currencySymbol="€"/> ${compra.coche.precio * (1 - compra.coche.descuento / 100)} €
                                     </td>
 
                                     <td>
