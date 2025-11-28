@@ -11,40 +11,58 @@
         </div>
         <div class="row">
             <div class="col">
-                <form name="formRegistro" method="POST" action="${pageContext.request.contextPath}/sesion/registrar" >
+                <form id="formularioRegistro" name="formRegistro" method="POST" action="${pageContext.request.contextPath}/sesion/registrar" >
                     <div class="row">
                         <div class="col-3">
                             <div class="my-3">
-                                <label for="formGrupoRegistro" class="formularioLabel"><i class="bi bi-person"></i>Usuario:</label>
-                                <input type="text" class="formularioInput" name="nomUsuario" id="nomUsuario" placeholder="Usuario" >
+                                <label for="formGrupoRegistro" class="formularioLabel">
+                                    <i class="bi bi-person"></i>Usuario: <span class="obligatorio">*</span>
+                                </label>
+                                <input type="text" class="formularioInput" name="nomUsuario" id="nomUsuario" placeholder="Usuario" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-3">
                             <div class="mb-3">
-                                <label for="formpassword" class="formularioLabel"><i class="bi bi-key"></i>Contraseña:</label>
-                                <input type="password" class="formularioInput" name="password" id="password" placeholder="Contraseña" >
+                                <label for="formpassword" class="formularioLabel">
+                                    <i class="bi bi-key"></i>Contraseña: <span class="obligatorio">*</span>
+                                </label>
+                                <input id="password1" type="password" class="formularioInput me-1" name="password" placeholder="Contraseña" required onblur="validarPassword()">
+                                <i id="checkPassword1" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                                <i id="errorPassword1" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="La contraseña NO puede estar vacía"></i>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="mb-3">
-                                <label for="formpasswordRepite" class="formularioLabel"><i class="bi bi-key-fill"></i>Repite Contaseña:</label>
-                                <input type="password" class="formularioInput" name="password_repite" id="password_repite" placeholder="Repite" >
+                                <label for="formpasswordRepite" class="formularioLabel">
+                                    <i class="bi bi-key-fill"></i>Repite Contaseña: <span class="obligatorio">*</span>
+                                </label>
+                                <input id="password2" type="password" class="formularioInput me-1" name="password_repite" placeholder="Contraseña" required onblur="validarRepetirPassword()">
+                                <i id="checkPassword2" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                                <i id="errorPassword2" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Las contraseñas NO coinciden"></i>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-8">
                             <div class="mb-3">
-                                <label for="formNombre" class="formularioLabel"><i class="bi bi-person"></i>Nombre y Apellidos:</label>
-                                <input type="text" class="formularioInput  w-100" name="nombre" id="nombre" placeholder="Nombre y Apellidos" >
+                                <label for="formNombre" class="formularioLabel">
+                                    <i class="bi bi-person"></i>Nombre y Apellidos: <span class="obligatorio">*</span>
+                                </label>
+                                <input id="nombre" type="text" class="formularioInput  w-75 me-1" name="nombre" placeholder="Nombre y Apellidos" required onblur="validarNombre()">
+                                <i id="checkNombre" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                                <i id="errorNombre" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El nombre NO puede estar vacío y NO puede contener números"></i>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="formularioLabel"><i class="bi bi-person-bounding-box"></i>DNI:</label>
-                                <input type="text" class="formularioInput" name="dni" id="dni" placeholder="DNI" maxlength="10">
+                                <label for="formGrupoRegistro" class="formularioLabel">
+                                    <i class="bi bi-person-bounding-box" ></i>DNI: <span class="obligatorio">*</span>
+                                </label>
+                                <input id="dni" type="text" class="formularioInput me-1" name="dni" placeholder="DNI" maxlength="10" required onblur="validarDni()">
+                                <i id="checkDni" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                                <i id="errorDni" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El DNI debe tener 8 números y la letra en mayúscula"></i>
                             </div>
                         </div>
                     </div>
@@ -52,24 +70,41 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="formularioLabel"><i class="bi bi-at"></i>Correo Electrónico:</label>
-                                <input type="text" class="formularioInput w-100" name="correo" id="correo" placeholder="Ej: tucorreo@dominio.es">
+                                <label for="formGrupoRegistro" class="formularioLabel">
+                                    <i class="bi bi-at"></i>Correo Electrónico: <span class="obligatorio">*</span>
+                                </label>
+                                <input id="correo" type="text" class="formularioInput w-100 me-1" name="correo" placeholder="Ej: tucorreo@dominio.es">
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="formularioLabel"><i class="bi bi-telephone"></i>Teléfono</label>
-                                <input type="text" class="formularioInput" name="telefono" id="telefono" placeholder="Ej: 999123456" maxlength="9">
+                                <label for="formGrupoRegistro" class="formularioLabel">
+                                    <i class="bi bi-telephone"></i>Teléfono <span class="obligatorio">*</span>
+                                </label>
+                                <input id="telefono" type="text" class="formularioInput me-1" name="telefono" placeholder="Ej: 999123456" maxlength="9" required onblur="validarTelefono()">
+                                <i id="checkTelefono" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                                <i id="errorTelefono" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El teléfono debe tener 9 números"></i>
                             </div>
                         </div>
                     </div>
                     
                     <div class="row">
+                        <div class="col-3">
+                            <div class="mb-3">
+                                <label for="formGrupoRegistro" class="formularioLabel">
+                                    <i class="bi bi-postcard"></i>Código Postal: <span class="obligatorio">*</span>
+                                </label>
+                                <input id="cp" type="text" class="formularioInput w-50 me-1" name="cp" placeholder="Ej: 21005" required onblur="validarCodigoPostal()">
+                                <i id="checkCP" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                                <i id="errorCP" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El Código Postal debe tener 5 números y debe ser menor de 53000 (Melilla)"></i>
+                            </div>
+                        </div>
                          <div class="col-2">
                             <div class="mb-3">
-                                <label for="formGrupoRegistro" class="formularioLabel"><i class="bi bi-building"></i>Provincia:</label>
-                                <select name="provincia" class="formularioInput" required>
-                                   <option value="0" selected>Elige Provincia:</option>
+                                <label for="formGrupoRegistro" class="formularioLabel">
+                                    <i class="bi bi-building"></i>Provincia: <span class="obligatorio">*</span>
+                                </label>
+                                <select id="provincia" name="provincia" class="formularioInput soloLectura">
                                     <option value="Alava">Álava</option>
                                     <option value="Albacete">Albacete</option>
                                     <option value="Alicante">Alicante</option>
@@ -80,7 +115,7 @@
                                     <option value="Barcelona">Barcelona</option>
                                     <option value="Burgos">Burgos</option>
                                     <option value="Caceres">Cáceres</option>
-                                    <option value="Cádiz">Cádiz</option>
+                                    <option value="Cadiz">Cádiz</option>
                                     <option value="Cantabria">Cantabria</option>
                                     <option value="Castellon">Castellón</option>
                                     <option value="Ceuta">Ceuta</option>
@@ -121,20 +156,18 @@
                                     <option value="Valladolid">Valladolid</option>
                                     <option value="Vizcaya">Vizcaya</option>
                                     <option value="Zamora">Zamora</option>
-                                    <option value="Zaragoza">Zaragoza</option> 
+                                    <option value="Zaragoza">Zaragoza</option>
                                 </select>   
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="mb-3">
-                                <label for="formGrupoRegistro" class="formularioLabel"><i class="bi bi-postcard"></i>Código Postal:</label>
-                                <input type="text" class="formularioInput w-50" name="cp" id="cp" placeholder="Ej:21600">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-4">
-                                <label for="formGrupoRegistro" class="formularioLabel"><i class="bi bi-buildings"></i>Dirección</label>
-                                <input type="text" class="formularioInput w-100" name="direccion" id="direccion" placeholder="Direccion">
+                                <label for="formGrupoRegistro" class="formularioLabel">
+                                    <i class="bi bi-buildings"></i>Dirección <span class="obligatorio">*</span>
+                                </label>
+                                <input id="direccion" type="text" class="formularioInput w-75 me-1" name="direccion" placeholder="Ej: Calle Huelva, 33" required onblur="validarDireccion()">
+                                <i id="checkDireccion" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                                <i id="errorDireccion" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="La dirección debe tener el siguiente formato: Calle 'nombreCalle', nº"></i>
                             </div>
                         </div>
                     </div>
@@ -149,4 +182,4 @@
         </div>
     </div>
 </div>
-<%@include  file="templates/footer.jspf"%>
+<%@include file="templates/footer.jspf"%>

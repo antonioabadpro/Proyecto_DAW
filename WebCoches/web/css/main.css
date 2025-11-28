@@ -187,6 +187,21 @@ footer h5
     box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
 }
 
+.obligatorio /* Para los campos 'required' */
+{
+    color: var(--rojoError);
+    margin-left: 4px;
+}
+
+ .soloLectura
+ {
+    pointer-events: none; /* Evita clics */
+    background-color: #eee; /* Color gris de fondo */
+    color: #555; /* Color de texto más suave */
+    opacity: 1; /* Asegura legibilidad */
+}
+
+
 /* --------- Estilo Botones Formulario --------- */
 .botonFormulario
 {
@@ -234,6 +249,12 @@ footer h5
 {
     background: #6c757d;
     color: white;
+}
+
+/* --------- Estilo Iconos Formularios --------- */
+.iconoFormulario
+{
+    font-size: 1.5em;
 }
 
 /* --------- Estilo Botones --------- */

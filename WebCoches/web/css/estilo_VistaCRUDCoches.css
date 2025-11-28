@@ -28,12 +28,6 @@
     color: var(--azulClaro);
 }
 
-.obligatorio /* Para los campos 'required' */
-{
-    color: var(--rojoError);
-    margin-left: 4px;
-}
-
 .seccionSubirImagen
 {
     background: #f8f9fa;
