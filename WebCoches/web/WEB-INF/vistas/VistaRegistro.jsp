@@ -11,14 +11,17 @@
         </div>
         <div class="row">
             <div class="col">
-                <form id="formularioRegistro" name="formRegistro" method="POST" action="${pageContext.request.contextPath}/sesion/registrar" >
+                <form id="formularioRegistro" name="formRegistro" method="POST" action="${pageContext.request.contextPath}/sesion/registrar" onsubmit="return validarFormularioRegistro()">
                     <div class="row">
                         <div class="col-3">
                             <div class="my-3">
                                 <label for="formGrupoRegistro" class="formularioLabel">
                                     <i class="bi bi-person"></i>Usuario: <span class="obligatorio">*</span>
                                 </label>
-                                <input type="text" class="formularioInput" name="nomUsuario" id="nomUsuario" placeholder="Usuario" required>
+                                <input id="nomUsuario" type="text" class="formularioInput me-1" name="nomUsuario" placeholder="Usuario" required onblur="validarNombreUsuario()">
+                                <i id="checkNomUsuario" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                                <i id="errorNomUsuario" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Ya existe un Usuario con el correo introducido"></i>
+                                <i id="errorFormatoNomUsuario" class="bi bi-person-fill-exclamation text-danger d-none iconoFormulario" title="El Nombre de Usuario NO puede estar vacío"></i>
                             </div>
                         </div>
                     </div>
@@ -40,7 +43,7 @@
                                 </label>
                                 <input id="password2" type="password" class="formularioInput me-1" name="password_repite" placeholder="Contraseña" required onblur="validarRepetirPassword()">
                                 <i id="checkPassword2" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
-                                <i id="errorPassword2" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Las contraseñas NO coinciden"></i>
+                                <i id="errorPassword2" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Las Contraseñas NO coinciden"></i>
                             </div>
                         </div>
                     </div>
@@ -73,10 +76,10 @@
                                 <label for="formGrupoRegistro" class="formularioLabel">
                                     <i class="bi bi-at"></i>Correo Electrónico: <span class="obligatorio">*</span>
                                 </label>
-                                <input id="correo" type="email" class="formularioInput w-75 me-1" name="correo" placeholder="Ej: tucorreo@dominio.es" onblur="validarCorreoFetch()">
+                                <input id="correo" type="email" class="formularioInput w-75 me-1" name="correo" placeholder="Ej: tucorreo@dominio.es" onblur="validarCorreo()">
                                 <i id="checkCorreo" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
                                 <i id="errorCorreo" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Ya existe un Usuario con el correo introducido"></i>
-                                <i id="errorFormatoCorreo" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El correo debe tener el formato 'correo@dominio.algo'"></i>
+                                <i id="errorFormatoCorreo" class="bi bi-envelope-exclamation text-danger d-none iconoFormulario" title="El correo debe tener el formato 'correo@dominio.algo'"></i>
                             </div>
                         </div>
                         <div class="col-3">
@@ -177,8 +180,8 @@
                     
                     <div class="mb-10 text-center">
                         <input type="submit" button class="btn btn-primary btn-custom" name="enviaRegistro" value="Registrar">
-                         <input type="reset" button class="btn btn-warning btn-custom" name="limpiaRegistro" value="Limpiar">
-                         <a href="${pageContext.request.contextPath}/inicio" button class="btn btn-secondary btn-custom" name="salir">Cerrar</a>
+                        <input type="reset" button class="btn btn-warning btn-custom" name="limpiaRegistro" value="Limpiar">
+                        <a href="${pageContext.request.contextPath}/inicio" button class="btn btn-secondary btn-custom" name="salir">Cerrar</a>
                     </div> 
                 </form>
             </div>

@@ -142,7 +142,7 @@ public class ControladorSesion extends HttpServlet
                 
                 String passwordEncriptada = encriptarPassword(password);
 
-                Usuario u = buscarUsuario(nomUsuario);
+                Usuario u = buscarUsuarioPorNombreUsuario(nomUsuario);
 
                 if (u != null && passwordEncriptada.equals(u.getPassword())) // Si hemos encontrado el Usuario, guardamos el Usuario en el Ambito de la Sesion
                 {
@@ -196,6 +196,26 @@ public class ControladorSesion extends HttpServlet
                 
             }; break;
             
+            case "/comprobarNombreUsuario": // Peticion Fetch proveniente del campo 'Usuario' del formulario de Registro
+            {
+                String resultadoConsulta;
+                String nomUsuario = request.getParameter("nomUsuarioFetch");
+                
+                // Realizamos una Consulta para comprobar si el correo existe en la BD
+                Usuario u = buscarUsuarioPorNombreUsuario(nomUsuario);
+                
+                if(u == null) // Si NO existe un Usuario con ese nomUsuario en la BD
+                {
+                    resultadoConsulta = "NOexisteNomUsuario";
+                }
+                else // Si existe un Usuario con ese nomUsuario en la BD
+                {
+                    resultadoConsulta = "existeNomUsuario";
+                }
+                response.getWriter().write(resultadoConsulta); // Enviamos la respuesta a la funcion JS
+                return;
+            }
+            
             case "/comprobarCorreo": // Peticion Fetch proveniente del campo correo del formulario de Registro
             {
                 String resultadoConsulta;
@@ -203,8 +223,6 @@ public class ControladorSesion extends HttpServlet
                 
                 // Realizamos una Consulta para comprobar si el correo existe en la BD
                 Usuario u = buscarUsuarioPorCorreo(correo);
-                
-                System.out.println("correo desde el controlador: " + correo);
                 
                 if(u == null) // Si NO existe un Usuario con ese correo en la BD
                 {
@@ -260,10 +278,11 @@ public class ControladorSesion extends HttpServlet
 
     /**
      * Realiza una Consulta Nombrada en la Entidad Usuario para buscar un Usuario por su campo 'nomUsuario'
+     * Utilizado en el Formulario del Login y para el Fetch del campo 'usuario' del Formulario de Registro
      * @param nomUsuario Nombre de usuario del Usuario que queremos buscar en la BD
      * @return Devuelve el Usuario cuyo 'nomUsuario' coincida con el 'nomUsuario' introducido por parametro
      */
-    public Usuario buscarUsuario(String nomUsuario)
+    public Usuario buscarUsuarioPorNombreUsuario(String nomUsuario)
     {
         Usuario u = null;
 
@@ -284,6 +303,7 @@ public class ControladorSesion extends HttpServlet
 
     /**
      * Inserta un nuevo Usuario en la BD
+     * Utilizado en el Formulario de Registro
      * @param nuevoUsuario Es el Usuario que queremos insertar en la BD
      */
     public void insertarUsuario(Usuario nuevoUsuario)
@@ -303,6 +323,7 @@ public class ControladorSesion extends HttpServlet
     
     /**
      * Realiza una Consulta Dinamica Tipada en la Entidad Compra para obtener las compras que ha realizado un usuario
+     * Utilizado para la opcion de Usuario de 'Mis Pedidos'
      * @param idUsuario id del Usuario del que queremos obtener sus compras
      * @return Devuelve las Compras que ha realizado el usuario con el id introducido por parametro
      */
@@ -319,6 +340,7 @@ public class ControladorSesion extends HttpServlet
     
     /**
      * Realiza una Consulta Nombrada en la Entidad Usuario para buscar un Usuario por su campo 'correo'
+     * Utilizado para el Fetch del campo 'correo' del Formulario de Registro
      * @param correo Correo del Usuario que queremos buscar en la BD
      * @return Devuelve el Usuario cuyo correo coincida con el 'correo' introducido por parametro
      */

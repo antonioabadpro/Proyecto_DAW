@@ -1,4 +1,97 @@
 /**
+ * El campo Usuario NO puede estar vacio
+ * Internamente, llama a 'validarNombreUsuarioFetch()' para comprobar que el nombreUsuario NO existe en la BD una vez que el formato del campo es correcto
+ * @returns {Boolean}
+ */
+function validarNombreUsuario()
+{
+    let esValido = false;
+    let iconoCheck = document.getElementById("checkNomUsuario");
+    let iconoError = document.getElementById("errorNomUsuario");
+    let iconoErrorFormato = document.getElementById("errorFormatoNomUsuario");
+    let nomUsuario = document.getElementById("nomUsuario").value.trim();
+    
+    if(nomUsuario === "" || nomUsuario.length === 0 || nomUsuario === null) // Si el Nombre de Usuario esta vacio
+    {
+        esValido = false;
+        // Ocultamos el icono del check y el icono del error porque ya existe
+        iconoCheck.classList.add("d-none");
+        iconoError.classList.add("d-none");
+        
+        // Mostramos el icono del error
+        iconoErrorFormato.classList.remove("d-none");
+        
+        // Añadimos el borde rojo
+        nomUsuario.classList.add("is-invalid");
+        nomUsuario.classList.remove("is-valid");
+    }
+    else // Si el Nombre de Usuario NO esta vacio
+    {
+        esValido = validarNombreUsuarioFetch();   
+    }
+    return esValido;
+}
+
+/**
+ * Funcion llamada desde 'validarNombreUsuario()' para comprobar que el nomUsuario NO existe en la BD una vez que el formato del campo es correcto
+ * @returns {Boolean}
+ */
+async function validarNombreUsuarioFetch()
+{
+    let esValido = false;
+    let iconoCheck = document.getElementById("checkNomUsuario");
+    let iconoError = document.getElementById("errorNomUsuario");
+    let iconoErrorFormato = document.getElementById("errorFormatoNomUsuario");
+    let nomUsuario = document.getElementById("nomUsuario");
+    
+    let parametrosEnviados = new URLSearchParams(); // Datos enviados al Servidor/Controlador
+    parametrosEnviados.append("nomUsuarioFetch", nomUsuario.value);
+    
+    let respuestaServidor = await fetch("/WebCoches/sesion/comprobarNombreUsuario", {
+        method: 'POST',
+        body: parametrosEnviados
+    });
+    
+    if(respuestaServidor.ok) // Si el Servidor ha realizado la peticion correctamente (Estado HTTP 200-299)
+    {
+        let resultadoConsulta = await respuestaServidor.text();
+        
+        console.log("resultadoConsulta desde JS: " + resultadoConsulta);
+        
+        if(resultadoConsulta === "NOexisteNomUsuario") // Si NO existe un Usuario con ese correo en la BD
+        {
+            esValido = true;
+            // Mostramos el icono del check
+            iconoCheck.classList.remove("d-none");
+
+            // Ocultamos el icono del error del formato y el icono del error porque ya existe
+            iconoErrorFormato.classList.add("d-none");
+            iconoError.classList.add("d-none");
+
+            // Añadimos el borde verde
+            nomUsuario.classList.add("is-valid");
+            nomUsuario.classList.remove("is-invalid");
+        }
+        else
+        {
+            esValido = false;
+            // Ocultamos el icono del check y el del error por el formato
+            iconoCheck.classList.add("d-none");
+            iconoErrorFormato.classList.add("d-none");
+            
+
+            // Mostramos el icono del error
+            iconoError.classList.remove("d-none");
+
+            // Añadimos el borde rojo
+            nomUsuario.classList.add("is-invalid");
+            nomUsuario.classList.remove("is-valid");
+        }
+    }
+    return esValido;
+}
+
+/**
  * El campo Contraseña NO puede estar vacio
  * @returns {Boolean}
  */
@@ -205,34 +298,23 @@ function validarDni()
 }
 
 /**
- * Funcion llamada desde 'validarCorreoFetch()' para comprobar que el correo cumple con el formato cuando NO existe en la BD
  * El Correo debe cumplir con el formato 'correo@dominio.algo'
- * @param {type} correo Es el Correo del Usuario del que queremos validar el formato, ya que sabemos que NO existe en la BD
+ * Internamente, llama a 'validarCorreoFetch()' para comprobar que el correo NO existe en la BD una vez que el formato del campo es correcto
  * @returns {Boolean}
  */
-function validarCorreo(correo)
+function validarCorreo()
 {
     let esValido = false;
     let iconoCheck = document.getElementById("checkCorreo");
     let iconoError = document.getElementById("errorCorreo");
     let iconoErrorFormato = document.getElementById("errorFormatoCorreo");
-    //let correo = document.getElementById("correo").value.trim();
+    let correo = document.getElementById("correo").value.trim();
     
     let formatoValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
     
     if(formatoValido === true) // Si el DNI cumple con el formato
     {
-        esValido = true;
-        // Mostramos el icono del check
-        iconoCheck.classList.remove("d-none");
-        
-        // Ocultamos el icono del error del formato y el icono del error porque ya existe
-        iconoErrorFormato.classList.add("d-none");
-        iconoError.classList.add("d-none");
-        
-        // Añadimos el borde verde
-        correo.classList.add("is-valid");
-        correo.classList.remove("is-invalid");
+        esValido = validarCorreoFetch();
     }
     else // Si el DNI NO cumple con el formato
     {
@@ -248,13 +330,16 @@ function validarCorreo(correo)
         correo.classList.add("is-invalid");
         correo.classList.remove("is-valid");
     }
-    
     return esValido;
 }
 
+/**
+ * Funcion llamada desde 'validarCorreo()' para comprobar que el correo NO existe en la BD una vez que el formato del campo es correcto
+ * @returns {Boolean}
+ */
 async function validarCorreoFetch()
 {
-    //let esValido = false;
+    let esValido = false;
     let iconoCheck = document.getElementById("checkCorreo");
     let iconoError = document.getElementById("errorCorreo");
     let iconoErrorFormato = document.getElementById("errorFormatoCorreo");
@@ -276,10 +361,21 @@ async function validarCorreoFetch()
         
         if(resultadoConsulta === "NOexisteCorreo") // Si NO existe un Usuario con ese correo en la BD
         {
-            validarCorreo(correo.value.trim());
+            esValido = true;
+            // Mostramos el icono del check
+            iconoCheck.classList.remove("d-none");
+
+            // Ocultamos el icono del error del formato y el icono del error porque ya existe
+            iconoErrorFormato.classList.add("d-none");
+            iconoError.classList.add("d-none");
+
+            // Añadimos el borde verde
+            correo.classList.add("is-valid");
+            correo.classList.remove("is-invalid");
         }
         else
         {
+            esValido = false;
             // Ocultamos el icono del check y el del error por el formato
             iconoCheck.classList.add("d-none");
             iconoErrorFormato.classList.add("d-none");
@@ -293,6 +389,7 @@ async function validarCorreoFetch()
             correo.classList.remove("is-valid");
         }
     }
+    return esValido;
 }
 
 /**
@@ -493,6 +590,22 @@ function validarDireccion()
         // Añadimos el borde rojo
         direccion.classList.add("is-invalid");
         direccion.classList.remove("is-valid");
+    }
+    
+    return esValido;
+}
+
+/**
+ * Se utiliza para validar todos los campos del formulario de Registro al darle al boton de 'Registrar'
+ * @returns {undefined}
+ */
+function validarFormularioRegistro()
+{
+    let esValido = false;
+    
+    if(validarNombreUsuario() && validarPassword() && validarRepetirPassword() && validarNombre() && validarDni() && validarCorreo() && validarTelefono() && validarCodigoPostal() && validarDireccion())
+    {
+        esValido = true;
     }
     
     return esValido;
