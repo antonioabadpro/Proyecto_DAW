@@ -2,8 +2,10 @@ package controladores;
 
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -74,7 +76,6 @@ public class ControladorCRUDCoches extends HttpServlet
             {
                 String textoErrorSesion = "El Usuario NO tiene la Sesion iniciada";
                 response.sendError(401, textoErrorSesion);
-                return;
             }
             else // Si tiene sesion iniciada, comprobamos que sea de tipo "Admin"
             {
@@ -357,6 +358,26 @@ public class ControladorCRUDCoches extends HttpServlet
                     }
                 }
             }; break;
+            
+            case "/comprobarMatricula": // Peticion Fetch proveniente del campo 'Usuario' del formulario de Registro
+            {
+                String resultadoConsulta;
+                String matricula = request.getParameter("matriculaFetch");
+                
+                // Realizamos una Consulta para comprobar si el correo existe en la BD
+                Coche c = buscarCochePorMatricula(matricula);
+                
+                if(c == null) // Si NO existe un Coche con esa matricula en la BD
+                {
+                    resultadoConsulta = "NOexisteMatricula";
+                }
+                else // Si existe un Coche con esa matricula en la BD
+                {
+                    resultadoConsulta = "existeMatricula";
+                }
+                response.getWriter().write(resultadoConsulta); // Enviamos la respuesta a la funcion JS
+                return;
+            }
         }
         
         response.sendRedirect(request.getContextPath() + "/gestion");
@@ -470,6 +491,31 @@ public class ControladorCRUDCoches extends HttpServlet
         }
 
         return nombreArchivo;
+    }
+    
+    /**
+     * Realiza una Consulta Nombrada en la Entidad Coche para buscar un Usuario por su campo 'matricula'
+     * Utilizado para el Fetch del campo 'matricula' del Formulario de Insertar Coche
+     * @param matricula Matricula del Coche que queremos buscar en la BD
+     * @return Devuelve el Coche cuya matricula coincida con la 'matricula' introducida por parametro
+     */
+    public Coche buscarCochePorMatricula(String matricula)
+    {
+        Coche c = null;
+
+        String consulta = "SELECT c FROM Coche c WHERE c.matricula = :matricula";
+        TypedQuery<Coche> q = this.em.createQuery(consulta, Coche.class);
+        q.setParameter("matricula", matricula);
+
+        try
+        {
+            c = (Coche) q.getSingleResult();
+        }
+        catch (NoResultException e)
+        {
+            System.err.println("NO hay ningun Coche con la 'matricula': " + matricula);
+        }
+        return c;
     }
 
 }

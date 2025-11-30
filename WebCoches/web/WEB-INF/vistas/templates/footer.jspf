@@ -4,6 +4,7 @@
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
 <script src="${pageContext.request.contextPath}/js/VistaDetalle.js"></script>
 <script src="${pageContext.request.contextPath}/js/ValidacionRegistro.js"></script>
+<script src="${pageContext.request.contextPath}/js/ValidacionInsertarModificarCoche.js"></script>
 
         <footer class="py-4 mt-auto">
             <div class="container">

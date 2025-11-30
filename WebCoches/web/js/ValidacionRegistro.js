@@ -78,7 +78,6 @@ async function validarNombreUsuarioFetch()
             // Ocultamos el icono del check y el del error por el formato
             iconoCheck.classList.add("d-none");
             iconoErrorFormato.classList.add("d-none");
-            
 
             // Mostramos el icono del error
             iconoError.classList.remove("d-none");
@@ -565,7 +564,7 @@ function validarDireccion()
     
     let formatoValido = /^Calle\s+[a-zA-Z0-9\sñÑáéíóúÁÉÍÓÚüÜ]+,\s*\d+$/i.test(direccion);
     
-    if(formatoValido === true) // Si el DNI cumple con el formato
+    if(formatoValido === true) // Si la Direccion cumple con el formato
     {
         esValido = true;
         // Mostramos el icono del check
@@ -578,7 +577,7 @@ function validarDireccion()
         direccion.classList.add("is-valid");
         direccion.classList.remove("is-invalid");
     }
-    else // Si el DNI NO cumple con el formato
+    else // Si la direccion NO cumple con el formato
     {
         esValido = false;
         // Ocultamos el icono del check
@@ -607,6 +606,6 @@ function validarFormularioRegistro()
     {
         esValido = true;
     }
-    
+    console.log("esValido" + esValido);
     return esValido;
 }
