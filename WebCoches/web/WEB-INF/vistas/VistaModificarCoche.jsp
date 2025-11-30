@@ -19,7 +19,7 @@
                             <label for="matricula" class="formularioLabel">
                                 <i class="bi bi-card-text"></i> Matrícula<span class="obligatorio">*</span>
                             </label>
-                            <input type="text" class="formularioInput w-50" id="matricula" value="${requestScope.coche.matricula}" name="matricula" maxlength="7" placeholder="Ej: 1234ABC" required readonly>
+                            <input type="text" class="formularioInput w-50 soloLectura" id="matricula" value="${requestScope.coche.matricula}" name="matricula" maxlength="7" placeholder="Ej: 1234ABC" required>
                         </div>
 
                         <!-- Marca -->

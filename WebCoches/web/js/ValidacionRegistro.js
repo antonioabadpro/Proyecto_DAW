@@ -378,7 +378,6 @@ async function validarCorreoFetch()
             // Ocultamos el icono del check y el del error por el formato
             iconoCheck.classList.add("d-none");
             iconoErrorFormato.classList.add("d-none");
-            
 
             // Mostramos el icono del error
             iconoError.classList.remove("d-none");

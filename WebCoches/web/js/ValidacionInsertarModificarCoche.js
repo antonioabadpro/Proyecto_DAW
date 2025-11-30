@@ -57,10 +57,10 @@ function validarMatricula()
         esValido = false;
         // Ocultamos el icono del check
         iconoCheck.classList.add("d-none");
-        iconoErrorFormato.classList.add("d-none");
+        iconoError.classList.add("d-none");
         
         // Mostramos el icono del error
-        iconoError.classList.remove("d-none");
+        iconoErrorFormato.classList.remove("d-none");
         
         // Añadimos el borde rojo
         matricula.classList.add("is-invalid");

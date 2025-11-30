@@ -379,7 +379,6 @@ public class ControladorCRUDCoches extends HttpServlet
                 return;
             }
         }
-        
         response.sendRedirect(request.getContextPath() + "/gestion");
     }
 
