@@ -19,7 +19,10 @@
                             <label for="matricula" class="formularioLabel">
                                 <i class="bi bi-card-text"></i> Matrícula<span class="obligatorio">*</span>
                             </label>
-                            <input type="text" class="formularioInput w-50 soloLectura" id="matricula" value="${requestScope.coche.matricula}" name="matricula" maxlength="7" placeholder="Ej: 1234ABC" required>
+                            <input type="text" class="formularioInput w-50 soloLectura" id="matricula" value="${requestScope.coche.matricula}" name="matricula" maxlength="7" placeholder="Ej: 1234ABC" required onblur="validarMatricula()">
+                            <i id="checkMatricula" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorFormatoMatricula" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="La Matricula NO cumple con el formato, debe tener 4 números seguidos de 3 letras en mayúscula"></i>
+                            <i id="errorMatricula" class="bi bi-dash-circle text-danger d-none iconoFormulario" title="Ya existe un Coche con la matrícula introducida"></i>
                         </div>
 
                         <!-- Marca -->
@@ -27,7 +30,7 @@
                             <label for="marca" class="formularioLabel">
                                 <i class="bi bi-bookmark-fill"></i> Marca<span class="obligatorio">*</span>
                             </label>
-                            <select class="formularioSelect w-auto" id="marca" name="marca" required>
+                            <select class="formularioSelect w-auto" id="marca" name="marca" required onblur="validarMarca()">
                                 <c:forEach var="marca" items="${requestScope.listaMarcas}">
                                     <c:choose>
                                         <c:when test="${marca.idMarca == requestScope.coche.marca.idMarca}">
@@ -43,6 +46,8 @@
                                     </c:choose>
                                 </c:forEach>
                             </select>
+                            <i id="checkMarca" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorMarca" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Debes seleccionar una Marca"></i>
                         </div>
 
                         <!-- Modelo -->
@@ -50,7 +55,9 @@
                             <label for="nombreModelo" class="formularioLabel">
                                 <i class="bi bi-book"></i> Modelo<span class="obligatorio">*</span>
                             </label>
-                            <input type="text" class="formularioInput w-50" id="nombreModelo" value="${requestScope.coche.nombreModelo}" name="nombreModelo" placeholder="Ej: Focus" required>
+                            <input type="text" class="formularioInput w-50" id="nombreModelo" value="${requestScope.coche.nombreModelo}" name="nombreModelo" placeholder="Ej: Focus" required onblur="validarModelo()">
+                            <i id="checkModelo" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorModelo" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El Modelo NO puede estar vacío"></i>
                         </div>
 
                         <!-- Color -->
@@ -58,7 +65,9 @@
                             <label for="color" class="formularioLabel">
                                 <i class="bi bi-palette-fill"></i> Color<span class="obligatorio">*</span>
                             </label>
-                            <input type="text" class="formularioInput w-50" id="color" value="${requestScope.coche.color}" name="color" placeholder="Ej: Rojo" required>
+                            <input type="text" class="formularioInput w-50" id="color" value="${requestScope.coche.color}" name="color" placeholder="Ej: Rojo" required onblur="validarColor()">
+                            <i id="checkColor" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorColor" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El Color NO puede estar vacío"></i>
                         </div>
 
                         <!-- Descripción -->
@@ -66,7 +75,7 @@
                             <label for="descripcion" class="formularioLabel">
                                 <i class="bi bi-pencil-square"></i> Descripción
                             </label>
-                            <textarea class="formularioInput w-100" id="descripcion" value="${requestScope.coche.descripcion}" name="descripcion" rows="3" placeholder="Descripción detallada del vehículo"></textarea>
+                            <textarea class="formularioInput w-100" id="descripcion" value="${requestScope.coche.descripcion}" name="descripcion" rows="3" placeholder="Descripción detallada del vehículo" onblur="validarDescripcion()"></textarea>
                         </div>
                     </div>
                 </div>
@@ -74,19 +83,20 @@
                 <!-- CARACTERÍSTICAS TÉCNICAS -->
                 <div class="mb-5">
                     <h3 class="tituloSeccion"><i class="bi bi-gear-fill"></i> Características Técnicas</h3>
-
                     <div class="row g-3">
                         <!-- Combustible -->
                         <div class="col-md-3">
                             <label for="combustible" class="formularioLabel">
                                 <i class="bi bi-fuel-pump-fill"></i> Combustible<span class="obligatorio">*</span>
                             </label>
-                            <select class="formularioSelect w-auto" id="combustible" name="combustible" required>
+                            <select class="formularioSelect w-auto" id="combustible" name="combustible" required onblur="validarCombustible()">
                                 <option value="Gasolina" <c:if test="${requestScope.coche.combustible == 'Gasolina'}"> selected="true" </c:if> >Gasolina</option>
                                 <option value="Diesel" <c:if test="${requestScope.coche.combustible == 'Diesel'}"> selected="true" </c:if> >Diésel</option>
                                 <option value="Electrico" <c:if test="${requestScope.coche.combustible == 'Electrico'}"> selected="true" </c:if> >Eléctrico</option>
                                 <option value="Hibrido" <c:if test="${requestScope.coche.combustible == 'Hibrido'}"> selected="true" </c:if> >Híbrido</option>
-                                </select>
+                            </select>
+                            <i id="checkCombustible" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorCombustible" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Debes seleccionar un Combustible"></i>
                             </div>
 
                             <!-- Consumo -->
@@ -94,15 +104,19 @@
                                 <label for="consumo" class="formularioLabel">
                                     <i class="bi bi-speedometer"></i> Consumo (L/100km)<span class="obligatorio">*</span>
                                 </label>
-                                <input type="number" class="formularioInput w-auto" id="consumo" value="${requestScope.coche.consumo}" name="consumo" min="0" max="100" step="0.1" placeholder="Ej: 5.5" required>
-                        </div>
+                                <input type="number" class="formularioInput w-auto" id="consumo" value="${requestScope.coche.consumo}" name="consumo" min="0" max="100" step="0.1" placeholder="Ej: 5.5" required onblur="validarConsumo()">
+                                <i id="checkConsumo" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                                <i id="errorConsumo" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El Consumo NO puede estar vacío"></i>
+                            </div>
 
                         <!-- Potencia (CV) -->
                         <div class="col-md-3">
                             <label for="cv" class="formularioLabel">
                                 <i class="bi bi-lightning-fill"></i> Potencia (CV)<span class="obligatorio">*</span>
                             </label>
-                            <input type="number" class="formularioInput w-auto" value="${requestScope.coche.cv}" id="cv" min="1" name="cv" placeholder="Ej: 100" required>
+                            <input type="number" class="formularioInput w-auto" value="${requestScope.coche.cv}" id="cv" min="1" name="cv" placeholder="Ej: 100" required onblur="validarPotencia()">
+                            <i id="checkPotencia" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorPotencia" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="La Potencia NO puede estar vacío"></i>
                         </div>
 
                         <!-- Tipo de Cambio -->
@@ -110,10 +124,12 @@
                             <label for="cajaCambios" class="formularioLabel">
                                 <i class="bi bi-gear-wide-connected"></i> Tipo de Cambio<span class="obligatorio">*</span>
                             </label>
-                            <select class="formularioSelect w-auto" id="cajaCambios" name="cajaCambios" required>
+                            <select class="formularioSelect w-auto" id="cajaCambios" name="cajaCambios" required onblur="validarTipoCambio()">
                                 <option value="Manual" <c:if test="${requestScope.coche.cajaCambios == 'Manual'}"> selected="true" </c:if> >Manual</option>
                                 <option value="Automatico" <c:if test="${requestScope.coche.cajaCambios == 'Automatico'}"> selected="true" </c:if> >Automático</option>
-                                </select>
+                            </select>
+                            <i id="checkCajaCambios" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorCajaCambios" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Debes seleccionar un Tipo de Cambio"></i>
                             </div>
 
                             <!-- Kilómetros -->
@@ -121,15 +137,17 @@
                                 <label for="km" class="formularioLabel">
                                     <i class="bi bi-speedometer2"></i> Kilómetros<span class="obligatorio">*</span>
                                 </label>
-                                <input type="number" class="formularioInput w-auto" id="km" value="${requestScope.coche.km}" name="km" min="0" placeholder="0" required>
-                        </div>
+                                <input type="number" class="formularioInput w-auto" id="km" value="${requestScope.coche.km}" name="km" min="0" placeholder="0" required onblur="validarKilometros()">
+                            <i id="checkKm" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorKm" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Los Kilómetros NO pueden estar vacíos"></i>
+                            </div>
 
                         <!-- Año -->
                         <div class="col-md-3">
                             <label for="fecha" class="formularioLabel">
                                 <i class="bi bi-calendar-event"></i> Año<span class="obligatorio">*</span>
                             </label>
-                            <select class="formularioSelect w-auto" id="fecha" name="fecha" required>
+                            <select class="formularioSelect w-auto" id="fecha" name="fecha" required onblur="validarFecha()">
                                 <c:forEach var="anio" begin="1980" end="2025">
                                     <c:choose>
                                         <c:when test="${anio == requestScope.coche.fecha}">
@@ -145,6 +163,8 @@
                                     </c:choose>
                                 </c:forEach>
                             </select>
+                            <i id="checkFecha" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorFecha" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Debes seleccionar un Año"></i>
                         </div>
 
                         <!-- Estado -->
@@ -152,15 +172,17 @@
                             <label for="estado" class="formularioLabel">
                                 <i class="bi bi-info-circle"></i> Estado<span class="obligatorio">*</span>
                             </label>
-                            <select class="formularioSelect w-auto" id="estado" name="estado" required>
+                            <select class="formularioSelect w-auto" id="estado" name="estado" required onblur="validarEstado()">
                                 <option value="Nuevo" <c:if test="${requestScope.coche.estado == 'Nuevo'}"> selected="true" </c:if> >Nuevo</option>
                                 <option value="ComoNuevo" <c:if test="${requestScope.coche.estado == 'ComoNuevo'}"> selected="true" </c:if> >Como Nuevo</option>
                                 <option value="Usado" <c:if test="${requestScope.coche.estado == 'Usado'}"> selected="true" </c:if> >Usado</option>
                                 <option value="PorReparar" <c:if test="${requestScope.coche.estado == 'PorReparar'}"> selected="true" </c:if> >Por Reparar</option>
-                                </select>
-                            </div>
+                            </select>
+                            <i id="checkEstado" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorEstado" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Debes seleccionar un Estado"></i>
                         </div>
                     </div>
+                </div>
 
                     <!-- PRECIO Y DESCUENTO -->
                     <div class="mb-5">
@@ -173,7 +195,9 @@
                                 <label for="precio" class="formularioLabel">
                                     <i class="bi bi-cash-stack"></i> Precio (€)<span class="obligatorio">*</span>
                                 </label>
-                                <input type="number" class="formularioInput w-25" id="precio" value="${requestScope.coche.precio}" name="precio" min="500" placeholder="Ej: 25000€" required>
+                                <input type="number" class="formularioInput w-25" id="precio" value="${requestScope.coche.precio}" name="precio" min="500" placeholder="Ej: 25000€" required onblur="validarPrecio()">
+                            <i id="checkPrecio" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorPrecio" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El Precio debe ser un número positivo"></i>
                         </div>
 
                         <!-- Descuento -->
@@ -181,7 +205,9 @@
                             <label for="descuento" class="formularioLabel">
                                 <i class="bi bi-tag-fill"></i> Descuento (%) <span class="obligatorio">*</span>
                             </label>
-                            <input type="number" class="formularioInput w-25" id="descuento" value="${requestScope.coche.descuento}" name="descuento" value="0" min="0" max="100" step="1">
+                            <input type="number" class="formularioInput w-25" id="descuento" value="${requestScope.coche.descuento}" name="descuento" value="0" min="0" max="100" step="1" onblur="validarDescuento()">
+                            <i id="checkDescuento" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
+                            <i id="errorDescuento" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El Descuento debe ser un número positivo"></i>
                         </div>
                     </div>
                 </div>

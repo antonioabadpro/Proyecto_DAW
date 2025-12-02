@@ -20,7 +20,7 @@
                             <input id="matricula" type="text" class="formularioInput w-50 me-1" name="matricula" maxlength="7" placeholder="Ej: 1234ABC" required onblur="validarMatricula()">
                             <i id="checkMatricula" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
                             <i id="errorFormatoMatricula" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="La Matricula NO cumple con el formato, debe tener 4 números seguidos de 3 letras en mayúscula"></i>
-                            <i id="errorMatricula" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="Ya existe un Coche con la matrícula introducida"></i>
+                            <i id="errorMatricula" class="bi bi-dash-circle text-danger d-none iconoFormulario" title="Ya existe un Coche con la matrícula introducida"></i>
                         </div>
 
                         <!-- Marca -->
