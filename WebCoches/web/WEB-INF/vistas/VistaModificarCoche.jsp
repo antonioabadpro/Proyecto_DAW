@@ -2,13 +2,19 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <div class="container">
+    <c:if test="${!empty requestScope.textoValidacion}">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-1"> ${requestScope.textoValidacion}</i>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </c:if>
     <div class="formularioContainer mx-auto my-4">
         <div class="formularioHeader">
             <i class="bi bi-car-front-fill"></i><strong> Modificar Vehículo #${requestScope.coche.idCoche}</strong>
         </div>
 
         <div class="formularioCuerpo">
-            <form action="${pageContext.request.contextPath}/gestion/modificar/${requestScope.coche.idCoche}" method="POST" enctype="multipart/form-data">
+            <form action="${pageContext.request.contextPath}/gestion/modificar/${requestScope.coche.idCoche}" id="formModificarCoche" method="POST" enctype="multipart/form-data">
                 <!-- INFORMACIÓN BÁSICA -->
                 <div class="mb-5">
                     <h3 class="tituloSeccion"><i class="bi bi-info-circle-fill"></i> Información Básica</h3>
@@ -67,7 +73,7 @@
                             </label>
                             <input type="text" class="formularioInput w-50" id="color" value="${requestScope.coche.color}" name="color" placeholder="Ej: Rojo" required onblur="validarColor()">
                             <i id="checkColor" class="bi bi-check-circle-fill text-success d-none iconoFormulario"></i>
-                            <i id="errorColor" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El Color NO puede estar vacío"></i>
+                            <i id="errorColor" class="bi bi-x-circle-fill text-danger d-none iconoFormulario" title="El Color NO puede estar vacío, ni puede ser un número"></i>
                         </div>
 
                         <!-- Descripción -->

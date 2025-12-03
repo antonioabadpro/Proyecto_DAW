@@ -25,6 +25,7 @@ import jakarta.transaction.UserTransaction;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import modelos.Coche;
 import modelos.Marca;
 import modelos.Usuario;
@@ -225,22 +226,39 @@ public class ControladorCRUDCoches extends HttpServlet
                     }
                 }
                 
-                try
+                boolean esValido = validarDatos(matricula, nombreModelo, color, combustible, cajaCambios, estado, consumo_string, cv_string, km_string, fecha_string, precio_string, descuento_string, idMarca_string);
+                    
+                if(esValido == false) // Si los campos NO son validos
                 {
-                    // Insertamos el Nuevo Coche en la BD
-                    insertarCoche(nuevoCoche);
-
-                    String textoExito = "El Coche con matrícula '" + matricula + "' se ha registrado en el sistema con éxito";
-                    sesion.setAttribute("textoResultado", textoExito); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
-                    sesion.setAttribute("tipoMensaje", "success");
-
-                } catch (Exception e)
-                {
-                    String textoError = "NO se ha podido realizar la inserción del Coche con matrícula '" + nuevoCoche.getMatricula() + "'";
-                    sesion.setAttribute("textoResultado", textoError); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
-                    sesion.setAttribute("tipoMensaje", "danger");
+                    String textoValidacion = "Los campos NO son válidos, verfícalos antes de enviar el formulario";
+                    request.setAttribute("textoValidacion", textoValidacion);
+                    // Para poder cargar todos los campos con los valores que tenian antes de mostrarse el mensaje de error
+                    List<Marca> listaMarcas = obtenerMarcas();
+                    request.setAttribute("listaMarcas", listaMarcas);
+                    request.setAttribute("coche", nuevoCoche);
+                    // Refrescamos la Vista dentro de la misma peticion
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/VistaInsertarCoche.jsp");
+                    rd.forward(request, response);
+                    return;
                 }
-                
+                else // Si los campos son validos
+                {
+                    try
+                    {
+                        // Insertamos el Nuevo Coche en la BD
+                        insertarCoche(nuevoCoche);
+
+                        String textoExito = "El Coche con matrícula '" + matricula + "' se ha registrado en el sistema con éxito";
+                        sesion.setAttribute("textoResultado", textoExito); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
+                        sesion.setAttribute("tipoMensaje", "success");
+
+                    } catch (Exception e)
+                    {
+                        String textoError = "NO se ha podido realizar la inserción del Coche con matrícula '" + nuevoCoche.getMatricula() + "'";
+                        sesion.setAttribute("textoResultado", textoError); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
+                        sesion.setAttribute("tipoMensaje", "danger");
+                    }
+                }
             }; break;
 
             case "/eliminar":
@@ -280,6 +298,7 @@ public class ControladorCRUDCoches extends HttpServlet
                     Long idCocheModificar = Long.valueOf(idCocheModificar_string);
                     
                     // Obtenemos los valores del formulario de Insertar Coche
+                    String matricula = request.getParameter("matricula");
                     String nombreModelo = request.getParameter("nombreModelo");
                     String color = request.getParameter("color");
                     String descripcion = request.getParameter("descripcion");
@@ -340,21 +359,40 @@ public class ControladorCRUDCoches extends HttpServlet
                             if(i==1) cocheModificado.setFoto2(nombreImagenGuardada);
                         }
                     }
-
-                    try
+                    
+                    boolean esValido = validarDatosModificar(nombreModelo, color, combustible, cajaCambios, estado, consumo_string, cv_string, km_string, fecha_string, precio_string, descuento_string, idMarca_string);
+                    
+                    if(esValido == false) // Si los campos NO son validos
                     {
-                        // Modificamos el Coche de la BD
-                        modificarCoche(cocheModificado);
-                        String textoExito = "El Coche con matrícula '" + cocheModificado.getMatricula() + "' ha sido modificado en el sistema con éxito";
-                        sesion.setAttribute("textoResultado", textoExito); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
-                        sesion.setAttribute("tipoMensaje", "success");
+                        String textoValidacion = "Los campos NO son válidos, verfícalos antes de enviar el formulario";
+                        request.setAttribute("textoValidacion", textoValidacion);
+                        
+                        // Para poder cargar todos los campos con los valores que tenian antes de mostrarse el mensaje de error
+                        List<Marca> listaMarcas = obtenerMarcas();
+                        request.setAttribute("listaMarcas", listaMarcas);
+                        request.setAttribute("coche", cocheModificado);
+                        // Refrescamos la Vista dentro de la misma peticion
+                        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/VistaModificarCoche.jsp");
+                        rd.forward(request, response);
+                        return;
                     }
-                    catch (Exception e)
+                    else // Si los campos son validos
                     {
-                        String textoError = "NO se ha podido realizar la modificacion del Coche con matrícula '" + cocheModificado.getMatricula() + "'";
-                        sesion.setAttribute("textoResultado", textoError); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
-                        sesion.setAttribute("tipoMensaje", "danger");
-                        Logger.getLogger(ControladorCRUDCoches.class.getName()).log(Level.SEVERE, null, e);
+                        try
+                        {
+                            // Modificamos el Coche de la BD
+                            modificarCoche(cocheModificado);
+                            String textoExito = "El Coche con matrícula '" + cocheModificado.getMatricula() + "' ha sido modificado en el sistema con éxito";
+                            sesion.setAttribute("textoResultado", textoExito); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
+                            sesion.setAttribute("tipoMensaje", "success");
+                        }
+                        catch (Exception e)
+                        {
+                            String textoError = "NO se ha podido realizar la modificacion del Coche con matrícula '" + cocheModificado.getMatricula() + "'";
+                            sesion.setAttribute("textoResultado", textoError); // Ponemos el Atributo en el Ambito de la Sesion para que sea accesible desde la 'VistaGestionCoches' a la que vamos a redireccionar
+                            sesion.setAttribute("tipoMensaje", "danger");
+                            Logger.getLogger(ControladorCRUDCoches.class.getName()).log(Level.SEVERE, null, e);
+                        }
                     }
                 }
             }; break;
@@ -515,6 +553,106 @@ public class ControladorCRUDCoches extends HttpServlet
             System.err.println("NO hay ningun Coche con la 'matricula': " + matricula);
         }
         return c;
+    }
+    
+    /**
+     * Valida los campos basándose en el formato establecido en JavaScript.
+     * @return Devuelve 'true' si los campos del formulario de Insertar Coche son validos y 'false' en caso contrario
+     */
+    private boolean validarDatos(String matricula, String modelo, String color, String combustible, String cajaCambios, String estado, String consumo_string, String cv_string, String km_string, String fecha_string, String precio_string, String descuento_string, String idMarca_string)
+    {
+        boolean esValido = true;
+        
+        System.out.println("Validando...");
+        
+        // Validamos los campos vacíos (Strings)
+        if (matricula == null || matricula.trim().isEmpty() || buscarCochePorMatricula(matricula)!=null) esValido = false;
+        if (modelo == null || modelo.trim().isEmpty() || modelo.matches("//d+")) esValido = false;
+        if (color == null || color.trim().isEmpty() || color.matches("^[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+$")==false) esValido = false;
+        if (combustible == null || combustible.trim().isEmpty()) esValido = false;
+        if (cajaCambios == null || cajaCambios.trim().isEmpty()) esValido = false;
+        if (estado == null || estado.trim().isEmpty()) esValido = false;
+        if (idMarca_string == null || idMarca_string.trim().isEmpty()) esValido = false;
+
+        // Validamos el formato Matrícula 
+        if (!"0000AAA".equals(matricula) && !Pattern.matches("^\\d{4}[A-Z]{3}$", matricula))
+        {
+            esValido = false; // Formato invalido (EJ: 1234ABC)
+        }
+
+        // Validamos los campos numericos
+        try
+        {
+            float precio = Float.parseFloat(precio_string);
+            if (precio < 500) esValido = false;
+            
+            int descuento = Integer.parseInt(descuento_string);
+            if (descuento < 0 || descuento > 100) esValido = false;
+            
+            float consumo = Float.parseFloat(consumo_string);
+            if (consumo < 0) esValido = false;
+            
+            int cv = Integer.parseInt(cv_string);
+            if (cv < 1) esValido = false;
+            
+            int km = Integer.parseInt(km_string);
+            if (km < 0) esValido = false;
+            
+            int fecha = Integer.parseInt(fecha_string); // Año
+            if (fecha < 1980 || fecha > 2025) esValido = false;
+
+        } catch (NumberFormatException e)
+        {
+            throw new IllegalArgumentException("Uno de los campos numéricos tiene un formato incorrecto o está vacío.");
+        }
+        return esValido;
+    }
+    
+    /**
+     * Valida los campos basándose en el formato establecido en JavaScript.
+     * La diferencia con el metodo 'validarDatos()' es que este metodo NO valida la matricula, por eso se utiliza en el formulario de Modificar
+     * @return Devuelve 'true' si los campos del formulario de Modificar Coche son validos y 'false' en caso contrario
+     */
+    private boolean validarDatosModificar(String modelo, String color, String combustible, String cajaCambios, String estado, String consumo_string, String cv_string, String km_string, String fecha_string, String precio_string, String descuento_string, String idMarca_string)
+    {
+        boolean esValido = true;
+        
+        System.out.println("Validando...");
+        
+        // Validamos los campos vacíos (Strings)
+        if (modelo == null || modelo.trim().isEmpty() || modelo.matches("//d+")) esValido = false;
+        if (color == null || color.trim().isEmpty() || color.matches("^[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+$")==false) esValido = false;
+        if (combustible == null || combustible.trim().isEmpty()) esValido = false;
+        if (cajaCambios == null || cajaCambios.trim().isEmpty()) esValido = false;
+        if (estado == null || estado.trim().isEmpty()) esValido = false;
+        if (idMarca_string == null || idMarca_string.trim().isEmpty()) esValido = false;
+
+        // Validamos los campos numericos
+        try
+        {
+            float precio = Float.parseFloat(precio_string);
+            if (precio < 500) esValido = false;
+            
+            int descuento = Integer.parseInt(descuento_string);
+            if (descuento < 0 || descuento > 100) esValido = false;
+            
+            float consumo = Float.parseFloat(consumo_string);
+            if (consumo < 0) esValido = false;
+            
+            int cv = Integer.parseInt(cv_string);
+            if (cv < 1) esValido = false;
+            
+            int km = Integer.parseInt(km_string);
+            if (km < 0) esValido = false;
+            
+            int fecha = Integer.parseInt(fecha_string); // Año
+            if (fecha < 1980 || fecha > 2025) esValido = false;
+
+        } catch (NumberFormatException e)
+        {
+            throw new IllegalArgumentException("Uno de los campos numéricos tiene un formato incorrecto o está vacío.");
+        }
+        return esValido;
     }
 
 }

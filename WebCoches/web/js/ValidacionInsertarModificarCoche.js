@@ -219,7 +219,9 @@ function validarColor()
     let iconoError = document.getElementById("errorColor");
     let color = document.getElementById("color").value;
     
-    if(color === "") // Si el Color esta vacio
+    const formatoValido = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+$/.test(color);
+    
+    if(color === "" || formatoValido === false) // Si el Color esta vacio o NO cumple el formato
     {
         esValido = false;
         // Ocultamos el icono del check
@@ -305,7 +307,7 @@ function validarConsumo()
     let iconoError = document.getElementById("errorConsumo");
     let consumo = document.getElementById("consumo").value;
     
-    if(consumo < 0) // Si el consumo NO es un numero positivo
+    if(consumo===null || consumo==="" || consumo < 0) // Si el consumo NO es un numero positivo
     {
         esValido = false;
         // Ocultamos el icono del check
@@ -345,7 +347,7 @@ function validarPotencia()
     let iconoError = document.getElementById("errorPotencia");
     let potencia = document.getElementById("cv").value;
     
-    if(potencia < 0) // Si la Potencia NO es un numero positivo
+    if(potencia===null || potencia==="" || potencia < 1) // Si la Potencia NO es un numero positivo
     {
         esValido = false;
         // Ocultamos el icono del check
@@ -423,9 +425,9 @@ function validarKilometros()
     let esValido = false;
     let iconoCheck = document.getElementById("checkKm");
     let iconoError = document.getElementById("errorKm");
-    let potencia = document.getElementById("km").value;
+    let km = document.getElementById("km").value;
     
-    if(potencia < 0) // Si los kilometros NO son un numero positivo
+    if(km===null || km==="" || km < 0) // Si los kilometros NO son un numero positivo
     {
         esValido = false;
         // Ocultamos el icono del check
@@ -435,8 +437,8 @@ function validarKilometros()
         iconoError.classList.remove("d-none");
         
         // Añadimos el borde rojo
-        potencia.classList.add("is-invalid");
-        potencia.classList.remove("is-valid");
+        km.classList.add("is-invalid");
+        km.classList.remove("is-valid");
     }
     else // Si los kilometros son un numero positivo
     {
@@ -448,8 +450,8 @@ function validarKilometros()
         iconoError.classList.add("d-none");
         
         // Añadimos el borde verde
-        potencia.classList.add("is-valid");
-        potencia.classList.remove("is-invalid");
+        km.classList.add("is-valid");
+        km.classList.remove("is-invalid");
     }
     return esValido;
 }
@@ -505,7 +507,7 @@ function validarEstado()
     let iconoError = document.getElementById("errorEstado");
     let estado = document.getElementById("estado").value;
     
-    if(estado === "") // Si NO hemos seleccionado ningun Estado
+    if(estado === "" || estado===null) // Si NO hemos seleccionado ningun Estado
     {
         esValido = false;
         // Ocultamos el icono del check
@@ -585,7 +587,7 @@ function validarDescuento()
     let iconoError = document.getElementById("errorDescuento");
     let descuento = document.getElementById("descuento").value;
     
-    if(descuento < 0) // Si el Descuento NO es un numero positivo
+    if(descuento===null || descuento==="" || descuento < 0) // Si el Descuento NO es un numero positivo
     {
         esValido = false;
         // Ocultamos el icono del check
@@ -612,4 +614,57 @@ function validarDescuento()
         descuento.classList.remove("is-invalid");
     }
     return esValido;
+}
+
+function validarFormularioInsertar()
+{
+    // Validación completa al pulsar el boton de Enviar en el formulario
+    document.getElementById('formAltaCoche').addEventListener('submit', validarFormularioCompleto);
+}
+
+function validarFormularioModificar()
+{
+    // Validación completa al pulsar el boton de Enviar en el formulario
+    document.getElementById('formModificarCoche').addEventListener('submit', validarFormularioCompleto);
+}
+
+/**
+ * Función principal que orquesta todas las validaciones al pulsar Enviar
+ * @param {Event} e - El evento del formulario (submit) para poder detenerlo
+ */
+function validarFormularioCompleto(e)
+{
+    let esValido = true;
+    
+    if (!validarMarca()) esValido = false;
+    if (!validarModelo()) esValido = false;
+    if (!validarColor()) esValido = false; // Incluye tu nueva regex
+    if (!validarCombustible()) esValido = false;
+    if (!validarConsumo()) esValido = false;
+    if (!validarPotencia()) esValido = false;
+    if (!validarTipoCambio()) esValido = false;
+    if (!validarKilometros()) esValido = false;
+    if (!validarFecha()) esValido = false;
+    if (!validarEstado()) esValido = false;
+    if (!validarPrecio()) esValido = false;
+    if (!validarDescuento()) esValido = false;
+
+    // Validamos el campo Matrícula (Tiene Fetch asíncrono)
+    // Llamamos a la función para que compruebe el formato visualmente
+    validarMatricula(); 
+    
+    let matricula = document.getElementById("matricula");
+    
+    // Si tiene la clase de error (rojo) O aún no tiene la de éxito (verde) porque el servidor está pensando, y por tanto, consideramos el formulario inválido por seguridad
+    if (matricula.classList.contains("is-invalid") || matricula.classList.contains("is-valid")===false)
+    {
+        esValido = false;
+    }
+
+    if (esValido===false) // Si hay algun error
+    {
+        e.preventDefault(); // Detenemos el envio del formulario
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Hacemos scroll hacia arriba suavemente para que vean los errores
+    }
 }
