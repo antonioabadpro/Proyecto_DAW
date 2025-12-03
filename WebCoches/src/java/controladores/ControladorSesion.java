@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import modelos.Coche;
 import modelos.Compra;
 
@@ -109,7 +110,6 @@ public class ControladorSesion extends HttpServlet
                 }
             }; break;
         }
-
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/" + vista + ".jsp");
         rd.forward(request, response);
     }
@@ -166,33 +166,51 @@ public class ControladorSesion extends HttpServlet
             {
                 // Obtenemos los valores del formulario de Registro
                 String nomUsuario = request.getParameter("nomUsuario");
-                String password_sinEncriptar = request.getParameter("password");
+                String password1_sinEncriptar = request.getParameter("password1");
+                String password2_sinEncriptar = request.getParameter("password2");
                 String nombre = request.getParameter("nombre");
                 String dni = request.getParameter("dni");
                 String correo = request.getParameter("correo");
-                String telefono_string = request.getParameter("telefono");
-                int telefono = Integer.parseInt(telefono_string);
-                String direccion = request.getParameter("direccion");
+                String telefono = request.getParameter("telefono");
                 String codigoPostal = request.getParameter("cp");
                 String provincia = request.getParameter("provincia");
+                String direccion = request.getParameter("direccion");
 
-                String passwordEncriptada = encriptarPassword(password_sinEncriptar);
+                String password1_encriptada = encriptarPassword(password1_sinEncriptar);
+                String password2_encriptada = encriptarPassword(password2_sinEncriptar);
                 // Creamos el Nuevo Usuario
                 Usuario nuevoUsuario = new Usuario();
                 nuevoUsuario.setNomUsuario(nomUsuario);
-                nuevoUsuario.setPassword(passwordEncriptada);
+                nuevoUsuario.setPassword(password1_encriptada);
                 nuevoUsuario.setNombre(nombre);
                 nuevoUsuario.setDni(dni);
                 nuevoUsuario.setCorreo(correo);
                 nuevoUsuario.setTelefono(telefono);
-                nuevoUsuario.setDireccion(direccion);
                 nuevoUsuario.setCodigoPostal(codigoPostal);
                 nuevoUsuario.setProvincia(provincia);
+                nuevoUsuario.setDireccion(direccion);
                 nuevoUsuario.setRol(Usuario.TipoRol.Cliente);
+                
+                boolean esValido = validarDatos(nomUsuario, password1_encriptada, password2_encriptada, nombre, dni, correo, telefono, codigoPostal, direccion);
+                
+                if(esValido == false) // Si los campos NO son validos
+                {
+                    String textoValidacion = "Los campos NO son válidos, verfícalos antes de enviar el formulario";
+                    request.setAttribute("textoValidacion", textoValidacion);
 
-                // Insertamos el Nuevo Usuario en la BD
-                insertarUsuario(nuevoUsuario);
-                System.out.println("El usuaio con 'nomUsuario' " + nomUsuario + " se ha registrado en el sistema con exito");
+                    // Para poder cargar todos los campos con los valores que tenian antes de mostrarse el mensaje de error
+                    request.setAttribute("usuario", nuevoUsuario);
+                    // Refrescamos la Vista dentro de la misma peticion
+                    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/vistas/VistaRegistro.jsp");
+                    rd.forward(request, response);
+                    return;
+                }
+                else // Si los campos son validos
+                {
+                    // Insertamos el Nuevo Usuario en la BD
+                    insertarUsuario(nuevoUsuario);
+                    System.out.println("El usuaio con 'nomUsuario' " + nomUsuario + " se ha registrado en el sistema con exito");
+                }
                 
             }; break;
             
@@ -361,6 +379,94 @@ public class ControladorSesion extends HttpServlet
             System.err.println("NO hay ningun Usuario con el 'correo': " + correo);
         }
         return u;
+    }
+    
+    private boolean validarFormatoNombre(String nombre)
+    {
+        boolean esValido = true;
+        
+        if(nombre == null || nombre.trim().isEmpty())
+        {
+            esValido = false;
+        }
+        else
+        {
+            nombre=nombre.trim();
+            // Comprobamos si contiene al menos un espacio (mínimo dos palabras)
+            if (nombre.contains(" ") == false)
+            {
+                esValido = false;
+            }
+            else
+            {
+                // Separamos en palabras
+                String[] partes = nombre.split(" ");
+
+                // Comprobamos que haya al menos 2 palabras
+                if (partes.length < 2)
+                {
+                    esValido = false;
+                }
+                else
+                {
+                    String soloLetras = "^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$";
+
+                    // Verificamos que todas las partes tengan solo letras
+                    for (String palabra: partes)
+                    {
+                        if (palabra.matches(soloLetras) == false)
+                        {
+                            esValido = false;
+                        }
+                    }
+                }
+            }
+        }
+        return esValido;
+    }
+
+    /**
+     * Valida los campos basándose en el formato establecido en JavaScript.
+     * @return Devuelve 'true' si los campos del formulario de Insertar Coche son validos y 'false' en caso contrario
+     */
+    private boolean validarDatos(String nomUsuario, String password1_encriptada, String password2_encriptada, String nombre, String dni, String correo, String telefono, String codigoPostal, String direccion)
+    {
+        boolean esValido = true;
+        
+        String formatoDni = "^\\d{8}[A-Z]$";
+        String formatoCorreo = "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$";
+        String formatoTelefono = "\\d{9}$";
+        String formatoCP = "\\d{5}$";
+        String formatoDireccion = "(?i)^Calle\\s+[a-zA-Z0-9\\sñÑáéíóúÁÉÍÓÚüÜ]+,\\s*\\d+$";
+        
+        System.out.println("Validando...");
+        
+        if (nomUsuario == null || nomUsuario.trim().isEmpty() || buscarUsuarioPorNombreUsuario(nomUsuario)!=null) esValido = false;
+        if (password1_encriptada == null || password1_encriptada.trim().isEmpty()) esValido = false;
+        if (password2_encriptada == null || password2_encriptada.trim().isEmpty()) esValido = false;
+        if (password1_encriptada!=null && password2_encriptada!=null)
+        {
+            if (password1_encriptada.equals(password2_encriptada)==false) esValido = false;
+        }
+        if (nombre == null || nombre.trim().isEmpty() || validarFormatoNombre(nombre)==false) esValido = false;
+        if (dni == null || dni.trim().isEmpty() || dni.matches(formatoDni)==false) esValido = false;
+        if (correo == null || correo.trim().isEmpty() || correo.matches(formatoCorreo)==false || buscarUsuarioPorCorreo(correo)!=null) esValido = false;
+        if (telefono == null || telefono.trim().isEmpty() || telefono.length()!=9 || telefono.matches(formatoTelefono)==false) esValido = false;
+        if (codigoPostal == null || codigoPostal.trim().isEmpty() || codigoPostal.length()!=5 || codigoPostal.matches(formatoCP)==false) esValido = false;
+        if (direccion == null || direccion.trim().isEmpty() || direccion.matches(formatoDireccion)==false) esValido = false;
+        
+        // Validamos los campos numericos
+        try
+        {   
+            int cp = Integer.parseInt(codigoPostal);
+            if (cp < 0 || cp > 52999) esValido = false;
+
+        } catch (NumberFormatException e)
+        {
+            esValido = false;
+            throw new IllegalArgumentException("Uno de los campos numéricos tiene un formato incorrecto o está vacío.");
+        }
+        return esValido;
     }
 
 }

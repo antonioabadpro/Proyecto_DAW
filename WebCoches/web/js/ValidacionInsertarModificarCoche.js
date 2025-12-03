@@ -619,7 +619,7 @@ function validarDescuento()
 function validarFormularioInsertar()
 {
     // Validación completa al pulsar el boton de Enviar en el formulario
-    document.getElementById('formAltaCoche').addEventListener('submit', validarFormularioCompleto);
+    document.getElementById('formInsertarCoche').addEventListener('submit', validarFormularioCompleto);
 }
 
 function validarFormularioModificar()
@@ -638,7 +638,7 @@ function validarFormularioCompleto(e)
     
     if (!validarMarca()) esValido = false;
     if (!validarModelo()) esValido = false;
-    if (!validarColor()) esValido = false; // Incluye tu nueva regex
+    if (!validarColor()) esValido = false;
     if (!validarCombustible()) esValido = false;
     if (!validarConsumo()) esValido = false;
     if (!validarPotencia()) esValido = false;

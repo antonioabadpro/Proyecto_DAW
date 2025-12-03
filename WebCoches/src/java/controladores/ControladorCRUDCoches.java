@@ -226,7 +226,7 @@ public class ControladorCRUDCoches extends HttpServlet
                     }
                 }
                 
-                boolean esValido = validarDatos(matricula, nombreModelo, color, combustible, cajaCambios, estado, consumo_string, cv_string, km_string, fecha_string, precio_string, descuento_string, idMarca_string);
+                boolean esValido = validarDatosInsertar(matricula, nombreModelo, color, combustible, cajaCambios, estado, consumo_string, cv_string, km_string, fecha_string, precio_string, descuento_string, idMarca_string);
                     
                 if(esValido == false) // Si los campos NO son validos
                 {
@@ -559,26 +559,23 @@ public class ControladorCRUDCoches extends HttpServlet
      * Valida los campos basándose en el formato establecido en JavaScript.
      * @return Devuelve 'true' si los campos del formulario de Insertar Coche son validos y 'false' en caso contrario
      */
-    private boolean validarDatos(String matricula, String modelo, String color, String combustible, String cajaCambios, String estado, String consumo_string, String cv_string, String km_string, String fecha_string, String precio_string, String descuento_string, String idMarca_string)
+    private boolean validarDatosInsertar(String matricula, String modelo, String color, String combustible, String cajaCambios, String estado, String consumo_string, String cv_string, String km_string, String fecha_string, String precio_string, String descuento_string, String idMarca_string)
     {
         boolean esValido = true;
         
         System.out.println("Validando...");
         
-        // Validamos los campos vacíos (Strings)
-        if (matricula == null || matricula.trim().isEmpty() || buscarCochePorMatricula(matricula)!=null) esValido = false;
-        if (modelo == null || modelo.trim().isEmpty() || modelo.matches("//d+")) esValido = false;
-        if (color == null || color.trim().isEmpty() || color.matches("^[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+$")==false) esValido = false;
+        String formatoMatricula = "^\\d{4}[A-Z]{3}$";
+        String formatoModelo = "//d+";
+        String formatoColor = "^[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+$";
+        
+        if (matricula == null || matricula.trim().isEmpty() || matricula.matches(formatoMatricula) || buscarCochePorMatricula(matricula)!=null) esValido = false;
+        if (modelo == null || modelo.trim().isEmpty() || modelo.matches(formatoModelo)) esValido = false;
+        if (color == null || color.trim().isEmpty() || color.matches(formatoColor)==false) esValido = false;
         if (combustible == null || combustible.trim().isEmpty()) esValido = false;
         if (cajaCambios == null || cajaCambios.trim().isEmpty()) esValido = false;
         if (estado == null || estado.trim().isEmpty()) esValido = false;
         if (idMarca_string == null || idMarca_string.trim().isEmpty()) esValido = false;
-
-        // Validamos el formato Matrícula 
-        if (!"0000AAA".equals(matricula) && !Pattern.matches("^\\d{4}[A-Z]{3}$", matricula))
-        {
-            esValido = false; // Formato invalido (EJ: 1234ABC)
-        }
 
         // Validamos los campos numericos
         try
@@ -603,6 +600,7 @@ public class ControladorCRUDCoches extends HttpServlet
 
         } catch (NumberFormatException e)
         {
+            esValido = false;
             throw new IllegalArgumentException("Uno de los campos numéricos tiene un formato incorrecto o está vacío.");
         }
         return esValido;

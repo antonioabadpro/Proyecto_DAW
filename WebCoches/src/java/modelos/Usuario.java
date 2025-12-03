@@ -50,7 +50,7 @@ public class Usuario implements Serializable
     @Column(unique=true)
     private String correo;
     private String password;
-    private int telefono;
+    private String telefono;
     private String direccion;
     private String codigoPostal;
     private String provincia;
@@ -64,7 +64,7 @@ public class Usuario implements Serializable
         
     }
 
-    public Usuario(Long idUsuario, String dni, String nombre, String nomUsuario, String correo, String password, int telefono, String direccion, String codigoPostal, String provincia, TipoRol rol, List<Compra> listaCompras)
+    public Usuario(Long idUsuario, String dni, String nombre, String nomUsuario, String correo, String password, String telefono, String direccion, String codigoPostal, String provincia, TipoRol rol, List<Compra> listaCompras)
     {
         this.idUsuario = idUsuario;
         this.dni = dni;
@@ -80,7 +80,7 @@ public class Usuario implements Serializable
         this.listaCompras = listaCompras;
     }
 
-    public Usuario(Long idUsuario, String dni, String nombre, String nomUsuario, String correo, String password, int telefono, String direccion, String codigoPostal, String provincia, TipoRol rol)
+    public Usuario(Long idUsuario, String dni, String nombre, String nomUsuario, String correo, String password, String telefono, String direccion, String codigoPostal, String provincia, TipoRol rol)
     {
         this.idUsuario = idUsuario;
         this.dni = dni;
@@ -156,12 +156,12 @@ public class Usuario implements Serializable
         this.password = password;
     }
 
-    public int getTelefono()
+    public String getTelefono()
     {
         return this.telefono;
     }
 
-    public void setTelefono(int telefono)
+    public void setTelefono(String telefono)
     {
         this.telefono = telefono;
     }

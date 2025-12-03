@@ -11,7 +11,7 @@ function validarNombreUsuario()
     let iconoErrorFormato = document.getElementById("errorFormatoNomUsuario");
     let nomUsuario = document.getElementById("nomUsuario").value.trim();
     
-    if(nomUsuario === "" || nomUsuario.length === 0 || nomUsuario === null) // Si el Nombre de Usuario esta vacio
+    if(nomUsuario === "" || nomUsuario === null) // Si el Nombre de Usuario esta vacio
     {
         esValido = false;
         // Ocultamos el icono del check y el icono del error porque ya existe
@@ -92,85 +92,86 @@ async function validarNombreUsuarioFetch()
 
 /**
  * El campo Contraseña NO puede estar vacio
- * @returns {Boolean}
+ * Si la segunda contraseña tiene texto, comprobamos su contenido
+ * @returns {Boolean} 
  */
 function validarPassword()
 {
     let esValido = false;
+    
+    let inputPass1 = document.getElementById("password1");
     let iconoCheck = document.getElementById("checkPassword1");
     let iconoError = document.getElementById("errorPassword1");
-    let password1 = document.getElementById("password1").value;
     
-    if(password1 === "") // Si la password esta vacia
+    let valorPass1 = inputPass1.value;
+
+    if (valorPass1 === "")
     {
         esValido = false;
-        // Ocultamos el icono del check
+        // Iconos
         iconoCheck.classList.add("d-none");
-        
-        // Mostramos el icono del error
         iconoError.classList.remove("d-none");
-        
-        // Añadimos el borde rojo
-        password1.classList.add("is-invalid");
-        password1.classList.remove("is-valid");
-        
+        // Bordes
+        inputPass1.classList.add("is-invalid");
+        inputPass1.classList.remove("is-valid");
     }
-    else // Si la password NO esta vacia
+    else
     {
         esValido = true;
-        // Mostramos el icono del check
+        // Iconos
         iconoCheck.classList.remove("d-none");
-        
-        // Ocultamos el icono del error
         iconoError.classList.add("d-none");
-        
-        // Añadimos el borde verde
-        password1.classList.add("is-valid");
-        password1.classList.remove("is-invalid");
+        // Bordes
+        inputPass1.classList.add("is-valid");
+        inputPass1.classList.remove("is-invalid");
     }
+
+    // Comprobamos la Contraseña del campo 'Repetir Contraseña' por si hemos introducido esa primero
+    let valorPass2 = document.getElementById("password2").value;
     
+    if (valorPass2 !== "")
+    {
+        validarRepetirPassword();
+    }
     return esValido;
 }
 
 /**
  * El campo Repetir Contraseña NO debe estar vacio y debe coincidir con la contraseña introducida en el campo Contraseña
- * @returns {Boolean}
+ * Es llamada al salir del campo 2 o automáticamente desde el campo 1
+ * @returns {Boolean} 
  */
 function validarRepetirPassword()
 {
     let esValido = false;
+
+    let inputPass2 = document.getElementById("password2");
     let iconoCheck = document.getElementById("checkPassword2");
     let iconoError = document.getElementById("errorPassword2");
-    let password1 = document.getElementById("password1").value;
-    let password2 = document.getElementById("password2").value;
-    
-    if(password1.trim() === password2.trim() && password1 !== "") // Si las passwords coinciden
+
+    let valorPass1 = document.getElementById("password1").value;
+    let valorPass2 = inputPass2.value;
+
+    if (valorPass1 !== "" && valorPass1.trim() === valorPass2.trim())
     {
         esValido = true;
-        // Mostramos el icono del check
+        // Iconos
         iconoCheck.classList.remove("d-none");
-        
-        // Ocultamos el icono del error
         iconoError.classList.add("d-none");
-        
-        // Añadimos el borde verde
-        password2.classList.add("is-valid");
-        password2.classList.remove("is-invalid");        
+        // Bordes
+        inputPass2.classList.add("is-valid");
+        inputPass2.classList.remove("is-invalid");
     }
-    else // Si las passwords NO coinciden
+    else
     {
         esValido = false;
-        // Ocultamos el icono del check
+        // Iconos
         iconoCheck.classList.add("d-none");
-        
-        // Mostramos el icono del error
         iconoError.classList.remove("d-none");
-        
-        // Añadimos el borde rojo
-        password2.classList.add("is-invalid");
-        password2.classList.remove("is-valid");
+        // Bordes
+        inputPass2.classList.add("is-invalid");
+        inputPass2.classList.remove("is-valid");
     }
-    
     return esValido;
 }
 
@@ -185,7 +186,7 @@ function validarNombre()
     let iconoError = document.getElementById("errorNombre");
     let nombre = document.getElementById("nombre").value;
 
-    if(nombre === "" || nombre.length === 0 || nombre === null)
+    if(nombre === "" || nombre === null)
     {
         esValido = false;
     }
@@ -599,12 +600,54 @@ function validarDireccion()
  */
 function validarFormularioRegistro()
 {
-    let esValido = false;
+    // Validación completa al pulsar el boton de Enviar en el formulario
+    document.getElementById('formRegistro').addEventListener('submit', validarFormularioCompleto);
+}
+
+/**
+ * Función principal que orquesta todas las validaciones al pulsar Enviar
+ * @param {Event} e - El evento del formulario (submit) para poder detenerlo
+ */
+function validarFormularioCompleto(e)
+{
+    let esValido = true;
     
-    if(validarNombreUsuario() && validarPassword() && validarRepetirPassword() && validarNombre() && validarDni() && validarCorreo() && validarTelefono() && validarCodigoPostal() && validarDireccion())
+    if (!validarPassword()()) esValido = false;
+    if (!validarRepetirPassword()) esValido = false;
+    if (!validarNombre()) esValido = false;
+    if (!validarDni()) esValido = false;
+    if (!validarTelefono()) esValido = false;
+    if (!validarCodigoPostal()) esValido = false;
+    if (!validarDireccion()) esValido = false;
+
+    // Validamos el campo Nombre de Usuario (Tiene Fetch asíncrono)
+    // Llamamos a la función para que compruebe el formato visualmente
+    validarNombreUsuario()(); 
+    
+    let nomUsuario = document.getElementById("nomUsuario");
+    
+    // Si tiene la clase de error (rojo) O aún no tiene la de éxito (verde) porque el servidor está pensando, y por tanto, consideramos el formulario inválido por seguridad
+    if (nomUsuario.classList.contains("is-invalid") || nomUsuario.classList.contains("is-valid")===false)
     {
-        esValido = true;
+        esValido = false;
     }
-    console.log("esValido" + esValido);
-    return esValido;
+    
+    // Validamos el campo Correo (Tiene Fetch asíncrono)
+    // Llamamos a la función para que compruebe el formato visualmente
+    validarCorreo(); 
+    
+    let correo = document.getElementById("correo");
+    
+    // Si tiene la clase de error (rojo) O aún no tiene la de éxito (verde) porque el servidor está pensando, y por tanto, consideramos el formulario inválido por seguridad
+    if (correo.classList.contains("is-invalid") || correo.classList.contains("is-valid")===false)
+    {
+        esValido = false;
+    }
+
+    if (esValido===false) // Si hay algun error
+    {
+        e.preventDefault(); // Detenemos el envio del formulario
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Hacemos scroll hacia arriba suavemente para que vean los errores
+    }
 }
