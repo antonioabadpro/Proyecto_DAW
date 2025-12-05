@@ -2,9 +2,9 @@
 
 <div class="contenido">
     <div class="container-fluid p-0">
-        <div class="row g-0"> 
+        <div class="row g-0">
             <div class="col-lg-6 contenedorCarrusel">
-                <div id="carouselImages" class="carousel slide imagenCarusel carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+                <div id="carouselImages" class="carousel slide imagenCarusel carousel-fade" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <img src="${pageContext.request.contextPath}/imagenes/concesionario.png" alt="Concesionario">

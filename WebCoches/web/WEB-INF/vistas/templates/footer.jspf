@@ -6,47 +6,70 @@
 <script src="${pageContext.request.contextPath}/js/ValidacionRegistro.js"></script>
 <script src="${pageContext.request.contextPath}/js/ValidacionInsertarModificarCoche.js"></script>
 
-        <footer class="py-4 mt-auto">
-            <div class="container">
-                <div class="row">
-                    <!-- Columna 1 -->
-                    <div class="col-md-4 mb-3">
-                        <h5>Sobre Nosotros</h5>
-                        <p class="small">Proyecto desarrollado para la asignatura de Desarrollo de Aplicaciones Web.</p>
+<%@ page pageEncoding="UTF-8" %>
+
+<footer class="py-3 mt-auto bg-dark text-white" style="font-size: 0.8rem;">
+    <div class="container">
+        <div class="row align-items-start">
+            
+            <div class="col-md-3 mb-3">
+                <h6 class="fw-bold mb-2 text-white">Sobre Nosotros</h6>
+                <p class="mb-0 text-white-50 small">
+                    Venta de coches con garantÃ­a y confianza. Proyecto DAW.
+                </p>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <h6 class="fw-bold mb-2 text-white">Enlaces</h6>
+                <ul class="list-unstyled mb-0 d-flex flex-column gap-1">
+                    <li><a href="${pageContext.request.contextPath}/inicio" class="text-decoration-none footer-link">Inicio</a></li>
+                    <li><a href="https://www.uhu.es/" target="_blank" class="text-decoration-none footer-link">UHU</a></li>
+                    <li><a href="https://www.uhu.es/etsi/" target="_blank" class="text-decoration-none footer-link">ETSI</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <h6 class="fw-bold mb-2 text-white">Contacto</h6>
+                <div class="text-white-50 small">
+                    <div class="mb-1">
+                        <i class="bi bi-envelope me-1"></i> antonioabad.hernandez@alu.uhu.es
                     </div>
-
-                    <!-- Columna 2 -->
-                    <div class="col-md-4 mb-3">
-                        <h5>Enlaces Rápidos</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="${pageContext.request.contextPath}/inicio">Inicio</a></li>
-                            <li><a href="https://www.uhu.es/" target="_blank">UHU</a></li>
-                            <li><a href="https://www.uhu.es/etsi/" target="_blank">ETSI</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Columna 3 -->
-                    <div class="col-md-4 mb-3">
-                        <h5>Contacto</h5>
-                        <p class="small mb-1">Email: antonioabad.hernandez@alu.uhu.es</p>
-                        <p class="small mb-1">Teléfono: +34 959 21 81 02</p>
-                        <p class="small">Dirección: Huelva, Andalucía, España</p>
-                    </div>
-                </div>
-
-                <hr class="my-3" style="border-color: #495057;">
-
-                <!-- Copyright -->
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <p class="small mb-0">
-                            &copy; 2025. Proyecto ToniCar. Todos los derechos reservados. <br>
-                            Antonio Abad Hernández Gálvez <br>
-                            Desarrollo de Aplicaciones Web (DAW)
-                        </p>
+                    <div>
+                        <i class="bi bi-geo-alt me-1"></i> Huelva, EspaÃ±a
                     </div>
                 </div>
             </div>
-        </footer>
-    </body>
+
+            <div class="col-md-3 mb-3">
+                <h6 class="fw-bold mb-2 text-white">DÃ³nde estamos</h6>
+                <div style="width: 100%; height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid #555;">
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        frameborder="0" 
+                        scrolling="no" 
+                        marginheight="0" 
+                        marginwidth="0" 
+                        src="https://maps.google.com/maps?q=37.27276332163678,-6.924417095160905&hl=es&z=14&output=embed">
+                    </iframe>
+                </div>
+                
+            </div>
+
+        </div>
+
+        <hr class="my-2 text-white-50">
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <p class="mb-0 text-white-50 small">
+                    &copy; 2025. Proyecto ToniCar. Todos los derechos reservados. <br>
+                            Antonio Abad HernÃ¡ndez GÃ¡lvez <br>
+                            Desarrollo de Aplicaciones Web (DAW)
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
 </html>

@@ -496,7 +496,7 @@
                         </div>
                         <!-- Botones de Accion del Formulario -->
                         <div class="botonFormulario">
-                            <button type="submit" class="btn btn-primary btn-custom ">Guardar</button>
+                            <button type="submit" class="btn btn-primary btn-custom" onclick="validarFormularioCompleto()">Guardar</button>
                             <button type="button" class="btn btn-warning btn-custom" onclick="limpiarFormulario()">Limpiar</button>
                             <button type="button" class="btn btn-secondary btn-custom" onclick="cerrarVista()">Cerrar</button>
                         </div>
@@ -506,6 +506,5 @@
         </c:otherwise>
     </c:choose>
 </div>
-
 
 <%@include file="templates/footer.jspf"%>

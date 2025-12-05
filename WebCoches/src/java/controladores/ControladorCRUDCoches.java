@@ -566,11 +566,10 @@ public class ControladorCRUDCoches extends HttpServlet
         System.out.println("Validando...");
         
         String formatoMatricula = "^\\d{4}[A-Z]{3}$";
-        String formatoModelo = "//d+";
         String formatoColor = "^[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+$";
         
-        if (matricula == null || matricula.trim().isEmpty() || matricula.matches(formatoMatricula) || buscarCochePorMatricula(matricula)!=null) esValido = false;
-        if (modelo == null || modelo.trim().isEmpty() || modelo.matches(formatoModelo)) esValido = false;
+        if (matricula == null || matricula.trim().isEmpty() || matricula.matches(formatoMatricula)==false || buscarCochePorMatricula(matricula)!=null) esValido = false;
+        if (modelo == null || modelo.trim().isEmpty()) esValido = false;
         if (color == null || color.trim().isEmpty() || color.matches(formatoColor)==false) esValido = false;
         if (combustible == null || combustible.trim().isEmpty()) esValido = false;
         if (cajaCambios == null || cajaCambios.trim().isEmpty()) esValido = false;
