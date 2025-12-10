@@ -16,7 +16,16 @@
                 <c:forEach var="coche" items="${requestScope.listaCoches}">
                     <div class="col">
                         <div class="card shadow-sm">
-                            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="${pageContext.request.contextPath}/img_coches/${coche.foto1}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>${coche.nombreModelo}</title><rect width="100%" height="100%" fill="#55595c"/>
+                            <!-- Imagen por defecto si no hay imágenes -->
+                            <c:if test="${empty coche.foto1 and empty coche.foto2}">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="${pageContext.request.contextPath}/imagenes/silueta_coche.jpg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false" alt="Sin imagen de coche">
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                            </c:if>
+                            <c:if test="${not empty coche.foto1}">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="${pageContext.request.contextPath}/img_coches/${coche.foto1}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                <title>${coche.nombreModelo}</title>
+                                <rect width="100%" height="100%" fill="#55595c"/>
+                            </c:if>
                             <div class="card-body">
                                 <!-- Tí­tulo del vehí­culo -->
                                 <h5 class="card-title">${coche.marca.nombre} ${coche.nombreModelo}</h5>
