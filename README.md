@@ -36,15 +36,16 @@ El objetivo es simular el funcionamiento de un **concesionario online**, permiti
 
 ## 🛠️ Tecnologías
 
-### Frontend
-- HTML5.
+### Frontend:
+
+- HTML5
 - CSS3 para el estilo visual de la web
 - JavaScript para la validación de datos.
 - Bootstrap v5.3.8 para un diseño responsivo.
 - Plantillas JSP para reutilizar encabezados, menús y pies de página en las diferentes vistas.
 - JSTL para renderizar contenido dinámico en tablas y tarjetas.
 
-### Backend
+### Backend:
 
 - Java 21 (Jakarta EE 10)
 - Servlets para los controladores.
@@ -55,7 +56,7 @@ El objetivo es simular el funcionamiento de un **concesionario online**, permiti
 - EclipseLink como ORM (mapeo objeto-relacional) que implementa JPA (Java Persistence API) como proveedor de persistencia (para manejar la unidad de persistencia).
 - Gestión de sesiones HTTP con HttpSession.
 
-Servidor y Entorno de desarrollo (IDE):
+### Servidor y Entorno de desarrollo (IDE):
 
 - GlassFish v7.0.14 como servidor de aplicaciones web (servidor local)
 - NetBeans 22 como IDE
