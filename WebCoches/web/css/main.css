@@ -90,25 +90,71 @@ body
 }
 
 /* --------- Estilo Carrusel (VistaPrincipal y VistaDetalle) --------- */
-.carousel-item {
-    height: 450px !important;       /* Altura fija para imagen y texto */
-    min-height: 450px !important;
-    background-color: transparent !important; /* IMPORTANTE: Quita el verde lima de fondo */
-    border: none !important;
+.carousel-item
+{
+    height: 450px !important;       /* Altura fija obligatoria */
+    background-color: #fff !important; /* Fondo blanco por seguridad */
+    overflow: hidden;               /* Evita que nada se salga de la caja */
 }
 
-/* 2. NUEVO: Forzar que la estructura interna (fila) ocupe toda la altura */
-/* Sin esto, las columnas de dentro a veces no se estiran */
-.carousel-item .row {
+/* Hacemos que la FILA ocupe toda la altura */
+.carousel-item .row
+{
+    height: 100% !important;
+    margin: 0 !important;           /* Quita márgenes negativos de bootstrap */
+}
+
+/* Centramos el contenido del texto */
+.contenidoSlogan
+{
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrado Vertical */
+    align-items: center;     /* Centrado Horizontal */
+    text-align: center;
+    padding: 40px;           /* Espacio para que el texto respire */
 }
 
-/* 3. La Imagen (Lo que ya tienes) */
-.carousel-item img {
-    width: 100% !important; 
-    height: 100% !important; 
-    object-fit: cover !important; 
-    display: block !important; 
+/* 1. EL PADRE SUPREMO: Define la altura total del bloque */
+.altura-fija-hero
+{
+    height: 500px !important;    /* CAMBIA ESTE VALOR SI LO QUIERES MAS BAJO */
+    overflow: hidden;            /* Corta lo que sobre */
+    background-color: #000;      /* Fondo negro de seguridad (mejor que blanco) */
+}
+
+/* 2. LAS COLUMNAS: Se obligan a llenar el padre */
+.columna-sin-padding
+{
+    padding: 0 !important;       /* Elimina espacios blancos de Bootstrap */
+    height: 100% !important;     /* Hereda los 500px */
+}
+
+.anchoCarrusel img
+{
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* Estira y recorta la foto */
+    display: block !important;    /* Quita la línea blanca inferior */
+}
+
+/* Ajustamos el Ancho del Carrusel (izq y der) */
+.anchoCarrusel, .anchoCarrusel .carousel-inner, .anchoCarrusel .carousel-item
+{
+    height: 100% !important;     /* Hereda los 500px paso a paso */
+}
+
+.contenidoTextoCarrusel
+{
+    background-color: var(--verdeOscuroCarruselTonicar);   /* Tu verde oscuro */
+    height: 100% !important;     /* Llena todo el hueco */
+    display: flex;               /* Activa el centrado */
+    flex-direction: column;
+    justify-content: center;     /* Centra verticalmente */
+    align-items: center;         /* Centra horizontalmente */
+    color: white;
+    padding: 2rem;
 }
 
 /* --------- Estilo Footer --------- */

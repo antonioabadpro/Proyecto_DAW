@@ -19,7 +19,7 @@
                             <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="${pageContext.request.contextPath}/img_coches/${coche.foto1}" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>${coche.nombreModelo}</title><rect width="100%" height="100%" fill="#55595c"/>
                             <div class="card-body">
                                 <!-- Tí­tulo del vehí­culo -->
-                                <h5 class="card-title">${coche.nombreModelo}</h5>
+                                <h5 class="card-title">${coche.marca.nombre} ${coche.nombreModelo}</h5>
 
                                 <!-- Precio destacado -->
                                 <h6 class="text-danger mb-2">${coche.precio} €</h6>

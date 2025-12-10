@@ -2,22 +2,18 @@
 {
     /*flex: 1;*/
     min-height: 55vh;
-    overflow-y: hidden;/*auto;*/
+    overflow-y: hidden;
     background-color: var(--verdeLimaTonicar);
 }
 
 .contenedorCarrusel
 {
-   /* height: 20%;/*100%;*/
-   
     overflow:hidden;
 }
 
 .imagenCarrusel
 {
-   /* height: 100%;*/
-    /*background: var(--verdeOscuroCarruselTonicar);*/
- min-height: 200vh;
+    min-height: 200vh;
 }
 
 .imagenCarrusel .anchoCarrusel, .imagenCarrusel .elementoCarrusel
@@ -71,31 +67,41 @@
     justify-content: center;
 }
 
+/* Columna derecha del Carrusel (imagen) */
+.columnaImagen
+{
+    padding: 0 !important;          /* Sin espacios blancos alrededor */
+    height: 100% !important;
+}
+
+.columnaImagen img
+{
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;   /* La imagen se recorta perfecta */
+    display: block !important;
+}
+
+/* Columna derecha del Carrusel (texto) */
+.columnaTexto
+{
+    padding: 0 !important;          /* Quitamos padding de la columna */
+    height: 100% !important;        /* Altura completa */
+}
 
 .contenidoSlogan
 {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white; 
-    padding: 20px;
-}
-
-/*
-.contenidoSlogan {
-    height: 100% !important;        
-    width: 100% !important;
     background-color: #1f543f;      
+    height: 100% !important;        
     display: flex;                  
     flex-direction: column;
     justify-content: center;        
     align-items: center;            
-    color: white;                   
-    padding: 30px;                  
+    color: white;
+    padding: 2rem;
+    text-align: center;
 }
-*/
+
 .iconoSlogan
 {
     font-size: 3.5rem;
