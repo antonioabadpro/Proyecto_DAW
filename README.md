@@ -20,8 +20,7 @@ El objetivo es simular el funcionamiento de un **concesionario online**, permiti
 ## 🧱 Arquitectura (MVC)
 
 ### Modelo
-- Entidades (POJO): `Usuario`, `Coche`, `Solicitud`, etc.
-- Capa **DAO** para operaciones CRUD mediante JDBC.
+- Entidades: `Usuario`, `Coche`, `Marca`, `Compra`
 - Utilidades de conexión a base de datos.
 
 ### Controlador
@@ -37,7 +36,7 @@ El objetivo es simular el funcionamiento de un **concesionario online**, permiti
 
 ## 🛠️ Tecnologías
 
-Para el Frontend:
+### Frontend
 - HTML5.
 - CSS3 para el estilo visual de la web
 - JavaScript para la validación de datos.
@@ -45,7 +44,7 @@ Para el Frontend:
 - Plantillas JSP para reutilizar encabezados, menús y pies de página en las diferentes vistas.
 - JSTL para renderizar contenido dinámico en tablas y tarjetas.
 
-Para el Backend:
+### Backend
 
 - Java 21 (Jakarta EE 10)
 - Servlets para los controladores.
@@ -61,9 +60,6 @@ Servidor y Entorno de desarrollo (IDE):
 - GlassFish v7.0.14 como servidor de aplicaciones web (servidor local)
 - NetBeans 22 como IDE
 - Arquitectura MVC (Modelo-Vista-Controlador)
----
-
-
 ---
 
 ## ▶️ Ejecución
