@@ -587,7 +587,7 @@ function validarDescuento()
     let iconoError = document.getElementById("errorDescuento");
     let descuento = document.getElementById("descuento").value;
     
-    if(descuento===null || descuento==="" || descuento < 0) // Si el Descuento NO es un numero positivo
+    if(descuento===null || descuento==="" || descuento < 0 || descuento > 100) // Si el Descuento NO esta en el intervalo
     {
         esValido = false;
         // Ocultamos el icono del check
