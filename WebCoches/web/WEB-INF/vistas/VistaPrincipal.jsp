@@ -3,40 +3,41 @@
 <div class="contenido">
     <div class="container-fluid p-0">
         <div class="row g-0">
-            <div class="col-lg-6 contenedorCarrusel">
+            <div class="col-md-6 contenedorCarrusel">
                 <div id="carouselImages" class="carousel slide imagenCarusel carousel-fade" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="${pageContext.request.contextPath}/imagenes/concesionario.png" alt="Concesionario">
+                        <div class="carousel-item active" data-bs-interval="4000">
+                            <img src="${pageContext.request.contextPath}/imagenes/concesionario.jpg" alt="Concesionario">
                         </div>
                         <div class="carousel-item">
-                            <img src="${pageContext.request.contextPath}/imagenes/inspeccion.png" alt="Taller">
+                            <img src="${pageContext.request.contextPath}/imagenes/inspeccion.webp" alt="Taller">
                         </div>
                         <div class="carousel-item">
-                            <img src="${pageContext.request.contextPath}/imagenes/vendedor2.jpg" alt="vendedor">
+                            <img src="${pageContext.request.contextPath}/imagenes/vendedor2.jpg" alt="Vendedor 2">
                         </div>
                         <div class="carousel-item">
-                            <img src="${pageContext.request.contextPath}/imagenes/mecanico.jpg" alt="mecanico">
+                            <img src="${pageContext.request.contextPath}/imagenes/mecanico.jpg" alt="Mecánico">
                         </div>
                          <div class="carousel-item">
-                            <img src="${pageContext.request.contextPath}/imagenes/inspeccion2.jpg" alt="inspeccion">
+                            <img src="${pageContext.request.contextPath}/imagenes/inspeccion2.jpg" alt="Inspección 2">
                         </div>
                          <div class="carousel-item">
-                            <img src="${pageContext.request.contextPath}/imagenes/vendedor.png" alt="concesionario2">
+                            <img src="${pageContext.request.contextPath}/imagenes/vendedor.jpg" alt="Vendedor">
                         </div>
                          <div class="carousel-item">
-                            <img src="${pageContext.request.contextPath}/imagenes/taller.jpg" alt="taller">
+                            <img src="${pageContext.request.contextPath}/imagenes/taller.jpg" alt="Taller">
                         </div>
                         <div class="carousel-item">
-                            <img src="${pageContext.request.contextPath}/imagenes/online.png" alt="taller">
+                            <img src="${pageContext.request.contextPath}/imagenes/online.jpg" alt="Online">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-6 contenedorCarrusel">
+            <div class="col-md-6 contenedorCarrusel carrusel-item-verde">
                 <div id="carouselSlogans" class="carousel slide sloganCarrusel carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
-                    <div class="carousel-inner w-100"> <div class="carousel-item active">
+                    <div class="carousel-inner w-100">
+                        <div class="carousel-item active">
                             <div class="contenidoSlogan">
                                 <div class="iconoSlogan">
                                     <i class="bi bi-shield-fill-check"></i>

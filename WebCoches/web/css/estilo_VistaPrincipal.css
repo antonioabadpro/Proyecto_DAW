@@ -71,14 +71,31 @@
     justify-content: center;
 }
 
+
 .contenidoSlogan
 {
-    text-align: center;
-    color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white; 
     padding: 20px;
-    max-width: 100%;
 }
 
+/*
+.contenidoSlogan {
+    height: 100% !important;        
+    width: 100% !important;
+    background-color: #1f543f;      
+    display: flex;                  
+    flex-direction: column;
+    justify-content: center;        
+    align-items: center;            
+    color: white;                   
+    padding: 30px;                  
+}
+*/
 .iconoSlogan
 {
     font-size: 3.5rem;

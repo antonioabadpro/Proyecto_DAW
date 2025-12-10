@@ -89,6 +89,28 @@ body
     transition: all 0.3s ease;
 }
 
+/* --------- Estilo Carrusel (VistaPrincipal y VistaDetalle) --------- */
+.carousel-item {
+    height: 450px !important;       /* Altura fija para imagen y texto */
+    min-height: 450px !important;
+    background-color: transparent !important; /* IMPORTANTE: Quita el verde lima de fondo */
+    border: none !important;
+}
+
+/* 2. NUEVO: Forzar que la estructura interna (fila) ocupe toda la altura */
+/* Sin esto, las columnas de dentro a veces no se estiran */
+.carousel-item .row {
+    height: 100%;
+}
+
+/* 3. La Imagen (Lo que ya tienes) */
+.carousel-item img {
+    width: 100% !important; 
+    height: 100% !important; 
+    object-fit: cover !important; 
+    display: block !important; 
+}
+
 /* --------- Estilo Footer --------- */
 footer
 {

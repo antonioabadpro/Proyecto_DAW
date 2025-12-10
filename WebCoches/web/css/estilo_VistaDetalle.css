@@ -37,13 +37,6 @@
     min-height: 400px; /*600*/
 }
 
-.carousel-item img
-{
-    height: 400px; /*600*/
-    object-fit: cover;
-    width: 100%;
-}
-
 .carousel-control-prev, .carousel-control-next
 {
     width: 10%;
