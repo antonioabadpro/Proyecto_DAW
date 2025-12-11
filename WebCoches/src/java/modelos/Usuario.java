@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelos;
 
 import jakarta.persistence.Column;
@@ -20,7 +16,7 @@ import java.util.List;
 
 /**
  *
- * @author AAHG-PORTATIL
+ * @author Antonio Abad
  */
 @Entity
 @Table(name="USUARIO") // Renombra la entidad en la BD

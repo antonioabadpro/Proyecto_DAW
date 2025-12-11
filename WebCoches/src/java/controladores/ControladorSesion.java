@@ -20,13 +20,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
-import modelos.Coche;
 import modelos.Compra;
 
 /**
  *
- * @author AAHG-PORTATIL
+ * @author Antonio Abad
  */
 @WebServlet(name = "ControladorSesion", urlPatterns = {"/sesion/*"})
 public class ControladorSesion extends HttpServlet
@@ -36,8 +34,6 @@ public class ControladorSesion extends HttpServlet
     @Resource
     private UserTransaction utx; // Atributo para gestionar las transacciones
 
-    //@Inject
-    //private PasswordHash passwordHash;
     /**
      * Handles the HTTP <code>GET</code> method.
      *

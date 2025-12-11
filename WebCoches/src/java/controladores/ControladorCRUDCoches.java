@@ -25,14 +25,13 @@ import jakarta.transaction.UserTransaction;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 import modelos.Coche;
 import modelos.Marca;
 import modelos.Usuario;
 
 /**
  *
- * @author AAHG-PORTATIL
+ * @author Antonio Abad
  */
 @WebServlet(name = "ControladorCRUDCoches", urlPatterns = {"/gestion/*"})
 @MultipartConfig (fileSizeThreshold = 1024 * 1024 * 1, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 20)

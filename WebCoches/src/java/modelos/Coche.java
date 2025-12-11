@@ -17,7 +17,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author AAHG-PORTATIL
+ * @author Antonio Abad
  */
 @Entity
 @Table(name="COCHE") // Renombra la entidad en la BD

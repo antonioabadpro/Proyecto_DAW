@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controladores;
 
 import jakarta.annotation.Resource;
@@ -18,7 +14,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.UserTransaction;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelos.Coche;
@@ -27,7 +22,7 @@ import modelos.Usuario;
 
 /**
  *
- * @author AAHG-PORTATIL
+ * @author Antonio Abad
  */
 @WebServlet(name = "ControladorCompraCoche", urlPatterns = {"/comprar", "/comprar/*", "/confirmarCompra/*"})
 public class ControladorCompraCoche extends HttpServlet

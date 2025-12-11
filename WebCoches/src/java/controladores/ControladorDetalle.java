@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controladores;
 
 import jakarta.persistence.EntityManager;
@@ -19,7 +15,7 @@ import modelos.Coche;
 
 /**
  *
- * @author AAHG-PORTATIL
+ * @author Antonio Abad
  */
 @WebServlet(name = "ControladorDetalle", urlPatterns = {"/detalle", "/detalle/*"})
 public class ControladorDetalle extends HttpServlet
