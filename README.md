@@ -58,7 +58,7 @@ El objetivo es simular el funcionamiento de un **concesionario online**, permiti
 
 ### Servidor y Entorno de desarrollo (IDE):
 
-- GlassFish v7.0.14 como servidor de aplicaciones web (servidor local)
+- Eclipse GlassFish v7.0.14 como servidor de aplicaciones web (servidor local)
 - NetBeans 22 como IDE
 - Arquitectura MVC (Modelo-Vista-Controlador)
 ---
@@ -66,7 +66,7 @@ El objetivo es simular el funcionamiento de un **concesionario online**, permiti
 ## ▶️ Ejecución
 
 1. Importar el proyecto en **NetBeans**.
-2. Configurar **Apache Tomcat**.
+2. Configurar **Eclipse GlassFish**.
 3. Crear la base de datos y cargar el script SQL.
 4. Ajustar credenciales de BD en la clase de conexión.
 5. Ejecutar el proyecto desde NetBeans.
