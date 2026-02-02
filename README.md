@@ -92,13 +92,24 @@ El objetivo es simular el funcionamiento de un **concesionario online**, permiti
 
 ## 👤 Autor
 
-**Antonio Abad Hernández Gálvez**  
-Grado en Ingeniería Informática – DAW  
-📍 Huelva, España
+**Antonio Abad Hernández Gálvez**
+* GitHub: [@antonioabadpro](https://github.com/antonioabadpro)
+* *Proyecto realizado para la Universidad de Huelva (UHU)*
 
 ---
 
-## 📄 Licencia
+## ©️​ Licencia y Derechos de Autor
 
-Proyecto de uso académico.  
-© 2025. Todos los derechos reservados.
+**© 2025. Antonio Abad Hernández Gálvez**. <br>
+Todos los derechos reservados.
+
+Este proyecto es propiedad intelectual de su autor. <br>
+El código se proporciona únicamente con fines de **consulta y demostración de portfolio**.
+
+El código fuente de este proyecto es propiedad exclusiva de su autor. 
+Se permite su visualización con fines educativos y de evaluación académica.
+
+⛔ **Prohibido su uso:** Queda estrictamente prohibida su reproducción total o parcial, modificación, distribución o uso para fines comerciales o académicos por parte de terceros sin la autorización expresa y por escrito del autor.
+
+Este proyecto es el resultado de una evaluación académica para la Universidad de Huelva. <br>
+El plagio o uso indebido de este código en otros proyectos académicos será reportado.
