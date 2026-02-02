@@ -25,6 +25,121 @@ El objetivo es simular el funcionamiento de un **concesionario online**, permiti
 
 ---
 
+## 🗂️ Diagrama de Clases
+
+El siguiente diagrama representa las entidades principales del sistema y sus relaciones (Persistencia con JPA/EclipseLink):
+
+```mermaid
+classDiagram
+    namespace enum {
+        class TipoRol {
+            <<enumeration>>
+            Cliente
+            Admin
+        }
+
+        class TipoCombustible {
+            <<enumeration>>
+            Gasolina
+            Diesel
+            Electrico
+            Hibrido
+        }
+
+        class TipoCambio {
+            <<enumeration>>
+            Manual
+            Automatico
+        }
+
+        class TipoEstado {
+            <<enumeration>>
+            Nuevo
+            ComoNuevo
+            Usado
+            PorReparar
+        }
+    }
+
+    namespace modelos {
+        class Usuario {
+            - idUsuario : Long
+            - dni : String
+            - nombre : String
+            - nomUsuario : String
+            - correo : String
+            - password : String
+            - telefono : String
+            - direccion : String
+            - codigoPostal : String
+            - provincia : String
+            - rol : TipoRol
+            - listaCompras : List~Compra~
+            + Usuario()
+            + getters()
+            + setters()
+            + equals()
+            + toString()
+        }
+
+        class Coche {
+            - idCoche : Long
+            - nombreModelo : String
+            - matricula : String
+            - descripcion : String
+            - precio : float
+            - descuento : int
+            - cv : int
+            - consumo : float
+            - combustible : TipoCombustible
+            - color : String
+            - fecha : String
+            - km : int
+            - cajaCambios : TipoCambio
+            - foto1 : String
+            - foto2 : String
+            - estado : TipoEstado
+            - marca : Marca
+            - compra : Compra
+            + Coche()
+            + getters()
+            + setters()
+            + equals()
+            + toString()
+        }
+
+        class Marca {
+            - idMarca : Long
+            - nombre : String
+            - logo : String
+            - listaCoches : List~Coche~
+            + Marca()
+            + getters()
+            + setters()
+            + equals()
+            + toString()
+        }
+
+        class Compra {
+            - idCompra : Long
+            - usuario : Usuario
+            - coche : Coche
+            + Compra()
+            + getters()
+            + setters()
+            + equals()
+            + toString()
+        }
+    }
+
+    %% Relaciones
+    Usuario "1" -- "0..*" Compra : realiza
+    Coche "1" -- "0..1" Compra : puedeComprarse
+    Marca "1" -- "0..*" Coche : pertenece
+```
+
+---
+
 ## 🧱 Arquitectura (MVC)
 
 ### Modelo
@@ -87,6 +202,14 @@ El objetivo es simular el funcionamiento de un **concesionario online**, permiti
 - Implementar autenticación y gestión de sesiones.
 - Separar lógica de negocio y presentación.
 - Desarrollar una aplicación web funcional y mantenible.
+
+---
+
+## 📑 Documentación y Memoria Técnica del Proyecto
+
+[![Memoria Técnica](https://img.shields.io/badge/PDF-Ver_Memoria_Técnica-EC1C24?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://github.com/antonioabadpro/Proyecto_DAW/blob/main/Documentaci%C3%B3n%20ToniCar%20DAW_AAHG.pdf)
+
+> **Nota:** Haz clic en el botón de arriba para visualizar o descargar la memoria técnica completa en PDF.
 
 ---
 
